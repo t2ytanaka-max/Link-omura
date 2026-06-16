@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Link大村市消防団 - 多言語指差し防災アプリ</title>
+  
+  <!-- 標準PWAマニフェストファイルの読み込み -->
+  <link rel="manifest" href="./manifest.json">
+  
+  <meta name="theme-color" content="#E53935">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Link大村市">
+  
+  <!-- アプリのファビコン/アップルタッチアイコン -->
+  <link rel="apple-touch-icon" href="./icon.svg">
+  <link rel="icon" type="image/svg+xml" href="./icon.svg">
+
+  <style>
+    /* デザインシステム & カラーパレット */
+    :root {
+      --color-bg-団員: #222222;
+      --color-bg-外国人: #111111;
+      --color-card-団員: #333333;
+      --color-card-外国人: #1e1e1e;
+      --color-primary: #E53935; /* 防災レッド */
+      --color-warning: #FDD835; /* 警戒イエロー */
+      --color-safe: #43A047;    /* 安全グリーン */
+      --color-text-light: #FFFFFF;
+      --color-text-dark: #111111;
+      --color-text-muted: #B0BEC5;
+      --font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: var(--font-family);
+      background-color: #000;
+      color: var(--color-text-light);
+    }
+
+    /* アプリ全体の上下2分割レイアウト */
+    .app-container {
+      display: flex;
+      flex-direction: column;
+      width: 100vw;
+      height: 100vh;
+      height: -webkit-fill-available; /* iOS Safari対策 */
+    }
+
+    /* 上半分：団員エリア */
+    .section-member {
+      flex: 1;
+      background-color: var(--color-bg-団員);
+      border-bottom: 4px solid var(--color-primary);
+      display: flex;
+      flex-direction: column;
+      padding: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 下半分：外国人エリア */
+    .section-foreigner {
+      flex: 1;
+      background-color: var(--color-bg-外国人);
+      display: flex;
+      flex-direction: column;
+      padding: 12px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* 180度回転状態 */
+    .section-foreigner.rotated {
+      transform: rotate(180deg);
+    }
+
+    /* ヘッダー・タイトル関連 */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .app-title {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .app-badge {
+      background-color: var(--color-primary);
+      color: #fff;
+      font-size: 0.7rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    /* 言語切り替えコントロール */
+    .lang-selector {
+      display: flex;
+      gap: 6px;
+    }
+
+    .lang-btn {
+      background-color: var(--color-card-団員);
+      border: 2px solid var(--color-text-muted);
+      color: var(--color-text-light);
+      padding: 6px 12px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .lang-btn.active {
+      background-color: var(--color-primary);
+      border-color: var(--color-primary);
+      color: #fff;
+      box-shadow: 0 0 10px rgba(229, 57, 53, 0.5);
+    }
+
+    /* 質問選択エリア（団員側） */
+    .question-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      flex: 1;
+      margin-bottom: 8px;
+    }
+
+    .question-card {
+      background-color: var(--color-card-団員);
+      border: 3px solid transparent;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .question-card.active {
+      border-color: var(--color-warning);
+      background-color: rgba(253, 216, 53, 0.15);
+    }
+
+    .question-card svg {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 6px;
+    }
+
+    .question-card span {
+      font-size: 0.85rem;
+      font-weight: bold;
+      line-height: 1.2;
+    }
+
+    /* 応答ログ表示エリア（団員側） */
+    .response-log-box {
+      background-color: #000000;
+      border-radius: 8px;
+      padding: 10px;
+      min-height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-left: 5px solid var(--color-warning);
+    }
+
+    .response-log-label {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      margin-right: 8px;
+      white-space: nowrap;
+    }
+
+    .response-log-content {
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--color-warning);
+      flex: 1;
+      text-align: center;
+    }
+
+    .reset-btn {
+      background-color: #444;
+      border: none;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* 外国人表示エリア */
+    .foreigner-display {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-top: 8px;
+    }
+
+    .rotate-control {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 10;
+    }
+
+    .rotate-btn {
+      background-color: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #fff;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      backdrop-filter: blur(5px);
+    }
+
+    .rotate-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    .foreigner-question-bubble {
+      background-color: var(--color-card-外国人);
+      border-radius: 16px;
+      padding: 16px;
+      text-align: center;
+      min-height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 12px;
+    }
+
+    .foreigner-question-text {
+      font-size: 1.5rem;
+      font-weight: 900;
+      line-height: 1.3;
+      color: #FFF;
+      word-break: keep-all;
+    }
+
+    /* 回答ボタンエリア */
+    .answer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .answer-btn {
+      height: 90px;
+      border: none;
+      border-radius: 16px;
+      color: #fff;
+      font-size: 1.5rem;
+      font-weight: 900;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+      transition: transform 0.1s, opacity 0.2s;
+    }
+
+    .answer-btn:active {
+      transform: scale(0.96);
+    }
+
+    .answer-btn.btn-yes {
+      background: linear-gradient(135deg, var(--color-primary), #B71C1C);
+    }
+
+    .answer-btn.btn-no {
+      background: linear-gradient(135deg, #37474F, #21272A);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .answer-btn.btn-safe {
+      background: linear-gradient(135deg, var(--color-safe), #1B5E20);
+    }
+
+    .answer-btn-sub {
+      font-size: 0.9rem;
+      font-weight: bold;
+      opacity: 0.9;
+    }
+
+    /* ピクトグラムのスタイル調整 */
+    .picto-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* オフライン状態のバナー表示用 */
+    .offline-banner {
+      display: none;
+      background-color: var(--color-warning);
+      color: var(--color-text-dark);
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: bold;
+      padding: 4px 0;
+    }
+
+    /* 振動・アニメーション等の視覚フィードバック */
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+      100% { transform: scale(1); }
+    }
+    .pulse {
+      animation: pulse 0.5s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- オフライン表示バナー -->
+    <div id="offline-banner" class="offline-banner">オフラインモードで動作中（ホーム画面からいつでも起動できます）</div>
+
+    <!-- 上半分：団員エリア -->
+    <section class="section-member">
+      <div class="section-header">
+        <div class="app-title">
+          <span>Link大村市消防団</span>
+          <span class="app-badge">団員用</span>
+        </div>
+        
+        <!-- 言語切り替え -->
+        <div class="lang-selector">
+          <button class="lang-btn active" onclick="changeLanguage('en', this)">EN</button>
+          <button class="lang-btn" onclick="changeLanguage('vi', this)">VI</button>
+          <button class="lang-btn" onclick="changeLanguage('zh', this)">ZH</button>
+        </div>
+      </div>
+
+      <!-- 質問選択カード -->
+      <div class="question-grid">
+        <div class="question-card active" id="q-card-0" onclick="selectQuestion(0)">
+          <!-- ケガ（救急・十字） -->
+          <svg viewBox="0 0 100 100">
+            <rect x="10" y="10" width="80" height="80" rx="15" fill="#E53935"/>
+            <path d="M50 25v50M25 50h50" stroke="#FFF" stroke-width="16" stroke-linecap="round"/>
+            <circle cx="50" cy="50" r="12" fill="#E53935"/>
+          </svg>
+          <span>ケガ確認</span>
+        </div>
+        <div class="question-card" id="q-card-1" onclick="selectQuestion(1)">
+          <!-- 歩行（歩く人） -->
+          <svg viewBox="0 0 100 100">
+            <rect x="10" y="10" width="80" height="80" rx="15" fill="#43A047"/>
+            <!-- 人影シルエット -->
+            <circle cx="55" cy="25" r="10" fill="#FFF"/>
+            <path d="M50 38c-5 0-12 5-15 10l-5 8M50 38l5 15 10 18M42 53l-6 22M52 53l6 12 12 10" stroke="#FFF" stroke-width="8" stroke-linecap="round" fill="none"/>
+          </svg>
+          <span>歩行可否</span>
+        </div>
+        <div class="question-card" id="q-card-2" onclick="selectQuestion(2)">
+          <!-- 家の中に人（家＋人影） -->
+          <svg viewBox="0 0 100 100">
+            <rect x="10" y="10" width="80" height="80" rx="15" fill="#FDD835"/>
+            <!-- 家の輪郭 -->
+            <path d="M50 20 L20 45 V80 H80 V45 Z" fill="none" stroke="#111" stroke-width="8" stroke-linejoin="round"/>
+            <!-- 人影 -->
+            <circle cx="50" cy="50" r="8" fill="#111"/>
+            <path d="M38 72 c0-10 8-12 12-12 s12 2 12 12" fill="#111"/>
+          </svg>
+          <span>屋内残留</span>
+        </div>
+      </div>
+
+      <!-- 応答ログ表示 -->
+      <div class="response-log-box">
+        <span class="response-log-label">相手の回答:</span>
+        <div class="response-log-content" id="response-display">未回答</div>
+        <button class="reset-btn" onclick="resetLog()">クリア</button>
+      </div>
+    </section>
+
+    <!-- 下半分：外国人住民エリア -->
+    <section class="section-foreigner" id="foreigner-section">
+      <!-- 180度反転ボタン -->
+      <div class="rotate-control">
+        <button class="rotate-btn" onclick="toggleRotation()" title="外国人側に画面を向けた際に文字を180度反転させます">
+          <svg viewBox="0 0 24 24">
+            <path d="M19 8l-4 4h3c0 3.31-2.69 6-6 6-1.01 0-1.97-.25-2.8-.7l-1.46 1.46C8.97 19.54 10.43 20 12 20c4.42 0 8-3.58 8-8h3l-4-4zM6 12c0-3.31 2.69-6 6-6 1.01 0 1.97.25 2.8.7l1.46-1.46C15.03 4.46 13.57 4 12 4c-4.42 0-8 3.58-8 8H1l4 4 4-4H6z"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="foreigner-display">
+        <!-- 翻訳された質問表示 -->
+        <div class="foreigner-question-bubble">
+          <div class="foreigner-question-text" id="foreign-question-text">
+            Are you injured?
+          </div>
+        </div>
+
+        <!-- 回答指差しボタン -->
+        <div class="answer-grid" id="answer-buttons-container">
+          <!-- JSで動的に書き換えます -->
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // 多言語・質問データ構造
+    const disasterData = [
+      {
+        id: 0,
+        japaneseTitle: "ケガはありますか？",
+        translations: {
+          en: {
+            question: "Are you injured?",
+            answers: [
+              { label: "はい (YES) 🤕", value: "ケガあり", class: "btn-yes" },
+              { label: "いいえ (NO) OK", value: "ケガなし (無事)", class: "btn-no" }
+            ],
+            audioText: "Are you injured?"
+          },
+          vi: {
+            question: "Bạn có bị thương không?",
+            answers: [
+              { label: "Có (YES) 🤕", value: "ケガあり", class: "btn-yes" },
+              { label: "Không (NO) OK", value: "ケガなし (無事)", class: "btn-no" }
+            ],
+            audioText: "Bạn có bị thương không?"
+          },
+          zh: {
+            question: "你受伤了吗？",
+            answers: [
+              { label: "是 (YES) 🤕", value: "ケガあり", class: "btn-yes" },
+              { label: "没有 (NO) OK", value: "ケガなし (無事)", class: "btn-no" }
+            ],
+            audioText: "你受伤了吗？"
+          }
+        }
+      },
+      {
+        id: 1,
+        japaneseTitle: "歩けますか？",
+        translations: {
+          en: {
+            question: "Can you walk?",
+            answers: [
+              { label: "歩ける (Yes) 🏃", value: "歩行可能", class: "btn-safe" },
+              { label: "歩けない (No) ❌", value: "歩行不可", class: "btn-yes" }
+            ],
+            audioText: "Can you walk?"
+          },
+          vi: {
+            question: "Bạn có thể đi bộ được không?",
+            answers: [
+              { label: "Có thể (Yes) 🏃", value: "歩行可能", class: "btn-safe" },
+              { label: "Không thể (No) ❌", value: "歩行不可", class: "btn-yes" }
+            ],
+            audioText: "Bạn có thể đi bộ được không?"
+          },
+          zh: {
+            question: "你能走路吗？",
+            answers: [
+              { label: "能 (Yes) 🏃", value: "歩行可能", class: "btn-safe" },
+              { label: "不能 (No) ❌", value: "歩行不可", class: "btn-yes" }
+            ],
+            audioText: "你能走路吗？"
+          }
+        }
+      },
+      {
+        id: 2,
+        japaneseTitle: "家にまだ誰かいますか？",
+        translations: {
+          en: {
+            question: "Is anyone else left inside the house?",
+            answers: [
+              { label: "いる (Yes) 👤", value: "屋内に人あり", class: "btn-yes" },
+              { label: "いない (No) ❌", value: "屋内に人なし", class: "btn-no" }
+            ],
+            audioText: "Is anyone else left inside the house?"
+          },
+          vi: {
+            question: "Còn ai ở trong nhà không?",
+            answers: [
+              { label: "Còn (Yes) 👤", value: "屋内に人あり", class: "btn-yes" },
+              { label: "Không (No) ❌", value: "屋内に人なし", class: "btn-no" }
+            ],
+            audioText: "Còn ai ở trong nhà không?"
+          },
+          zh: {
+            question: "屋里还有其他人吗？",
+            answers: [
+              { label: "有 (Yes) 👤", value: "屋内に人あり", class: "btn-yes" },
+              { label: "没有 (No) ❌", value: "屋内に人なし", class: "btn-no" }
+            ],
+            audioText: "屋里还有其他人吗？"
+          }
+        }
+      }
+    ];
+
+    // アプリ状態管理
+    let currentLanguage = 'en';
+    let currentQuestionIndex = 0;
+
+    // 初期化
+    window.addEventListener('DOMContentLoaded', () => {
+      renderApp();
+      setupSpeech();
+      
+      // オンライン・オフライン検知
+      const updateOnlineStatus = () => {
+        const offlineBanner = document.getElementById('offline-banner');
+        if (navigator.onLine) {
+          offlineBanner.style.display = 'none';
+        } else {
+          offlineBanner.style.display = 'block';
+        }
+      };
+      
+      window.addEventListener('online', updateOnlineStatus);
+      window.addEventListener('offline', updateOnlineStatus);
+      updateOnlineStatus(); // 初期チェック
+    });
+
+    // 画面レンダリング
+    function renderApp() {
+      const data = disasterData[currentQuestionIndex];
+      const translation = data.translations[currentLanguage];
+      
+      // 質問文の更新
+      const qTextElement = document.getElementById('foreign-question-text');
+      qTextElement.textContent = translation.question;
+      
+      // アニメーション適用
+      qTextElement.parentElement.classList.remove('pulse');
+      void qTextElement.parentElement.offsetWidth; // リフロー発生させてアニメーションリセット
+      qTextElement.parentElement.classList.add('pulse');
+
+      // 回答ボタンの生成
+      const container = document.getElementById('answer-buttons-container');
+      container.innerHTML = '';
+      
+      translation.answers.forEach(ans => {
+        const btn = document.createElement('button');
+        btn.className = `answer-btn ${ans.class}`;
+        btn.innerHTML = `
+          <span>${ans.label.split(' ')[0]}</span>
+          <span class="answer-btn-sub">${ans.label.split(' ').slice(1).join(' ')}</span>
+        `;
+        btn.onclick = () => selectAnswer(ans.value);
+        container.appendChild(btn);
+      });
+    }
+
+    // 質問選択（団員側）
+    function selectQuestion(index) {
+      triggerFeedback();
+      currentQuestionIndex = index;
+      
+      // アクティブカードの切り替え
+      for (let i = 0; i < disasterData.length; i++) {
+        document.getElementById(`q-card-${i}`).classList.toggle('active', i === index);
+      }
+      
+      renderApp();
+      speakQuestion();
+    }
+
+    // 言語切り替え
+    function changeLanguage(lang, btnElement) {
+      triggerFeedback();
+      currentLanguage = lang;
+      
+      // アクティブボタンの切り替え
+      const buttons = document.querySelectorAll('.lang-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      btnElement.classList.add('active');
+      
+      renderApp();
+      speakQuestion();
+    }
+
+    // 回答選択（外国人側）
+    function selectAnswer(value) {
+      triggerFeedback();
+      const display = document.getElementById('response-display');
+      display.textContent = value;
+      
+      // 点滅アニメーション
+      display.classList.remove('pulse');
+      void display.offsetWidth;
+      display.classList.add('pulse');
+    }
+
+    // 回答リセット
+    function resetLog() {
+      triggerFeedback();
+      document.getElementById('response-display').textContent = "未回答";
+    }
+
+    // 180度回転トグル
+    function toggleRotation() {
+      triggerFeedback();
+      const foreignerSection = document.getElementById('foreigner-section');
+      foreignerSection.classList.toggle('rotated');
+    }
+
+    // タッチフィードバック（バイブレーション）
+    function triggerFeedback() {
+      if (navigator.vibrate) {
+        navigator.vibrate(40);
+      }
+    }
+
+    // 音声読み上げ
+    let synth = window.speechSynthesis;
+    let voices = [];
+
+    function setupSpeech() {
+      if (synth) {
+        voices = synth.getVoices();
+        if (synth.onvoiceschanged !== undefined) {
+          synth.onvoiceschanged = () => { voices = synth.getVoices(); };
+        }
+      }
+    }
+
+    function speakQuestion() {
+      if (!synth) return;
+      
+      // 再生中の音声を停止
+      synth.cancel();
+
+      const data = disasterData[currentQuestionIndex];
+      const translation = data.translations[currentLanguage];
+      const utterance = new SpeechSynthesisUtterance(translation.audioText);
+      
+      // 言語コードのマッピング
+      let langCode = 'en-US';
+      if (currentLanguage === 'vi') langCode = 'vi-VN';
+      if (currentLanguage === 'zh') langCode = 'zh-CN';
+      
+      utterance.lang = langCode;
+      
+      // 適切な音声（Voice）を探す
+      const targetVoice = voices.find(voice => voice.lang.startsWith(langCode));
+      if (targetVoice) {
+        utterance.voice = targetVoice;
+      }
+      
+      synth.speak(utterance);
+    }
+  </script>
+
+  <!-- PWA Service Worker 登録 (外部 sw.js から登録する標準方式) -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then(registration => {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          })
+          .catch(error => {
+            console.log('ServiceWorker registration failed: ', error);
+          });
+      });
+    }
+  </script>
+</body>
+</html>

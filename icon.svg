@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <!-- 背景（丸型：マスク対応） -->
+  <rect width="512" height="512" fill="#E53935" rx="110" />
+  
+  <!-- 外側の二重円（金/黄） -->
+  <circle cx="256" cy="256" r="180" fill="none" stroke="#FDD835" stroke-width="12" />
+  <circle cx="256" cy="256" r="160" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-dasharray="8 8" opacity="0.8" />
+
+  <!-- 消防のエンブレム（水・太陽・火を象徴する星形風） -->
+  <path d="M256 120 
+           L290 200 
+           L376 210 
+           L310 270 
+           L330 356 
+           L256 310 
+           L182 356 
+           L202 270 
+           L136 210 
+           L222 200 Z" 
+        fill="#FFFFFF" 
+        stroke="#FDD835" 
+        stroke-width="8" 
+        stroke-linejoin="round" />
+
+  <!-- 中央の「消」をベースにしたシンボルマーク -->
+  <circle cx="256" cy="256" r="45" fill="#E53935" />
+  
+  <!-- 救急・安全の白い十字 -->
+  <path d="M256 226 v60 M226 256 h60" stroke="#FFFFFF" stroke-width="16" stroke-linecap="round" />
+</svg>

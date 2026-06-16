@@ -1,0 +1,18 @@
+{
+  "name": "Link大村市消防団",
+  "short_name": "Link大村市",
+  "description": "消防団員と外国人住民の災害時対面コミュニケーションアプリ",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#111111",
+  "theme_color": "#E53935",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
