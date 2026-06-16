@@ -59,19 +59,7 @@
       height: -webkit-fill-available; /* iOS Safari対策 */
     }
 
-    /* 上半分：団員エリア */
-    .section-member {
-      flex: 1;
-      background-color: var(--color-bg-団員);
-      border-bottom: 4px solid var(--color-primary);
-      display: flex;
-      flex-direction: column;
-      padding: 12px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* 下半分：外国人エリア */
+    /* 上半分：外国人エリア */
     .section-foreigner {
       flex: 1;
       background-color: var(--color-bg-外国人);
@@ -83,7 +71,19 @@
       transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* 180度回転状態 */
+    /* 下半分：団員エリア */
+    .section-member {
+      flex: 1;
+      background-color: var(--color-bg-団員);
+      border-top: 4px solid var(--color-primary);
+      display: flex;
+      flex-direction: column;
+      padding: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 180度回転状態（外国人エリア） */
     .section-foreigner.rotated {
       transform: rotate(180deg);
     }
@@ -358,7 +358,33 @@
     <!-- オフライン表示バナー -->
     <div id="offline-banner" class="offline-banner">オフラインモードで動作中（ホーム画面からいつでも起動できます）</div>
 
-    <!-- 上半分：団員エリア -->
+    <!-- 上半分：外国人住民エリア -->
+    <section class="section-foreigner" id="foreigner-section">
+      <!-- 180度反転ボタン -->
+      <div class="rotate-control">
+        <button class="rotate-btn" onclick="toggleRotation()" title="外国人側に画面を向けた際に文字を180度反転させます">
+          <svg viewBox="0 0 24 24">
+            <path d="M19 8l-4 4h3c0 3.31-2.69 6-6 6-1.01 0-1.97-.25-2.8-.7l-1.46 1.46C8.97 19.54 10.43 20 12 20c4.42 0 8-3.58 8-8h3l-4-4zM6 12c0-3.31 2.69-6 6-6 1.01 0 1.97.25 2.8.7l1.46-1.46C15.03 4.46 13.57 4 12 4c-4.42 0-8 3.58-8 8H1l4 4 4-4H6z"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="foreigner-display">
+        <!-- 翻訳された質問表示 -->
+        <div class="foreigner-question-bubble">
+          <div class="foreigner-question-text" id="foreign-question-text">
+            Are you injured?
+          </div>
+        </div>
+
+        <!-- 回答指差しボタン -->
+        <div class="answer-grid" id="answer-buttons-container">
+          <!-- JSで動的に書き換えます -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 下半分：団員エリア -->
     <section class="section-member">
       <div class="section-header">
         <div class="app-title">
@@ -414,32 +440,6 @@
         <span class="response-log-label">相手の回答:</span>
         <div class="response-log-content" id="response-display">未回答</div>
         <button class="reset-btn" onclick="resetLog()">クリア</button>
-      </div>
-    </section>
-
-    <!-- 下半分：外国人住民エリア -->
-    <section class="section-foreigner" id="foreigner-section">
-      <!-- 180度反転ボタン -->
-      <div class="rotate-control">
-        <button class="rotate-btn" onclick="toggleRotation()" title="外国人側に画面を向けた際に文字を180度反転させます">
-          <svg viewBox="0 0 24 24">
-            <path d="M19 8l-4 4h3c0 3.31-2.69 6-6 6-1.01 0-1.97-.25-2.8-.7l-1.46 1.46C8.97 19.54 10.43 20 12 20c4.42 0 8-3.58 8-8h3l-4-4zM6 12c0-3.31 2.69-6 6-6 1.01 0 1.97.25 2.8.7l1.46-1.46C15.03 4.46 13.57 4 12 4c-4.42 0-8 3.58-8 8H1l4 4 4-4H6z"/>
-          </svg>
-        </button>
-      </div>
-
-      <div class="foreigner-display">
-        <!-- 翻訳された質問表示 -->
-        <div class="foreigner-question-bubble">
-          <div class="foreigner-question-text" id="foreign-question-text">
-            Are you injured?
-          </div>
-        </div>
-
-        <!-- 回答指差しボタン -->
-        <div class="answer-grid" id="answer-buttons-container">
-          <!-- JSで動的に書き換えます -->
-        </div>
       </div>
     </section>
 
