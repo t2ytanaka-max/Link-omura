@@ -65,7 +65,7 @@
       flex-direction: column;
       padding: 16px;
       overflow-y: auto;
-      transition: opacity 0.3s ease, visibility 0.3s;
+      transition: opacity 0.3s ease, visibility 0.3s, transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .welcome-screen.hidden {
@@ -74,9 +74,14 @@
       pointer-events: none;
     }
 
+    /* 180度回転状態（起動画面） */
+    .welcome-screen.rotated {
+      transform: rotate(180deg);
+    }
+
     .welcome-header {
       text-align: center;
-      margin-top: 16px;
+      margin-top: 24px;
       margin-bottom: 24px;
     }
 
@@ -89,6 +94,7 @@
       justify-content: center;
       gap: 10px;
       line-height: 1.4;
+      padding: 0 40px; /* 回転ボタンと被らないように左右に余白 */
     }
 
     .welcome-subtitle {
@@ -330,6 +336,7 @@
       padding-top: 8px;
     }
 
+    /* 180度回転コントロールボタン */
     .rotate-control {
       position: absolute;
       top: 12px;
@@ -452,6 +459,15 @@
 
   <!-- 1. 起動画面（言語選択） -->
   <div id="welcome-screen" class="welcome-screen">
+    <!-- 180度反転ボタン -->
+    <div class="rotate-control">
+      <button class="rotate-btn" onclick="toggleWelcomeRotation()" title="外国人側に画面を向けた際に文字を180度反転させます">
+        <svg viewBox="0 0 24 24">
+          <path d="M19 8l-4 4h3c0 3.31-2.69 6-6 6-1.01 0-1.97-.25-2.8-.7l-1.46 1.46C8.97 19.54 10.43 20 12 20c4.42 0 8-3.58 8-8h3l-4-4zM6 12c0-3.31 2.69-6 6-6 1.01 0 1.97.25 2.8.7l1.46-1.46C15.03 4.46 13.57 4 12 4c-4.42 0-8 3.58-8 8H1l4 4 4-4H6z"/>
+        </svg>
+      </button>
+    </div>
+
     <div class="welcome-header">
       <h1>
         <span>🌐</span>
@@ -958,11 +974,18 @@
       document.getElementById('response-display').textContent = "未回答";
     }
 
-    // 180度回転トグル
+    // 180度回転トグル（外国人質問エリア）
     function toggleRotation() {
       triggerFeedback();
       const foreignerSection = document.getElementById('foreigner-section');
       foreignerSection.classList.toggle('rotated');
+    }
+
+    // 180度回転トグル（起動画面）
+    function toggleWelcomeRotation() {
+      triggerFeedback();
+      const welcomeScreen = document.getElementById('welcome-screen');
+      welcomeScreen.classList.toggle('rotated');
     }
 
     // タッチフィードバック（バイブレーション）
