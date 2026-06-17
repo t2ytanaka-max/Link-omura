@@ -307,7 +307,7 @@
 
     .response-log-label {
       font-size: 0.75rem;
-      color: var(--text-muted);
+      color: var(--color-text-muted);
       margin-right: 8px;
       white-space: nowrap;
     }
@@ -320,15 +320,25 @@
       text-align: center;
     }
 
+    .action-btn-group {
+      display: flex;
+      gap: 6px;
+    }
+
     .reset-btn {
       background-color: #444;
       border: none;
       color: #fff;
-      padding: 6px 12px;
+      padding: 6px 10px;
       border-radius: 6px;
       font-size: 0.8rem;
       font-weight: bold;
       cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .reset-btn:active {
+      transform: scale(0.95);
     }
 
     /* 外国人表示エリア */
@@ -448,6 +458,102 @@
       padding: 4px 0;
     }
 
+    /* ----------------------------------------------------
+       3. 履歴モーダル（一覧表示）のスタイル
+       ---------------------------------------------------- */
+    .history-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.85);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      transition: opacity 0.3s ease, visibility 0.3s;
+    }
+
+    .history-modal.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .modal-content {
+      background-color: #222222;
+      border: 3px solid var(--color-primary);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 450px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+
+    .modal-content h2 {
+      text-align: center;
+      font-size: 1.4rem;
+      color: #FFFFFF;
+      border-bottom: 2px solid var(--color-primary);
+      padding-bottom: 8px;
+    }
+
+    .history-list {
+      display: flex;
+      flex-direction: column;
+      background-color: #000000;
+      border-radius: 12px;
+      padding: 8px;
+      gap: 2px;
+    }
+
+    .history-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 10px;
+      border-bottom: 1px solid #222;
+    }
+
+    .history-item:last-child {
+      border-bottom: none;
+    }
+
+    .history-item-title {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: var(--color-text-muted);
+    }
+
+    .history-item-value {
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--color-warning);
+    }
+
+    .modal-close-btn {
+      background-color: var(--color-primary);
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: bold;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.2s;
+    }
+
+    .modal-close-btn:active {
+      transform: scale(0.98);
+      background-color: #B71C1C;
+    }
+
     /* 振動・アニメーション等の視覚フィードバック */
     @keyframes pulse {
       0% { transform: scale(1); }
@@ -461,7 +567,7 @@
 </head>
 <body>
 
-  <!-- 1. 起動画面（言語選択）大村市の外国籍住民ランキング順 -->
+  <!-- 1. 起動画面（言語選択） -->
   <div id="welcome-screen" class="welcome-screen">
     <!-- 180度反転ボタン -->
     <div class="rotate-control">
@@ -552,15 +658,12 @@
         <div class="native-lang">한국어</div>
       </div>
 
-      <!-- 6位 ネパール (新規追加) -->
+      <!-- 6位 ネパール -->
       <div class="flag-card" onclick="selectLanguage('ne')">
         <div class="flag-svg-container" style="background-color: #111;">
-          <!-- ネパールの特殊な国旗 (アスペクト比調整のため透過内に描画) -->
           <svg viewBox="0 0 30 20">
             <path d="M 8,1 L 20,9 L 11,9 L 20,17 L 8,17 Z" fill="#DC143C" stroke="#003893" stroke-width="1.5"/>
-            <!-- 月マーク -->
             <path d="M 10,6.5 A 1.8 1.8 0 0 0 13,6.5 A 1.4 1.4 0 0 1 10,6.5 Z" fill="#FFFFFF"/>
-            <!-- 太陽マーク -->
             <circle cx="11" cy="13" r="1.5" fill="#FFFFFF"/>
           </svg>
         </div>
@@ -568,15 +671,13 @@
         <div class="native-lang">नेपाली</div>
       </div>
 
-      <!-- 7位 フィリピン (新規追加) -->
+      <!-- 7位 フィリピン -->
       <div class="flag-card" onclick="selectLanguage('tl')">
         <div class="flag-svg-container">
           <svg viewBox="0 0 30 20">
             <rect width="30" height="10" fill="#0038A8"/>
             <rect y="10" width="30" height="10" fill="#CE1126"/>
-            <!-- 左の白い三角形 -->
             <polygon points="0,0 12,10 0,20" fill="#FFFFFF"/>
-            <!-- 中央の黄色い太陽と星の簡易表現 -->
             <circle cx="4" cy="10" r="1.8" fill="#FCD116"/>
             <circle cx="2" cy="4" r="0.6" fill="#FCD116"/>
             <circle cx="2" cy="16" r="0.6" fill="#FCD116"/>
@@ -705,14 +806,28 @@
       <div class="response-log-box">
         <span class="response-log-label">相手の回答:</span>
         <div class="response-log-content" id="response-display">未回答</div>
-        <button class="reset-btn" onclick="resetLog()">クリア</button>
+        <div class="action-btn-group">
+          <button class="reset-btn" style="background-color: var(--color-primary);" onclick="showHistoryModal()">一覧</button>
+          <button class="reset-btn" onclick="resetLog()">クリア</button>
+        </div>
       </div>
     </section>
 
   </div>
 
+  <!-- 3. 回答履歴モーダル -->
+  <div id="history-modal" class="history-modal hidden">
+    <div class="modal-content">
+      <h2>📋 回答履歴一覧</h2>
+      <div id="history-list" class="history-list">
+        <!-- JSで動的に履歴を生成 -->
+      </div>
+      <button class="modal-close-btn" onclick="closeHistoryModal()">閉じる</button>
+    </div>
+  </div>
+
   <script>
-    // 多言語・質問データ構造（ネパール語、タガログ語を新規追加して9言語に対応）
+    // 多言語・質問データ構造
     const disasterData = [
       {
         id: 0,
@@ -950,7 +1065,21 @@
       }
     ];
 
-    // アプリ状態管理 (初期言語をベトナム語(vi)に設定)
+    // 各質問の日本語タイトル定義 (履歴表示用)
+    const questionTitles = {
+      0: "ケガ確認",
+      1: "歩行可否",
+      2: "屋内残留"
+    };
+
+    // 全質問に対する回答履歴のメモリ内保管
+    let responseHistory = {
+      0: "未回答",
+      1: "未回答",
+      2: "未回答"
+    };
+
+    // アプリ状態管理 (デフォルトはベトナム語)
     let currentLanguage = 'vi';
     let currentQuestionIndex = 0;
 
@@ -1008,11 +1137,7 @@
     function selectLanguage(lang) {
       triggerFeedback();
       currentLanguage = lang;
-      
-      // 起動画面を非表示にする
       document.getElementById('welcome-screen').classList.add('hidden');
-      
-      // アプリ画面の更新
       renderApp();
       speakQuestion();
     }
@@ -1033,6 +1158,9 @@
         document.getElementById(`q-card-${i}`).classList.toggle('active', i === index);
       }
       
+      // ログ表示を過去の履歴データから最新の回答状態に戻す
+      document.getElementById('response-display').textContent = responseHistory[index];
+      
       renderApp();
       speakQuestion();
     }
@@ -1040,6 +1168,10 @@
     // 回答選択（外国人側）
     function selectAnswer(value) {
       triggerFeedback();
+      
+      // 履歴保管庫に回答を保存
+      responseHistory[currentQuestionIndex] = value;
+      
       const display = document.getElementById('response-display');
       display.textContent = value;
       
@@ -1049,10 +1181,41 @@
       display.classList.add('pulse');
     }
 
+    // 回答履歴モーダルの表示
+    function showHistoryModal() {
+      triggerFeedback();
+      const listContainer = document.getElementById('history-list');
+      listContainer.innerHTML = '';
+      
+      for (let key in responseHistory) {
+        const item = document.createElement('div');
+        item.className = 'history-item';
+        item.innerHTML = `
+          <span class="history-item-title">${questionTitles[key]}</span>
+          <span class="history-item-value">${responseHistory[key]}</span>
+        `;
+        listContainer.appendChild(item);
+      }
+      
+      document.getElementById('history-modal').classList.remove('hidden');
+    }
+
+    // 回答履歴モーダルを閉じる
+    function closeHistoryModal() {
+      triggerFeedback();
+      document.getElementById('history-modal').classList.add('hidden');
+    }
+
     // 回答リセット
     function resetLog() {
       triggerFeedback();
       document.getElementById('response-display').textContent = "未回答";
+      // 履歴もすべてリセット
+      responseHistory = {
+        0: "未回答",
+        1: "未回答",
+        2: "未回答"
+      };
     }
 
     // 180度回転トグル（外国人質問エリア）
@@ -1080,7 +1243,6 @@
     let synth = window.speechSynthesis;
     let voices = [];
 
-    // 音声合成エンジンのセットアップ
     function setupSpeech() {
       if (synth) {
         voices = synth.getVoices();
@@ -1090,11 +1252,9 @@
       }
     }
 
-    // 適切な音声言語コードのマッピング
     function speakQuestion() {
       if (!synth) return;
       
-      // 再生中の音声を停止
       synth.cancel();
 
       const data = disasterData[currentQuestionIndex];
@@ -1123,7 +1283,7 @@
     }
   </script>
 
-  <!-- PWA Service Worker 登録 (外部 sw.js から登録する標準方式) -->
+  <!-- PWA Service Worker 登録 -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
