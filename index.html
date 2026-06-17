@@ -50,13 +50,124 @@
       color: var(--color-text-light);
     }
 
-    /* アプリ全体の上下2分割レイアウト */
+    /* ----------------------------------------------------
+       1. 起動画面（言語選択画面）のスタイル
+       ---------------------------------------------------- */
+    .welcome-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #111111;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      padding: 16px;
+      overflow-y: auto;
+      transition: opacity 0.3s ease, visibility 0.3s;
+    }
+
+    .welcome-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .welcome-header {
+      text-align: center;
+      margin-top: 16px;
+      margin-bottom: 24px;
+    }
+
+    .welcome-header h1 {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      line-height: 1.4;
+    }
+
+    .welcome-subtitle {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      margin-top: 4px;
+    }
+
+    /* 国旗選択グリッド */
+    .flag-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      max-width: 600px;
+      margin: 0 auto;
+      width: 100%;
+      padding-bottom: 24px;
+    }
+
+    /* 国旗選択ボタン（全体が大きく押しやすいカード） */
+    .flag-card {
+      background-color: var(--color-card-外国人);
+      border: 3px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.1s, border-color 0.2s, background-color 0.2s;
+    }
+
+    .flag-card:active {
+      transform: scale(0.96);
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    /* 国旗のグラフィック（SVG）サイズ調整 */
+    .flag-svg-container {
+      width: 100%;
+      max-width: 120px;
+      aspect-ratio: 3 / 2;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      margin-bottom: 8px;
+    }
+
+    .flag-svg-container svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .flag-card span {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #FFFFFF;
+      margin-top: 4px;
+    }
+
+    .flag-card .native-lang {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      margin-top: 2px;
+    }
+
+    /* ----------------------------------------------------
+       2. メインの対面コミュニケーション画面のスタイル
+       ---------------------------------------------------- */
     .app-container {
       display: flex;
       flex-direction: column;
       width: 100vw;
       height: 100vh;
-      height: -webkit-fill-available; /* iOS Safari対策 */
+      height: -webkit-fill-available;
+      transition: filter 0.3s;
     }
 
     /* 上半分：外国人エリア */
@@ -88,7 +199,6 @@
       transform: rotate(180deg);
     }
 
-    /* ヘッダー・タイトル関連 */
     .section-header {
       display: flex;
       justify-content: space-between;
@@ -114,29 +224,23 @@
       font-weight: bold;
     }
 
-    /* 言語切り替えコントロール */
-    .lang-selector {
-      display: flex;
-      gap: 6px;
-    }
-
-    .lang-btn {
+    /* 言語変更（起動画面に戻る）ボタン */
+    .back-to-lang-btn {
       background-color: var(--color-card-団員);
-      border: 2px solid var(--color-text-muted);
-      color: var(--color-text-light);
+      border: 2px solid var(--color-primary);
+      color: #FFFFFF;
       padding: 6px 12px;
       font-size: 0.9rem;
       font-weight: bold;
       border-radius: 8px;
       cursor: pointer;
-      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
 
-    .lang-btn.active {
+    .back-to-lang-btn:active {
       background-color: var(--color-primary);
-      border-color: var(--color-primary);
-      color: #fff;
-      box-shadow: 0 0 10px rgba(229, 57, 53, 0.5);
     }
 
     /* 質問選択エリア（団員側） */
@@ -267,7 +371,7 @@
     }
 
     .foreigner-question-text {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: 900;
       line-height: 1.3;
       color: #FFF;
@@ -287,7 +391,7 @@
       border: none;
       border-radius: 16px;
       color: #fff;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: 900;
       display: flex;
       flex-direction: column;
@@ -317,16 +421,9 @@
     }
 
     .answer-btn-sub {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: bold;
       opacity: 0.9;
-    }
-
-    /* ピクトグラムのスタイル調整 */
-    .picto-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
     }
 
     /* オフライン状態のバナー表示用 */
@@ -353,6 +450,128 @@
 </head>
 <body>
 
+  <!-- 1. 起動画面（言語選択） -->
+  <div id="welcome-screen" class="welcome-screen">
+    <div class="welcome-header">
+      <h1>
+        <span>🌐</span>
+        Select your country / language
+      </h1>
+      <div class="welcome-subtitle">国籍・言語を選択してください</div>
+    </div>
+
+    <div class="flag-grid">
+      <!-- ベトナム -->
+      <div class="flag-card" onclick="selectLanguage('vi')">
+        <div class="flag-svg-container">
+          <svg viewBox="0 0 30 20">
+            <rect width="30" height="20" fill="#DA251D"/>
+            <polygon points="15,4.5 16.2,8.2 20,8.2 16.9,10.5 18.1,14.2 15,11.9 11.9,14.2 13.1,10.5 10,8.2 13.8,8.2" fill="#FFFF00"/>
+          </svg>
+        </div>
+        <span>ベトナム</span>
+        <div class="native-lang">Việt Nam</div>
+      </div>
+
+      <!-- インドネシア -->
+      <div class="flag-card" onclick="selectLanguage('id')">
+        <div class="flag-svg-container">
+          <svg viewBox="0 0 30 20">
+            <rect width="30" height="10" fill="#FF0000"/>
+            <rect y="10" width="30" height="10" fill="#FFFFFF"/>
+          </svg>
+        </div>
+        <span>インドネシア</span>
+        <div class="native-lang">Indonesia</div>
+      </div>
+
+      <!-- 中国 -->
+      <div class="flag-card" onclick="selectLanguage('zh')">
+        <div class="flag-svg-container">
+          <svg viewBox="0 0 30 20">
+            <rect width="30" height="20" fill="#DE2910"/>
+            <!-- 大星 -->
+            <polygon points="5,5 5.5,6.5 7,6.5 5.8,7.4 6.2,8.9 5,8 3.8,8.9 4.2,7.4 3,6.5 4.5,6.5" fill="#FFDE00"/>
+            <!-- 小星4つ（簡略化して配置） -->
+            <polygon points="9,2.5 9.2,3.1 9.8,3.1 9.3,3.5 9.5,4.1 9,3.7 8.5,4.1 8.7,3.5 8.2,3.1 8.8,3.1" fill="#FFDE00"/>
+            <polygon points="11,4.5 11.2,5.1 11.8,5.1 11.3,5.5 11.5,6.1 11,5.7 10.5,6.1 10.7,5.5 10.2,5.1 10.8,5.1" fill="#FFDE00"/>
+            <polygon points="11,7.5 11.2,8.1 11.8,8.1 11.3,8.5 11.5,9.1 11,8.7 10.5,9.1 10.7,8.5 10.2,8.1 10.8,8.1" fill="#FFDE00"/>
+            <polygon points="9,9.5 9.2,10.1 9.8,10.1 9.3,10.5 9.5,11.1 9,10.7 8.5,11.1 8.7,10.5 8.2,10.1 8.8,10.1" fill="#FFDE00"/>
+          </svg>
+        </div>
+        <span>中 国</span>
+        <div class="native-lang">简体中文</div>
+      </div>
+
+      <!-- ミャンマー -->
+      <div class="flag-card" onclick="selectLanguage('my')">
+        <div class="flag-svg-container">
+          <svg viewBox="0 0 30 20">
+            <rect width="30" height="6.6" fill="#FECB00"/>
+            <rect y="6.6" width="30" height="6.8" fill="#109B30"/>
+            <rect y="13.4" width="30" height="6.6" fill="#E81C23"/>
+            <polygon points="15,5 16.5,9.5 21,9.5 17.5,12.2 19,16.7 15,14 11,16.7 12.5,12.2 9,9.5 13.5,9.5" fill="#FFFFFF"/>
+          </svg>
+        </div>
+        <span>ミャンマー</span>
+        <div class="native-lang">မြန်မာဘာသာ</div>
+      </div>
+
+      <!-- アメリカ -->
+      <div class="flag-card" onclick="selectLanguage('en')">
+        <div class="flag-svg-container">
+          <svg viewBox="0 0 30 20">
+            <!-- 背景のストライプ（赤白） -->
+            <rect width="30" height="2.8" fill="#B22234"/><rect y="2.8" width="30" height="2.8" fill="#FFF"/>
+            <rect y="5.6" width="30" height="2.8" fill="#B22234"/><rect y="8.4" width="30" height="2.8" fill="#FFF"/>
+            <rect y="11.2" width="30" height="2.8" fill="#B22234"/><rect y="14" width="30" height="2.8" fill="#FFF"/>
+            <rect y="16.8" width="30" height="3.2" fill="#B22234"/>
+            <!-- 左上の青 -->
+            <rect width="12" height="11.2" fill="#3C3B6E"/>
+            <circle cx="3" cy="3" r="0.6" fill="#FFF"/><circle cx="6" cy="3" r="0.6" fill="#FFF"/><circle cx="9" cy="3" r="0.6" fill="#FFF"/>
+            <circle cx="4.5" cy="5.6" r="0.6" fill="#FFF"/><circle cx="7.5" cy="5.6" r="0.6" fill="#FFF"/>
+            <circle cx="3" cy="8.2" r="0.6" fill="#FFF"/><circle cx="6" cy="8.2" r="0.6" fill="#FFF"/><circle cx="9" cy="8.2" r="0.6" fill="#FFF"/>
+          </svg>
+        </div>
+        <span>アメリカ (英語)</span>
+        <div class="native-lang">English</div>
+      </div>
+
+      <!-- 韓国 -->
+      <div class="flag-card" onclick="selectLanguage('ko')">
+        <div class="flag-svg-container">
+          <svg viewBox="0 0 30 20">
+            <rect width="30" height="20" fill="#FFFFFF"/>
+            <!-- 中央の太極マーク -->
+            <circle cx="15" cy="10" r="4.5" fill="#CD2E3A"/>
+            <path d="M15 14.5 A 2.25 2.25 0 0 1 15 10 A 2.25 2.25 0 0 0 15 5.5 A 4.5 4.5 0 0 1 15 14.5 Z" fill="#0047A0"/>
+            <!-- 四隅の卦（簡易表現） -->
+            <path d="M7.5 5.5 L9.5 3.5 M7 6 L9 4 M8 5 L10 3" stroke="#000" stroke-width="0.8"/>
+            <path d="M20.5 5.5 L22.5 3.5 M21 5 L23 3" stroke="#000" stroke-width="0.8"/>
+            <path d="M7.5 14.5 L9.5 16.5 M8 15 L10 17" stroke="#000" stroke-width="0.8"/>
+            <path d="M20.5 14.5 L22.5 16.5 M20 14 L22 16 M21 15 L23 17" stroke="#000" stroke-width="0.8"/>
+          </svg>
+        </div>
+        <span>韓 国</span>
+        <div class="native-lang">한국어</div>
+      </div>
+
+      <!-- 日本 -->
+      <div class="flag-card" onclick="selectLanguage('ja')">
+        <div class="flag-svg-container">
+          <svg viewBox="0 0 30 20">
+            <rect width="30" height="20" fill="#FFFFFF"/>
+            <circle cx="15" cy="10" r="6" fill="#BC002D"/>
+          </svg>
+        </div>
+        <span>日 本</span>
+        <div class="native-lang">日本語</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 2. メインの対面コミュニケーション画面 -->
   <div class="app-container">
     
     <!-- オフライン表示バナー -->
@@ -392,12 +611,10 @@
           <span class="app-badge">団員用</span>
         </div>
         
-        <!-- 言語切り替え -->
-        <div class="lang-selector">
-          <button class="lang-btn active" onclick="changeLanguage('en', this)">EN</button>
-          <button class="lang-btn" onclick="changeLanguage('vi', this)">VI</button>
-          <button class="lang-btn" onclick="changeLanguage('zh', this)">ZH</button>
-        </div>
+        <!-- 言語変更（起動画面に戻る） -->
+        <button class="back-to-lang-btn" onclick="showWelcomeScreen()">
+          <span>🔙</span> 言語変更
+        </button>
       </div>
 
       <!-- 質問選択カード -->
@@ -446,7 +663,7 @@
   </div>
 
   <script>
-    // 多言語・質問データ構造
+    // 多言語・質問データ構造（7か国語に拡張）
     const disasterData = [
       {
         id: 0,
@@ -475,6 +692,38 @@
               { label: "没有 (NO) OK", value: "ケガなし (無事)", class: "btn-no" }
             ],
             audioText: "你受伤了吗？"
+          },
+          id: {
+            question: "Apakah Anda terluka?",
+            answers: [
+              { label: "Ya (YES) 🤕", value: "ケガあり", class: "btn-yes" },
+              { label: "Tidak (NO) OK", value: "ケガなし (無事)", class: "btn-no" }
+            ],
+            audioText: "Apakah Anda terluka?"
+          },
+          my: {
+            question: "ဒဏ်ရာရထားပါသလား။",
+            answers: [
+              { label: "ရှိတယ် (YES) 🤕", value: "ケガあり", class: "btn-yes" },
+              { label: "မရှိဘူး (NO) OK", value: "ケガなし (無事)", class: "btn-no" }
+            ],
+            audioText: "ဒဏ်ရာရထားပါသလား။"
+          },
+          ko: {
+            question: "다치셨습니까?",
+            answers: [
+              { label: "예 (YES) 🤕", value: "ケガあり", class: "btn-yes" },
+              { label: "아니오 (NO) OK", value: "ケガなし (無事)", class: "btn-no" }
+            ],
+            audioText: "다치셨습니까?"
+          },
+          ja: {
+            question: "ケガはありますか？",
+            answers: [
+              { label: "はい (YES) 🤕", value: "ケガあり", class: "btn-yes" },
+              { label: "いいえ (NO) OK", value: "ケガなし (無事)", class: "btn-no" }
+            ],
+            audioText: "ケガはありますか？"
           }
         }
       },
@@ -505,6 +754,38 @@
               { label: "不能 (No) ❌", value: "歩行不可", class: "btn-yes" }
             ],
             audioText: "你能走路吗？"
+          },
+          id: {
+            question: "Apakah Anda bisa berjalan?",
+            answers: [
+              { label: "Bisa (Yes) 🏃", value: "歩行可能", class: "btn-safe" },
+              { label: "Tidak bisa (No) ❌", value: "歩行不可", class: "btn-yes" }
+            ],
+            audioText: "Apakah Anda bisa berjalan?"
+          },
+          my: {
+            question: "လမ်းလျှောက်နိုင်ပါသလား။",
+            answers: [
+              { label: "နိုင်တယ် (Yes) 🏃", value: "歩行可能", class: "btn-safe" },
+              { label: "မနိုင်ဘူး (No) ❌", value: "歩行不可", class: "btn-yes" }
+            ],
+            audioText: "လမ်းလျှောက်နိုင်ပါသလား။"
+          },
+          ko: {
+            question: "걸을 수 있습니까?",
+            answers: [
+              { label: "가능 (Yes) 🏃", value: "歩行可能", class: "btn-safe" },
+              { label: "불가능 (No) ❌", value: "歩行不可", class: "btn-yes" }
+            ],
+            audioText: "걸을 수 있습니까?"
+          },
+          ja: {
+            question: "歩けますか？",
+            answers: [
+              { label: "歩ける (Yes) 🏃", value: "歩行可能", class: "btn-safe" },
+              { label: "歩けない (No) ❌", value: "歩行不可", class: "btn-yes" }
+            ],
+            audioText: "歩けますか？"
           }
         }
       },
@@ -535,6 +816,38 @@
               { label: "没有 (No) ❌", value: "屋内に人なし", class: "btn-no" }
             ],
             audioText: "屋里还有其他人吗？"
+          },
+          id: {
+            question: "Apakah masih ada orang di dalam rumah?",
+            answers: [
+              { label: "Ada (Yes) 👤", value: "屋内に人あり", class: "btn-yes" },
+              { label: "Tidak ada (No) ❌", value: "屋内に人なし", class: "btn-no" }
+            ],
+            audioText: "Apakah masih ada orang di dalam rumah?"
+          },
+          my: {
+            question: "အိမ်ထဲမှာ လူကျန်သေးသလား။",
+            answers: [
+              { label: "ရှိတယ် (Yes) 👤", value: "屋内に人あり", class: "btn-yes" },
+              { label: "မရှိဘူး (No) ❌", value: "屋内に人なし", class: "btn-no" }
+            ],
+            audioText: "အိမ်ထဲမှာ လူကျန်သေးသလား။"
+          },
+          ko: {
+            question: "집 안에 다른 사람이 있습니까?",
+            answers: [
+              { label: "있음 (Yes) 👤", value: "屋内に人あり", class: "btn-yes" },
+              { label: "없음 (No) ❌", value: "屋内に人なし", class: "btn-no" }
+            ],
+            audioText: "집 안에 다른 사람이 있습니까?"
+          },
+          ja: {
+            question: "家にまだ誰かいますか？",
+            answers: [
+              { label: "いる (Yes) 👤", value: "屋内に人あり", class: "btn-yes" },
+              { label: "いない (No) ❌", value: "屋内に人なし", class: "btn-no" }
+            ],
+            audioText: "家にまだ誰かいますか？"
           }
         }
       }
@@ -594,6 +907,25 @@
       });
     }
 
+    // 言語の選択（起動画面から）
+    function selectLanguage(lang) {
+      triggerFeedback();
+      currentLanguage = lang;
+      
+      // 起動画面を非表示にする
+      document.getElementById('welcome-screen').classList.add('hidden');
+      
+      // アプリ画面の更新
+      renderApp();
+      speakQuestion();
+    }
+
+    // 言語選択画面（起動画面）を表示する
+    function showWelcomeScreen() {
+      triggerFeedback();
+      document.getElementById('welcome-screen').classList.remove('hidden');
+    }
+
     // 質問選択（団員側）
     function selectQuestion(index) {
       triggerFeedback();
@@ -603,20 +935,6 @@
       for (let i = 0; i < disasterData.length; i++) {
         document.getElementById(`q-card-${i}`).classList.toggle('active', i === index);
       }
-      
-      renderApp();
-      speakQuestion();
-    }
-
-    // 言語切り替え
-    function changeLanguage(lang, btnElement) {
-      triggerFeedback();
-      currentLanguage = lang;
-      
-      // アクティブボタンの切り替え
-      const buttons = document.querySelectorAll('.lang-btn');
-      buttons.forEach(btn => btn.classList.remove('active'));
-      btnElement.classList.add('active');
       
       renderApp();
       speakQuestion();
@@ -681,6 +999,10 @@
       let langCode = 'en-US';
       if (currentLanguage === 'vi') langCode = 'vi-VN';
       if (currentLanguage === 'zh') langCode = 'zh-CN';
+      if (currentLanguage === 'id') langCode = 'id-ID';
+      if (currentLanguage === 'my') langCode = 'my-MM';
+      if (currentLanguage === 'ko') langCode = 'ko-KR';
+      if (currentLanguage === 'ja') langCode = 'ja-JP';
       
       utterance.lang = langCode;
       
