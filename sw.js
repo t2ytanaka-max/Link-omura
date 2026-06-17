@@ -1,8 +1,8 @@
-const CACHE_NAME = 'link-omura-pwa-v2';
+const CACHE_NAME = 'link-omura-pwa-v3';
 const ASSETS_TO_CACHE = [
   './index.html',
   './manifest.json',
-  './icon.svg',
+  './icon.jpg',
   './'
 ];
 
