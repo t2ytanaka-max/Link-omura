@@ -398,7 +398,7 @@
       border: none;
       border-radius: 16px;
       color: #fff;
-      font-size: 1.4rem;
+      font-size: 1.6rem; /* 文字サイズを少し拡大 */
       font-weight: 900;
       display: flex;
       flex-direction: column;
@@ -428,7 +428,7 @@
     }
 
     .answer-btn-sub {
-      font-size: 0.85rem;
+      font-size: 0.95rem;
       font-weight: bold;
       opacity: 0.9;
     }
@@ -679,7 +679,7 @@
   </div>
 
   <script>
-    // 多言語・質問データ構造（7か国語に拡張）
+    // 多言語・質問データ構造（回答ボタンの表記を「YES」と「NO」に統一）
     const disasterData = [
       {
         id: 0,
@@ -688,56 +688,56 @@
           en: {
             question: "Are you injured?",
             answers: [
-              { label: "はい (YES) 🤕", value: "ケガあり", class: "btn-yes" },
-              { label: "いいえ (NO) OK", value: "ケガなし (無事)", class: "btn-no" }
+              { label: "YES 🤕", value: "ケガあり", class: "btn-yes" },
+              { label: "NO OK", value: "ケガなし (無事)", class: "btn-no" }
             ],
             audioText: "Are you injured?"
           },
           vi: {
             question: "Bạn có bị thương không?",
             answers: [
-              { label: "Có (YES) 🤕", value: "ケガあり", class: "btn-yes" },
-              { label: "Không (NO) OK", value: "ケガなし (無事)", class: "btn-no" }
+              { label: "YES 🤕", value: "ケガあり", class: "btn-yes" },
+              { label: "NO OK", value: "ケガなし (無事)", class: "btn-no" }
             ],
             audioText: "Bạn có bị thương không?"
           },
           zh: {
             question: "你受伤了吗？",
             answers: [
-              { label: "是 (YES) 🤕", value: "ケガあり", class: "btn-yes" },
-              { label: "没有 (NO) OK", value: "ケガなし (無事)", class: "btn-no" }
+              { label: "YES 🤕", value: "ケガあり", class: "btn-yes" },
+              { label: "NO OK", value: "ケガなし (無事)", class: "btn-no" }
             ],
             audioText: "你受伤了吗？"
           },
           id: {
             question: "Apakah Anda terluka?",
             answers: [
-              { label: "Ya (YES) 🤕", value: "ケガあり", class: "btn-yes" },
-              { label: "Tidak (NO) OK", value: "ケガなし (無事)", class: "btn-no" }
+              { label: "YES 🤕", value: "ケガあり", class: "btn-yes" },
+              { label: "NO OK", value: "ケガなし (無事)", class: "btn-no" }
             ],
             audioText: "Apakah Anda terluka?"
           },
           my: {
             question: "ဒဏ်ရာရထားပါသလား။",
             answers: [
-              { label: "ရှိတယ် (YES) 🤕", value: "ケガあり", class: "btn-yes" },
-              { label: "မရှိဘူး (NO) OK", value: "ケガなし (無事)", class: "btn-no" }
+              { label: "YES 🤕", value: "ケガあり", class: "btn-yes" },
+              { label: "NO OK", value: "ケガなし (無事)", class: "btn-no" }
             ],
             audioText: "ဒဏ်ရာရထားပါသလား။"
           },
           ko: {
             question: "다치셨습니까?",
             answers: [
-              { label: "예 (YES) 🤕", value: "ケガあり", class: "btn-yes" },
-              { label: "아니오 (NO) OK", value: "ケガなし (無事)", class: "btn-no" }
+              { label: "YES 🤕", value: "ケガあり", class: "btn-yes" },
+              { label: "NO OK", value: "ケガなし (無事)", class: "btn-no" }
             ],
             audioText: "다치셨습니까?"
           },
           ja: {
             question: "ケガはありますか？",
             answers: [
-              { label: "はい (YES) 🤕", value: "ケガあり", class: "btn-yes" },
-              { label: "いいえ (NO) OK", value: "ケガなし (無事)", class: "btn-no" }
+              { label: "YES 🤕", value: "ケガあり", class: "btn-yes" },
+              { label: "NO OK", value: "ケガなし (無事)", class: "btn-no" }
             ],
             audioText: "ケガはありますか？"
           }
@@ -750,56 +750,56 @@
           en: {
             question: "Can you walk?",
             answers: [
-              { label: "歩ける (Yes) 🏃", value: "歩行可能", class: "btn-safe" },
-              { label: "歩けない (No) ❌", value: "歩行不可", class: "btn-yes" }
+              { label: "YES 🏃", value: "歩行可能", class: "btn-safe" },
+              { label: "NO ❌", value: "歩行不可", class: "btn-yes" }
             ],
             audioText: "Can you walk?"
           },
           vi: {
             question: "Bạn có thể đi bộ được không?",
             answers: [
-              { label: "Có thể (Yes) 🏃", value: "歩行可能", class: "btn-safe" },
-              { label: "Không thể (No) ❌", value: "歩行不可", class: "btn-yes" }
+              { label: "YES 🏃", value: "歩行可能", class: "btn-safe" },
+              { label: "NO ❌", value: "歩行不可", class: "btn-yes" }
             ],
             audioText: "Bạn có thể đi bộ được không?"
           },
           zh: {
             question: "你能走路吗？",
             answers: [
-              { label: "能 (Yes) 🏃", value: "歩行可能", class: "btn-safe" },
-              { label: "不能 (No) ❌", value: "歩行不可", class: "btn-yes" }
+              { label: "YES 🏃", value: "歩行可能", class: "btn-safe" },
+              { label: "NO ❌", value: "歩行不可", class: "btn-yes" }
             ],
             audioText: "你能走路吗？"
           },
           id: {
             question: "Apakah Anda bisa berjalan?",
             answers: [
-              { label: "Bisa (Yes) 🏃", value: "歩行可能", class: "btn-safe" },
-              { label: "Tidak bisa (No) ❌", value: "歩行不可", class: "btn-yes" }
+              { label: "YES 🏃", value: "歩行可能", class: "btn-safe" },
+              { label: "NO ❌", value: "歩行不可", class: "btn-yes" }
             ],
             audioText: "Apakah Anda bisa berjalan?"
           },
           my: {
             question: "လမ်းလျှောက်နိုင်ပါသလား။",
             answers: [
-              { label: "နိုင်တယ် (Yes) 🏃", value: "歩行可能", class: "btn-safe" },
-              { label: "မနိုင်ဘူး (No) ❌", value: "歩行不可", class: "btn-yes" }
+              { label: "YES 🏃", value: "歩行可能", class: "btn-safe" },
+              { label: "NO ❌", value: "歩行不可", class: "btn-yes" }
             ],
             audioText: "လမ်းလျှောက်နိုင်ပါသလား။"
           },
           ko: {
             question: "걸을 수 있습니까?",
             answers: [
-              { label: "가능 (Yes) 🏃", value: "歩行可能", class: "btn-safe" },
-              { label: "불가능 (No) ❌", value: "歩行不可", class: "btn-yes" }
+              { label: "YES 🏃", value: "歩行可能", class: "btn-safe" },
+              { label: "NO ❌", value: "歩行不可", class: "btn-yes" }
             ],
             audioText: "걸을 수 있습니까?"
           },
           ja: {
             question: "歩けますか？",
             answers: [
-              { label: "歩ける (Yes) 🏃", value: "歩行可能", class: "btn-safe" },
-              { label: "歩けない (No) ❌", value: "歩行不可", class: "btn-yes" }
+              { label: "YES 🏃", value: "歩行可能", class: "btn-safe" },
+              { label: "NO ❌", value: "歩行不可", class: "btn-yes" }
             ],
             audioText: "歩けますか？"
           }
@@ -812,56 +812,56 @@
           en: {
             question: "Is anyone else left inside the house?",
             answers: [
-              { label: "いる (Yes) 👤", value: "屋内に人あり", class: "btn-yes" },
-              { label: "いない (No) ❌", value: "屋内に人なし", class: "btn-no" }
+              { label: "YES 👤", value: "屋内に人あり", class: "btn-yes" },
+              { label: "NO ❌", value: "屋内に人なし", class: "btn-no" }
             ],
             audioText: "Is anyone else left inside the house?"
           },
           vi: {
             question: "Còn ai ở trong nhà không?",
             answers: [
-              { label: "Còn (Yes) 👤", value: "屋内に人あり", class: "btn-yes" },
-              { label: "Không (No) ❌", value: "屋内に人なし", class: "btn-no" }
+              { label: "YES 👤", value: "屋内に人あり", class: "btn-yes" },
+              { label: "NO ❌", value: "屋内に人なし", class: "btn-no" }
             ],
             audioText: "Còn ai ở trong nhà không?"
           },
           zh: {
             question: "屋里还有其他人吗？",
             answers: [
-              { label: "有 (Yes) 👤", value: "屋内に人あり", class: "btn-yes" },
-              { label: "没有 (No) ❌", value: "屋内に人なし", class: "btn-no" }
+              { label: "YES 👤", value: "屋内に人あり", class: "btn-yes" },
+              { label: "NO ❌", value: "屋内に人なし", class: "btn-no" }
             ],
             audioText: "屋里还有其他人吗？"
           },
           id: {
             question: "Apakah masih ada orang di dalam rumah?",
             answers: [
-              { label: "Ada (Yes) 👤", value: "屋内に人あり", class: "btn-yes" },
-              { label: "Tidak ada (No) ❌", value: "屋内に人なし", class: "btn-no" }
+              { label: "YES 👤", value: "屋内に人あり", class: "btn-yes" },
+              { label: "NO ❌", value: "屋内に人なし", class: "btn-no" }
             ],
             audioText: "Apakah masih ada orang di dalam rumah?"
           },
           my: {
             question: "အိမ်ထဲမှာ လူကျန်သေးသလား။",
             answers: [
-              { label: "ရှိတယ် (Yes) 👤", value: "屋内に人あり", class: "btn-yes" },
-              { label: "မရှိဘူး (No) ❌", value: "屋内に人なし", class: "btn-no" }
+              { label: "YES 👤", value: "屋内に人あり", class: "btn-yes" },
+              { label: "NO ❌", value: "屋内に人なし", class: "btn-no" }
             ],
             audioText: "အိမ်ထဲမှာ လူကျန်သေးသလား။"
           },
           ko: {
             question: "집 안에 다른 사람이 있습니까?",
             answers: [
-              { label: "있음 (Yes) 👤", value: "屋内に人あり", class: "btn-yes" },
-              { label: "없음 (No) ❌", value: "屋内に人なし", class: "btn-no" }
+              { label: "YES 👤", value: "屋内に人あり", class: "btn-yes" },
+              { label: "NO ❌", value: "屋内に人なし", class: "btn-no" }
             ],
             audioText: "집 안에 다른 사람이 있습니까?"
           },
           ja: {
             question: "家にまだ誰かいますか？",
             answers: [
-              { label: "いる (Yes) 👤", value: "屋内に人あり", class: "btn-yes" },
-              { label: "いない (No) ❌", value: "屋内に人なし", class: "btn-no" }
+              { label: "YES 👤", value: "屋内に人あり", class: "btn-yes" },
+              { label: "NO ❌", value: "屋内に人なし", class: "btn-no" }
             ],
             audioText: "家にまだ誰かいますか？"
           }
