@@ -81,12 +81,12 @@
 
     .welcome-header {
       text-align: center;
-      margin-top: 24px;
-      margin-bottom: 24px;
+      margin-top: 16px;
+      margin-bottom: 16px;
     }
 
     .welcome-header h1 {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       font-weight: 900;
       color: #FFFFFF;
       display: flex;
@@ -98,16 +98,16 @@
     }
 
     .welcome-subtitle {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: var(--color-text-muted);
       margin-top: 4px;
     }
 
-    /* 国旗選択グリッド */
+    /* 国旗選択グリッド (3列レイアウトに変更してスマートに収める) */
     .flag-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
       max-width: 600px;
       margin: 0 auto;
       width: 100%;
@@ -117,9 +117,9 @@
     /* 国旗選択ボタン（全体が大きく押しやすいカード） */
     .flag-card {
       background-color: var(--color-card-外国人);
-      border: 3px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      padding: 12px;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 8px 4px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -136,13 +136,13 @@
     /* 国旗のグラフィック（SVG）サイズ調整 */
     .flag-svg-container {
       width: 100%;
-      max-width: 120px;
+      max-width: 80px;
       aspect-ratio: 3 / 2;
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      border-radius: 8px;
+      border: 1.5px solid rgba(255, 255, 255, 0.2);
+      border-radius: 6px;
       overflow: hidden;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-      margin-bottom: 8px;
+      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+      margin-bottom: 4px;
     }
 
     .flag-svg-container svg {
@@ -152,16 +152,20 @@
     }
 
     .flag-card span {
-      font-size: 1.1rem;
+      font-size: 0.85rem;
       font-weight: bold;
       color: #FFFFFF;
-      margin-top: 4px;
+      margin-top: 2px;
+      text-align: center;
+      white-space: nowrap;
     }
 
     .flag-card .native-lang {
-      font-size: 0.8rem;
+      font-size: 0.7rem;
       color: var(--color-text-muted);
-      margin-top: 2px;
+      margin-top: 1px;
+      text-align: center;
+      white-space: nowrap;
     }
 
     /* ----------------------------------------------------
@@ -303,7 +307,7 @@
 
     .response-log-label {
       font-size: 0.75rem;
-      color: var(--color-text-muted);
+      color: var(--text-muted);
       margin-right: 8px;
       white-space: nowrap;
     }
@@ -457,7 +461,7 @@
 </head>
 <body>
 
-  <!-- 1. 起動画面（言語選択） -->
+  <!-- 1. 起動画面（言語選択）大村市の外国籍住民ランキング順 -->
   <div id="welcome-screen" class="welcome-screen">
     <!-- 180度反転ボタン -->
     <div class="rotate-control">
@@ -477,7 +481,7 @@
     </div>
 
     <div class="flag-grid">
-      <!-- ベトナム -->
+      <!-- 1位 ベトナム -->
       <div class="flag-card" onclick="selectLanguage('vi')">
         <div class="flag-svg-container">
           <svg viewBox="0 0 30 20">
@@ -489,7 +493,7 @@
         <div class="native-lang">Việt Nam</div>
       </div>
 
-      <!-- インドネシア -->
+      <!-- 2位 インドネシア -->
       <div class="flag-card" onclick="selectLanguage('id')">
         <div class="flag-svg-container">
           <svg viewBox="0 0 30 20">
@@ -501,25 +505,23 @@
         <div class="native-lang">Indonesia</div>
       </div>
 
-      <!-- 中国 -->
+      <!-- 3位 中国 -->
       <div class="flag-card" onclick="selectLanguage('zh')">
         <div class="flag-svg-container">
           <svg viewBox="0 0 30 20">
             <rect width="30" height="20" fill="#DE2910"/>
-            <!-- 大星 -->
             <polygon points="5,5 5.5,6.5 7,6.5 5.8,7.4 6.2,8.9 5,8 3.8,8.9 4.2,7.4 3,6.5 4.5,6.5" fill="#FFDE00"/>
-            <!-- 小星4つ（簡略化して配置） -->
             <polygon points="9,2.5 9.2,3.1 9.8,3.1 9.3,3.5 9.5,4.1 9,3.7 8.5,4.1 8.7,3.5 8.2,3.1 8.8,3.1" fill="#FFDE00"/>
             <polygon points="11,4.5 11.2,5.1 11.8,5.1 11.3,5.5 11.5,6.1 11,5.7 10.5,6.1 10.7,5.5 10.2,5.1 10.8,5.1" fill="#FFDE00"/>
             <polygon points="11,7.5 11.2,8.1 11.8,8.1 11.3,8.5 11.5,9.1 11,8.7 10.5,9.1 10.7,8.5 10.2,8.1 10.8,8.1" fill="#FFDE00"/>
             <polygon points="9,9.5 9.2,10.1 9.8,10.1 9.3,10.5 9.5,11.1 9,10.7 8.5,11.1 8.7,10.5 8.2,10.1 8.8,10.1" fill="#FFDE00"/>
           </svg>
         </div>
-        <span>中 国</span>
+        <span>中国</span>
         <div class="native-lang">简体中文</div>
       </div>
 
-      <!-- ミャンマー -->
+      <!-- 4位 ミャンマー -->
       <div class="flag-card" onclick="selectLanguage('my')">
         <div class="flag-svg-container">
           <svg viewBox="0 0 30 20">
@@ -533,46 +535,77 @@
         <div class="native-lang">မြန်မာဘာသာ</div>
       </div>
 
-      <!-- アメリカ -->
-      <div class="flag-card" onclick="selectLanguage('en')">
-        <div class="flag-svg-container">
-          <svg viewBox="0 0 30 20">
-            <!-- 背景のストライプ（赤白） -->
-            <rect width="30" height="2.8" fill="#B22234"/><rect y="2.8" width="30" height="2.8" fill="#FFF"/>
-            <rect y="5.6" width="30" height="2.8" fill="#B22234"/><rect y="8.4" width="30" height="2.8" fill="#FFF"/>
-            <rect y="11.2" width="30" height="2.8" fill="#B22234"/><rect y="14" width="30" height="2.8" fill="#FFF"/>
-            <rect y="16.8" width="30" height="3.2" fill="#B22234"/>
-            <!-- 左上の青 -->
-            <rect width="12" height="11.2" fill="#3C3B6E"/>
-            <circle cx="3" cy="3" r="0.6" fill="#FFF"/><circle cx="6" cy="3" r="0.6" fill="#FFF"/><circle cx="9" cy="3" r="0.6" fill="#FFF"/>
-            <circle cx="4.5" cy="5.6" r="0.6" fill="#FFF"/><circle cx="7.5" cy="5.6" r="0.6" fill="#FFF"/>
-            <circle cx="3" cy="8.2" r="0.6" fill="#FFF"/><circle cx="6" cy="8.2" r="0.6" fill="#FFF"/><circle cx="9" cy="8.2" r="0.6" fill="#FFF"/>
-          </svg>
-        </div>
-        <span>アメリカ (英語)</span>
-        <div class="native-lang">English</div>
-      </div>
-
-      <!-- 韓国 -->
+      <!-- 5位 韓国 -->
       <div class="flag-card" onclick="selectLanguage('ko')">
         <div class="flag-svg-container">
           <svg viewBox="0 0 30 20">
             <rect width="30" height="20" fill="#FFFFFF"/>
-            <!-- 中央の太極マーク -->
             <circle cx="15" cy="10" r="4.5" fill="#CD2E3A"/>
             <path d="M15 14.5 A 2.25 2.25 0 0 1 15 10 A 2.25 2.25 0 0 0 15 5.5 A 4.5 4.5 0 0 1 15 14.5 Z" fill="#0047A0"/>
-            <!-- 四隅の卦（簡易表現） -->
             <path d="M7.5 5.5 L9.5 3.5 M7 6 L9 4 M8 5 L10 3" stroke="#000" stroke-width="0.8"/>
             <path d="M20.5 5.5 L22.5 3.5 M21 5 L23 3" stroke="#000" stroke-width="0.8"/>
             <path d="M7.5 14.5 L9.5 16.5 M8 15 L10 17" stroke="#000" stroke-width="0.8"/>
             <path d="M20.5 14.5 L22.5 16.5 M20 14 L22 16 M21 15 L23 17" stroke="#000" stroke-width="0.8"/>
           </svg>
         </div>
-        <span>韓 国</span>
+        <span>韓国</span>
         <div class="native-lang">한국어</div>
       </div>
 
-      <!-- 日本 -->
+      <!-- 6位 ネパール (新規追加) -->
+      <div class="flag-card" onclick="selectLanguage('ne')">
+        <div class="flag-svg-container" style="background-color: #111;">
+          <!-- ネパールの特殊な国旗 (アスペクト比調整のため透過内に描画) -->
+          <svg viewBox="0 0 30 20">
+            <path d="M 8,1 L 20,9 L 11,9 L 20,17 L 8,17 Z" fill="#DC143C" stroke="#003893" stroke-width="1.5"/>
+            <!-- 月マーク -->
+            <path d="M 10,6.5 A 1.8 1.8 0 0 0 13,6.5 A 1.4 1.4 0 0 1 10,6.5 Z" fill="#FFFFFF"/>
+            <!-- 太陽マーク -->
+            <circle cx="11" cy="13" r="1.5" fill="#FFFFFF"/>
+          </svg>
+        </div>
+        <span>ネパール</span>
+        <div class="native-lang">नेपाली</div>
+      </div>
+
+      <!-- 7位 フィリピン (新規追加) -->
+      <div class="flag-card" onclick="selectLanguage('tl')">
+        <div class="flag-svg-container">
+          <svg viewBox="0 0 30 20">
+            <rect width="30" height="10" fill="#0038A8"/>
+            <rect y="10" width="30" height="10" fill="#CE1126"/>
+            <!-- 左の白い三角形 -->
+            <polygon points="0,0 12,10 0,20" fill="#FFFFFF"/>
+            <!-- 中央の黄色い太陽と星の簡易表現 -->
+            <circle cx="4" cy="10" r="1.8" fill="#FCD116"/>
+            <circle cx="2" cy="4" r="0.6" fill="#FCD116"/>
+            <circle cx="2" cy="16" r="0.6" fill="#FCD116"/>
+            <circle cx="9" cy="10" r="0.6" fill="#FCD116"/>
+          </svg>
+        </div>
+        <span>フィリピン</span>
+        <div class="native-lang">Tagalog</div>
+      </div>
+
+      <!-- 8位 アメリカ -->
+      <div class="flag-card" onclick="selectLanguage('en')">
+        <div class="flag-svg-container">
+          <svg viewBox="0 0 30 20">
+            <rect width="30" height="2.8" fill="#B22234"/><rect y="2.8" width="30" height="2.8" fill="#FFF"/>
+            <rect y="5.6" width="30" height="2.8" fill="#B22234"/><rect y="8.4" width="30" height="2.8" fill="#FFF"/>
+            <rect y="11.2" width="30" height="2.8" fill="#B22234"/><rect y="14" width="30" height="2.8" fill="#FFF"/>
+            <rect y="16.8" width="30" height="3.2" fill="#B22234"/>
+            <rect width="12" height="11.2" fill="#3C3B6E"/>
+            <circle cx="3" cy="3" r="0.6" fill="#FFF"/><circle cx="6" cy="3" r="0.6" fill="#FFF"/><circle cx="9" cy="3" r="0.6" fill="#FFF"/>
+            <circle cx="4.5" cy="5.6" r="0.6" fill="#FFF"/><circle cx="7.5" cy="5.6" r="0.6" fill="#FFF"/>
+            <circle cx="3" cy="8.2" r="0.6" fill="#FFF"/><circle cx="6" cy="8.2" r="0.6" fill="#FFF"/><circle cx="9" cy="8.2" r="0.6" fill="#FFF"/>
+          </svg>
+        </div>
+        <span>アメリカ</span>
+        <div class="native-lang">English</div>
+      </div>
+
+      <!-- 最後 日本 -->
       <div class="flag-card" onclick="selectLanguage('ja')">
         <div class="flag-svg-container">
           <svg viewBox="0 0 30 20">
@@ -580,7 +613,7 @@
             <circle cx="15" cy="10" r="6" fill="#BC002D"/>
           </svg>
         </div>
-        <span>日 本</span>
+        <span>日本</span>
         <div class="native-lang">日本語</div>
       </div>
 
@@ -679,20 +712,12 @@
   </div>
 
   <script>
-    // 多言語・質問データ構造（国籍言語表示をメインに、下部に英語の「YES ⭕」「NO ❌」を表示する設計）
+    // 多言語・質問データ構造（ネパール語、タガログ語を新規追加して9言語に対応）
     const disasterData = [
       {
         id: 0,
         japaneseTitle: "ケガはありますか？",
         translations: {
-          en: {
-            question: "Are you injured?",
-            answers: [
-              { label: "YES", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" },
-              { label: "NO", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }
-            ],
-            audioText: "Are you injured?"
-          },
           vi: {
             question: "Bạn có bị thương không?",
             answers: [
@@ -701,14 +726,6 @@
             ],
             audioText: "Bạn có bị thương không?"
           },
-          zh: {
-            question: "你受伤了吗？",
-            answers: [
-              { label: "受伤了", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" },
-              { label: "没有受伤", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }
-            ],
-            audioText: "你受伤了吗？"
-          },
           id: {
             question: "Apakah Anda terluka?",
             answers: [
@@ -716,6 +733,14 @@
               { label: "Tidak terluka", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }
             ],
             audioText: "Apakah Anda terluka?"
+          },
+          zh: {
+            question: "你受伤了吗？",
+            answers: [
+              { label: "受伤了", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" },
+              { label: "没有受伤", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }
+            ],
+            audioText: "你受伤了吗？"
           },
           my: {
             question: "ဒဏ်ရာရထားပါသလား။",
@@ -733,6 +758,30 @@
             ],
             audioText: "다치셨습니까?"
           },
+          ne: {
+            question: "तपाईंलाई चोट लागेको छ?",
+            answers: [
+              { label: "चोट लागेको छ", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" },
+              { label: "चोट लागेको छैन", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }
+            ],
+            audioText: "तपाईंलाई चोट लागेको छ?"
+          },
+          tl: {
+            question: "May sugat ka ba?",
+            answers: [
+              { label: "May sugat", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" },
+              { label: "Walang sugat", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }
+            ],
+            audioText: "May sugat ka ba?"
+          },
+          en: {
+            question: "Are you injured?",
+            answers: [
+              { label: "YES", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" },
+              { label: "NO", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }
+            ],
+            audioText: "Are you injured?"
+          },
           ja: {
             question: "ケガはありますか？",
             answers: [
@@ -747,14 +796,6 @@
         id: 1,
         japaneseTitle: "歩けますか？",
         translations: {
-          en: {
-            question: "Can you walk?",
-            answers: [
-              { label: "Can walk", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" },
-              { label: "Cannot walk", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }
-            ],
-            audioText: "Can you walk?"
-          },
           vi: {
             question: "Bạn có thể đi bộ được không?",
             answers: [
@@ -763,14 +804,6 @@
             ],
             audioText: "Bạn có thể đi bộ được không?"
           },
-          zh: {
-            question: "你能走路吗？",
-            answers: [
-              { label: "能走", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" },
-              { label: "不能走", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }
-            ],
-            audioText: "你能走路吗？"
-          },
           id: {
             question: "Apakah Anda bisa berjalan?",
             answers: [
@@ -778,6 +811,14 @@
               { label: "Tidak bisa", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }
             ],
             audioText: "Apakah Anda bisa berjalan?"
+          },
+          zh: {
+            question: "你能走路吗？",
+            answers: [
+              { label: "能走", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" },
+              { label: "不能走", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }
+            ],
+            audioText: "你能走路吗？"
           },
           my: {
             question: "လမ်းလျှောက်နိုင်ပါသလား။",
@@ -795,6 +836,30 @@
             ],
             audioText: "걸을 수 있습니까?"
           },
+          ne: {
+            question: "तपाईं हिड्न सक्नुहुन्छ?",
+            answers: [
+              { label: "हिड्न सक्छु", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" },
+              { label: "हिड्न सक्दिन", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }
+            ],
+            audioText: "तपाईं हिड्न सक्नुहुन्छ?"
+          },
+          tl: {
+            question: "Kaya mo bang maglakad?",
+            answers: [
+              { label: "Kayang maglakad", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" },
+              { label: "Hindi kaya", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }
+            ],
+            audioText: "Kaya mo bang maglakad?"
+          },
+          en: {
+            question: "Can you walk?",
+            answers: [
+              { label: "Can walk", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" },
+              { label: "Cannot walk", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }
+            ],
+            audioText: "Can you walk?"
+          },
           ja: {
             question: "歩けますか？",
             answers: [
@@ -809,14 +874,6 @@
         id: 2,
         japaneseTitle: "家にまだ誰かいますか？",
         translations: {
-          en: {
-            question: "Is anyone else left inside the house?",
-            answers: [
-              { label: "Yes, someone", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" },
-              { label: "No one", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }
-            ],
-            audioText: "Is anyone else left inside the house?"
-          },
           vi: {
             question: "Còn ai ở trong nhà không?",
             answers: [
@@ -825,14 +882,6 @@
             ],
             audioText: "Còn ai ở trong nhà không?"
           },
-          zh: {
-            question: "屋里还有其他人吗？",
-            answers: [
-              { label: "还有人", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" },
-              { label: "没有其他人", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }
-            ],
-            audioText: "屋里还有其他人吗？"
-          },
           id: {
             question: "Apakah masih ada orang di dalam rumah?",
             answers: [
@@ -840,6 +889,14 @@
               { label: "Tidak ada orang", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }
             ],
             audioText: "Apakah masih ada orang di dalam rumah?"
+          },
+          zh: {
+            question: "屋里还有其他人吗？",
+            answers: [
+              { label: "还有人", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" },
+              { label: "没有其他人", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }
+            ],
+            audioText: "屋里还有其他人吗？"
           },
           my: {
             question: "အိမ်ထဲမှာ လူကျန်သေးသလား။",
@@ -857,6 +914,30 @@
             ],
             audioText: "집 안에 다른 사람이 있습니까?"
           },
+          ne: {
+            question: "घर भित्र कोही बाँकी छ?",
+            answers: [
+              { label: "कोही छ", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" },
+              { label: "कोही छैन", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }
+            ],
+            audioText: "घर भित्र कोही बाँकी छ?"
+          },
+          tl: {
+            question: "May tao pa ba sa loob ng bahay?",
+            answers: [
+              { label: "May tao pa", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" },
+              { label: "Wala nang tao", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }
+            ],
+            audioText: "May tao pa ba sa loob ng bahay?"
+          },
+          en: {
+            question: "Is anyone else left inside the house?",
+            answers: [
+              { label: "Yes, someone", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" },
+              { label: "No one", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }
+            ],
+            audioText: "Is anyone else left inside the house?"
+          },
           ja: {
             question: "家にまだ誰かいますか？",
             answers: [
@@ -869,8 +950,8 @@
       }
     ];
 
-    // アプリ状態管理
-    let currentLanguage = 'en';
+    // アプリ状態管理 (初期言語をベトナム語(vi)に設定)
+    let currentLanguage = 'vi';
     let currentQuestionIndex = 0;
 
     // 初期化
@@ -999,6 +1080,7 @@
     let synth = window.speechSynthesis;
     let voices = [];
 
+    // 音声合成エンジンのセットアップ
     function setupSpeech() {
       if (synth) {
         voices = synth.getVoices();
@@ -1008,6 +1090,7 @@
       }
     }
 
+    // 適切な音声言語コードのマッピング
     function speakQuestion() {
       if (!synth) return;
       
@@ -1018,18 +1101,19 @@
       const translation = data.translations[currentLanguage];
       const utterance = new SpeechSynthesisUtterance(translation.audioText);
       
-      // 言語コードのマッピング
-      let langCode = 'en-US';
+      let langCode = 'vi-VN';
       if (currentLanguage === 'vi') langCode = 'vi-VN';
-      if (currentLanguage === 'zh') langCode = 'zh-CN';
       if (currentLanguage === 'id') langCode = 'id-ID';
+      if (currentLanguage === 'zh') langCode = 'zh-CN';
       if (currentLanguage === 'my') langCode = 'my-MM';
       if (currentLanguage === 'ko') langCode = 'ko-KR';
+      if (currentLanguage === 'ne') langCode = 'ne-NP';
+      if (currentLanguage === 'tl') langCode = 'tl-PH';
+      if (currentLanguage === 'en') langCode = 'en-US';
       if (currentLanguage === 'ja') langCode = 'ja-JP';
       
       utterance.lang = langCode;
       
-      // 適切な音声（Voice）を探す
       const targetVoice = voices.find(voice => voice.lang.startsWith(langCode));
       if (targetVoice) {
         utterance.voice = targetVoice;
