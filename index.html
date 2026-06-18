@@ -1395,9 +1395,9 @@
         }
       });
 
-      // カテゴリ切替後、そのカテゴリの最初の質問を自動選択する
+      // カテゴリ切替後、そのカテゴリの最初の質問を自動選択する（消音）
       const firstQuestionIndex = category === 'fire' ? 0 : 3;
-      selectQuestion(firstQuestionIndex);
+      selectQuestion(firstQuestionIndex, true);
     }
 
     // 言語の選択（起動画面から）
@@ -1416,7 +1416,7 @@
     }
 
     // 質問選択（団員側）
-    function selectQuestion(index) {
+    function selectQuestion(index, silent) {
       triggerFeedback();
       currentQuestionIndex = index;
       
@@ -1429,7 +1429,9 @@
       document.getElementById('response-display').textContent = responseHistory[index];
       
       renderApp();
-      speakQuestion();
+      if (!silent) {
+        speakQuestion();
+      }
     }
 
     // 回答選択（外国人側）
