@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -94,7 +94,7 @@
       justify-content: center;
       gap: 10px;
       line-height: 1.4;
-      padding: 0 40px; /* 回転ボタンと被らないように左右に余白 */
+      padding: 0 40px;
     }
 
     .welcome-subtitle {
@@ -103,7 +103,6 @@
       margin-top: 2px;
     }
 
-    /* 国旗選択グリッド (24か国のスクロールを考慮した3列配置) */
     .flag-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -114,7 +113,6 @@
       padding-bottom: 32px;
     }
 
-    /* 国旗選択ボタン */
     .flag-card {
       background-color: var(--color-card-外国人);
       border: 1.5px solid rgba(255, 255, 255, 0.1);
@@ -133,7 +131,6 @@
       background-color: rgba(255, 255, 255, 0.05);
     }
 
-    /* 国旗のグラフィック（SVG）サイズ調整 */
     .flag-svg-container {
       width: 100%;
       max-width: 70px;
@@ -199,7 +196,7 @@
       border-top: 4px solid var(--color-primary);
       display: flex;
       flex-direction: column;
-      padding: 12px;
+      padding: 8px 12px 12px 12px;
       position: relative;
       overflow: hidden;
     }
@@ -213,7 +210,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .app-title {
@@ -234,7 +231,6 @@
       font-weight: bold;
     }
 
-    /* 言語変更（起動画面に戻る）ボタン */
     .back-to-lang-btn {
       background-color: var(--color-card-団員);
       border: 2px solid var(--color-primary);
@@ -253,6 +249,39 @@
       background-color: var(--color-primary);
     }
 
+    /* カテゴリ切り替えタブ */
+    .category-tabs {
+      display: flex;
+      background-color: #000000;
+      border-radius: 10px;
+      padding: 3px;
+      margin-bottom: 8px;
+      gap: 4px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      background-color: transparent;
+      border: none;
+      color: var(--color-text-muted);
+      padding: 10px;
+      font-size: 0.95rem;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active {
+      background-color: var(--color-primary);
+      color: #FFFFFF;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    }
+
     /* 質問選択エリア（団員側） */
     .question-grid {
       display: grid;
@@ -266,11 +295,11 @@
       background-color: var(--color-card-団員);
       border: 3px solid transparent;
       border-radius: 12px;
-      display: flex;
+      display: none; /* 初期状態は非表示（JSで制御） */
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 8px;
+      padding: 6px;
       cursor: pointer;
       text-align: center;
       transition: all 0.2s;
@@ -282,18 +311,18 @@
     }
 
     .question-card svg {
-      width: 48px;
-      height: 48px;
-      margin-bottom: 6px;
+      width: 44px;
+      height: 44px;
+      margin-bottom: 4px;
     }
 
     .question-card span {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: bold;
       line-height: 1.2;
     }
 
-    /* 応答ログ表示エリア（団員側） */
+    /* 応答ログ表示エリア */
     .response-log-box {
       background-color: #000000;
       border-radius: 8px;
@@ -350,7 +379,6 @@
       padding-top: 8px;
     }
 
-    /* 180度回転コントロールボタン */
     .rotate-control {
       position: absolute;
       top: 12px;
@@ -412,7 +440,7 @@
       border: none;
       border-radius: 16px;
       color: #fff;
-      font-size: 1.5rem; /* 多くの文字が入るため1.5remに調整 */
+      font-size: 1.4rem;
       font-weight: 900;
       display: flex;
       flex-direction: column;
@@ -447,19 +475,8 @@
       opacity: 0.9;
     }
 
-    /* オフライン状態のバナー表示用 */
-    .offline-banner {
-      display: none;
-      background-color: var(--color-warning);
-      color: var(--color-text-dark);
-      text-align: center;
-      font-size: 0.75rem;
-      font-weight: bold;
-      padding: 4px 0;
-    }
-
     /* ----------------------------------------------------
-       3. 履歴モーダル（一覧表示）のスタイル
+       3. 履歴モーダル（一覧表示）のスタイル (2カテゴリ構造に拡張)
        ---------------------------------------------------- */
     .history-modal {
       position: fixed;
@@ -472,7 +489,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 16px;
       transition: opacity 0.3s ease, visibility 0.3s;
     }
 
@@ -488,35 +505,48 @@
       border-radius: 20px;
       width: 100%;
       max-width: 450px;
-      padding: 20px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 12px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      max-height: 90vh;
+      overflow-y: auto;
     }
 
     .modal-content h2 {
       text-align: center;
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       color: #FFFFFF;
       border-bottom: 2px solid var(--color-primary);
-      padding-bottom: 8px;
+      padding-bottom: 6px;
+    }
+
+    .history-category-title {
+      font-size: 0.9rem;
+      color: var(--color-primary);
+      font-weight: bold;
+      margin-top: 8px;
+      margin-bottom: 4px;
+      border-left: 3px solid var(--color-primary);
+      padding-left: 6px;
     }
 
     .history-list {
       display: flex;
       flex-direction: column;
       background-color: #000000;
-      border-radius: 12px;
-      padding: 8px;
+      border-radius: 10px;
+      padding: 4px 8px;
       gap: 2px;
+      margin-bottom: 6px;
     }
 
     .history-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 14px 10px;
+      padding: 10px 4px;
       border-bottom: 1px solid #222;
     }
 
@@ -525,13 +555,13 @@
     }
 
     .history-item-title {
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       font-weight: bold;
       color: var(--color-text-muted);
     }
 
     .history-item-value {
-      font-size: 1.3rem;
+      font-size: 1.15rem;
       font-weight: 900;
       color: var(--color-warning);
     }
@@ -539,11 +569,11 @@
     .modal-close-btn {
       background-color: var(--color-primary);
       color: #fff;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       font-weight: bold;
-      padding: 12px;
+      padding: 10px;
       border: none;
-      border-radius: 12px;
+      border-radius: 10px;
       cursor: pointer;
       width: 100%;
       transition: background-color 0.2s;
@@ -554,7 +584,6 @@
       background-color: #B71C1C;
     }
 
-    /* 振動・アニメーション等の視覚フィードバック */
     @keyframes pulse {
       0% { transform: scale(1); }
       50% { transform: scale(1.03); }
@@ -567,7 +596,7 @@
 </head>
 <body>
 
-  <!-- 1. 起動画面（言語選択）大村市の外国籍住民ランキング順（24か国対応） -->
+  <!-- 1. 起動画面（言語選択） -->
   <div id="welcome-screen" class="welcome-screen">
     <!-- 180度反転ボタン -->
     <div class="rotate-control">
@@ -706,14 +735,13 @@
         <div class="native-lang">English</div>
       </div>
 
-      <!-- 新規追加：台湾 -->
+      <!-- 9位 台湾 -->
       <div class="flag-card" onclick="selectLanguage('zh-tw')">
         <div class="flag-svg-container">
           <svg viewBox="0 0 30 20">
             <rect width="30" height="20" fill="#FE0000"/>
             <rect width="15" height="10" fill="#0000AB"/>
             <circle cx="7.5" cy="5" r="2" fill="#FFF"/>
-            <!-- 太陽の簡易光条 -->
             <path d="M 7.5,2 L 7.5,8 M 4.5,5 L 10.5,5 M 5.4,2.9 L 9.6,7.1 M 5.4,7.1 L 9.6,2.9" stroke="#0000AB" stroke-width="0.6"/>
             <circle cx="7.5" cy="5" r="1.4" fill="#0000AB"/>
             <circle cx="7.5" cy="5" r="1.1" fill="#FFF"/>
@@ -723,7 +751,7 @@
         <div class="native-lang">繁體中文</div>
       </div>
 
-      <!-- 新規追加：タイ -->
+      <!-- 10位 タイ -->
       <div class="flag-card" onclick="selectLanguage('th')">
         <div class="flag-svg-container">
           <svg viewBox="0 0 30 20">
@@ -738,14 +766,13 @@
         <div class="native-lang">ภาษาไทย</div>
       </div>
 
-      <!-- 新規追加：カンボジア -->
+      <!-- 11位 カンボジア -->
       <div class="flag-card" onclick="selectLanguage('km')">
         <div class="flag-svg-container">
           <svg viewBox="0 0 30 20">
             <rect width="30" height="5" fill="#032EA6"/>
             <rect y="5" width="30" height="10" fill="#E81C23"/>
             <rect y="15" width="30" height="5" fill="#032EA6"/>
-            <!-- アンコールワットの簡易シルエット -->
             <path d="M 11,13 h 8 v -2 h -1 v -2 h -1 v 2 h -2 v -3 h -1 v 3 h -2 v -2 h -1 z" fill="#FFF"/>
           </svg>
         </div>
@@ -753,7 +780,7 @@
         <div class="native-lang">ភាសាខ្មែរ</div>
       </div>
 
-      <!-- 新規追加：インド -->
+      <!-- 12位 インド -->
       <div class="flag-card" onclick="selectLanguage('hi')">
         <div class="flag-svg-container">
           <svg viewBox="0 0 30 20">
@@ -768,25 +795,21 @@
         <div class="native-lang">हिन्दी</div>
       </div>
 
-      <!-- 新規追加：スリランカ -->
+      <!-- 13位 スリランカ -->
       <div class="flag-card" onclick="selectLanguage('si')">
         <div class="flag-svg-container">
-          <svg viewBox="0 0 30 20">
-            <!-- 外枠と緑・オレンジの帯 -->
-            <rect width="30" height="20" fill="#F7B900"/>
-            <rect x="1.5" y="1.5" width="4.5" height="17" fill="#007F7C"/>
-            <rect x="6" y="1.5" width="4.5" height="17" fill="#E67E22"/>
-            <!-- 右半分の赤地とライオン簡易表現 -->
-            <rect x="11.5" y="1.5" width="17" height="17" fill="#800020"/>
-            <circle cx="20" cy="10" r="3" fill="#F7B900"/>
-            <path d="M 23,10 L 25,8" stroke="#F7B900" stroke-width="1.5"/> <!-- 剣 -->
-          </svg>
+          <rect width="30" height="20" fill="#F7B900"/>
+          <rect x="1.5" y="1.5" width="4.5" height="17" fill="#007F7C"/>
+          <rect x="6" y="1.5" width="4.5" height="17" fill="#E67E22"/>
+          <rect x="11.5" y="1.5" width="17" height="17" fill="#800020"/>
+          <circle cx="20" cy="10" r="3" fill="#F7B900"/>
+          <path d="M 23,10 L 25,8" stroke="#F7B900" stroke-width="1.5"/>
         </div>
         <span>スリランカ</span>
         <div class="native-lang">සිංහල</div>
       </div>
 
-      <!-- 新規追加：バングラデシュ -->
+      <!-- 14位 バングラデシュ -->
       <div class="flag-card" onclick="selectLanguage('bn')">
         <div class="flag-svg-container">
           <svg viewBox="0 0 30 20">
@@ -798,13 +821,12 @@
         <div class="native-lang">বাংলা</div>
       </div>
 
-      <!-- 新規追加：パキスタン -->
+      <!-- 15位 パキスタン -->
       <div class="flag-card" onclick="selectLanguage('ur')">
         <div class="flag-svg-container">
           <svg viewBox="0 0 30 20">
             <rect width="30" height="20" fill="#01411C"/>
             <rect width="7.5" height="20" fill="#FFF"/>
-            <!-- 三日月と星 -->
             <path d="M 19.5,6.5 A 4 4 0 1 1 15.5,12 A 3.2 3.2 0 1 0 19.5,6.5 Z" fill="#FFF"/>
             <polygon points="20.5,7 21,8.5 22.5,8.5 21.3,9.4 21.7,10.9 20.5,10 19.3,10.9 19.7,9.4 18.5,8.5 20,8.5" fill="#FFF"/>
           </svg>
@@ -813,7 +835,7 @@
         <div class="native-lang">اردو</div>
       </div>
 
-      <!-- 新規追加：ブラジル -->
+      <!-- 16位 ブラジル -->
       <div class="flag-card" onclick="selectLanguage('pt-br')">
         <div class="flag-svg-container">
           <svg viewBox="0 0 30 20">
@@ -827,14 +849,13 @@
         <div class="native-lang">Português</div>
       </div>
 
-      <!-- 新規追加：モンゴル -->
+      <!-- 17位 モンゴル -->
       <div class="flag-card" onclick="selectLanguage('mn')">
         <div class="flag-svg-container">
           <svg viewBox="0 0 30 20">
             <rect width="10" height="20" fill="#E53935"/>
             <rect x="10" width="10" height="20" fill="#1565C0"/>
             <rect x="20" width="10" height="20" fill="#E53935"/>
-            <!-- ソヨンボ記号の簡易表現（黄色い丸と三日月） -->
             <circle cx="5" cy="5" r="1.5" fill="#FDD835"/>
             <circle cx="5" cy="10" r="1.2" fill="#FDD835"/>
             <rect x="4.4" y="13" width="1.2" height="4" fill="#FDD835"/>
@@ -844,7 +865,7 @@
         <div class="native-lang">Монгол</div>
       </div>
 
-      <!-- 新規追加：ロシア -->
+      <!-- 18位 ロシア -->
       <div class="flag-card" onclick="selectLanguage('ru')">
         <div class="flag-svg-container">
           <svg viewBox="0 0 30 20">
@@ -857,7 +878,7 @@
         <div class="native-lang">Русский</div>
       </div>
 
-      <!-- 新規追加：ウクライナ -->
+      <!-- 19位 ウクライナ -->
       <div class="flag-card" onclick="selectLanguage('uk')">
         <div class="flag-svg-container">
           <svg viewBox="0 0 30 20">
@@ -869,7 +890,7 @@
         <div class="native-lang">Українська</div>
       </div>
 
-      <!-- 新規追加：ドイツ -->
+      <!-- 20位 ドイツ -->
       <div class="flag-card" onclick="selectLanguage('de')">
         <div class="flag-svg-container">
           <svg viewBox="0 0 30 20">
@@ -882,7 +903,7 @@
         <div class="native-lang">Deutsch</div>
       </div>
 
-      <!-- 新規追加：フランス -->
+      <!-- 21位 フランス -->
       <div class="flag-card" onclick="selectLanguage('fr')">
         <div class="flag-svg-container">
           <svg viewBox="0 0 30 20">
@@ -895,7 +916,7 @@
         <div class="native-lang">Français</div>
       </div>
 
-      <!-- 新規追加：イタリア -->
+      <!-- 22位 イタリア -->
       <div class="flag-card" onclick="selectLanguage('it')">
         <div class="flag-svg-container">
           <svg viewBox="0 0 30 20">
@@ -908,7 +929,7 @@
         <div class="native-lang">Italiano</div>
       </div>
 
-      <!-- 新規追加：オランダ -->
+      <!-- 23位 オランダ -->
       <div class="flag-card" onclick="selectLanguage('nl')">
         <div class="flag-svg-container">
           <svg viewBox="0 0 30 20">
@@ -921,7 +942,7 @@
         <div class="native-lang">Nederlands</div>
       </div>
 
-      <!-- 最後：日本 -->
+      <!-- 最後 日本 -->
       <div class="flag-card" onclick="selectLanguage('ja')">
         <div class="flag-svg-container">
           <svg viewBox="0 0 30 20">
@@ -982,9 +1003,15 @@
         </button>
       </div>
 
-      <!-- 質問選択カード -->
+      <!-- 新設：カテゴリ切り替えタブ -->
+      <div class="category-tabs">
+        <button class="tab-btn active" id="tab-fire" onclick="switchCategory('fire')">🚒 消防・救急</button>
+        <button class="tab-btn" id="tab-admin" onclick="switchCategory('admin')">🏫 行政・避難所</button>
+      </div>
+
+      <!-- 質問選択カード (消防・救急カテゴリ) -->
       <div class="question-grid">
-        <div class="question-card active" id="q-card-0" onclick="selectQuestion(0)">
+        <div class="question-card active" id="q-card-0" onclick="selectQuestion(0)" data-category="fire" style="display: flex;">
           <!-- ケガ（救急・十字） -->
           <svg viewBox="0 0 100 100">
             <rect x="10" y="10" width="80" height="80" rx="15" fill="#E53935"/>
@@ -993,27 +1020,55 @@
           </svg>
           <span>ケガ確認</span>
         </div>
-        <div class="question-card" id="q-card-1" onclick="selectQuestion(1)">
+        <div class="question-card" id="q-card-1" onclick="selectQuestion(1)" data-category="fire" style="display: flex;">
           <!-- 歩行（歩く人） -->
           <svg viewBox="0 0 100 100">
             <rect x="10" y="10" width="80" height="80" rx="15" fill="#43A047"/>
-            <!-- 人影シルエット -->
             <circle cx="55" cy="25" r="10" fill="#FFF"/>
             <path d="M50 38c-5 0-12 5-15 10l-5 8M50 38l5 15 10 18M42 53l-6 22M52 53l6 12 12 10" stroke="#FFF" stroke-width="8" stroke-linecap="round" fill="none"/>
           </svg>
           <span>歩行可否</span>
         </div>
-        <div class="question-card" id="q-card-2" onclick="selectQuestion(2)">
+        <div class="question-card" id="q-card-2" onclick="selectQuestion(2)" data-category="fire" style="display: flex;">
           <!-- 家の中に人（家＋人影） -->
           <svg viewBox="0 0 100 100">
             <rect x="10" y="10" width="80" height="80" rx="15" fill="#FDD835"/>
-            <!-- 家の輪郭 -->
             <path d="M50 20 L20 45 V80 H80 V45 Z" fill="none" stroke="#111" stroke-width="8" stroke-linejoin="round"/>
-            <!-- 人影 -->
             <circle cx="50" cy="50" r="8" fill="#111"/>
             <path d="M38 72 c0-10 8-12 12-12 s12 2 12 12" fill="#111"/>
           </svg>
           <span>屋内残留</span>
+        </div>
+
+        <!-- 質問選択カード (行政・避難所カテゴリ) -->
+        <div class="question-card" id="q-card-3" onclick="selectQuestion(3)" data-category="admin">
+          <!-- 食事（アレルギー・食べ物） -->
+          <svg viewBox="0 0 100 100">
+            <rect x="10" y="10" width="80" height="80" rx="15" fill="#FF9800"/>
+            <!-- 皿とフォークスプーン -->
+            <circle cx="50" cy="55" r="22" fill="none" stroke="#FFF" stroke-width="6"/>
+            <path d="M30 30 v25 M30 38 h6 M70 30 v25" stroke="#FFF" stroke-width="6" stroke-linecap="round"/>
+          </svg>
+          <span>食事制限</span>
+        </div>
+        <div class="question-card" id="q-card-4" onclick="selectQuestion(4)" data-category="admin">
+          <!-- 医療（赤十字・ハート） -->
+          <svg viewBox="0 0 100 100">
+            <rect x="10" y="10" width="80" height="80" rx="15" fill="#E91E63"/>
+            <!-- 薬カプセルまたはハート -->
+            <path d="M12 50 C12 30, 40 30, 50 45 C60 30, 88 30, 88 50 C88 72, 50 90, 50 90 C50 90, 12 72, 12 50 Z" fill="#FFF"/>
+          </svg>
+          <span>薬・医療</span>
+        </div>
+        <div class="question-card" id="q-card-5" onclick="selectQuestion(5)" data-category="admin">
+          <!-- 受付（登録・書類） -->
+          <svg viewBox="0 0 100 100">
+            <rect x="10" y="10" width="80" height="80" rx="15" fill="#00BCD4"/>
+            <!-- ペンとクリップボード -->
+            <rect x="30" y="25" width="40" height="50" rx="4" fill="none" stroke="#FFF" stroke-width="6"/>
+            <path d="M40 40 h20 M40 55 h20" stroke="#FFF" stroke-width="6" stroke-linecap="round"/>
+          </svg>
+          <span>避難登録</span>
         </div>
       </div>
 
@@ -1034,608 +1089,211 @@
   <div id="history-modal" class="history-modal hidden">
     <div class="modal-content">
       <h2>📋 回答履歴一覧</h2>
-      <div id="history-list" class="history-list">
-        <!-- JSで動的に履歴を生成 -->
-      </div>
+      
+      <div class="history-category-title">🚒 消防・救急</div>
+      <div id="history-list-fire" class="history-list"></div>
+      
+      <div class="history-category-title">🏫 行政・避難所</div>
+      <div id="history-list-admin" class="history-list"></div>
+      
       <button class="modal-close-btn" onclick="closeHistoryModal()">閉じる</button>
     </div>
   </div>
 
   <script>
-    // 多言語・質問データ構造 (24言語対応)
+    // 24ヶ国語辞書データ構造（計6問）
     const disasterData = [
+      // ==========================================
+      // 【消防・救急】カテゴリ
+      // ==========================================
       {
         id: 0,
         japaneseTitle: "ケガはありますか？",
+        category: "fire",
         translations: {
-          vi: {
-            question: "Bạn có bị thương không?",
-            answers: [
-              { label: "Có bị thương", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" },
-              { label: "Không bị thương", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }
-            ],
-            audioText: "Bạn có bị thương không?"
-          },
-          id: {
-            question: "Apakah Anda terluka?",
-            answers: [
-              { label: "Terluka", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" },
-              { label: "Tidak terluka", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }
-            ],
-            audioText: "Apakah Anda terluka?"
-          },
-          zh: {
-            question: "你受伤了吗？",
-            answers: [
-              { label: "受伤了", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" },
-              { label: "没有受伤", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }
-            ],
-            audioText: "你受伤了吗？"
-          },
-          my: {
-            question: "ဒဏ်ရာရထားပါသလား။",
-            answers: [
-              { label: "ဒဏ်ရာရထားသည်", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" },
-              { label: "ဒဏ်ရာမရပါ", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }
-            ],
-            audioText: "ဒဏ်ရာရထားပါသလား။"
-          },
-          ko: {
-            question: "다치셨습니까?",
-            answers: [
-              { label: "부상 있음", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" },
-              { label: "부상 없음", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }
-            ],
-            audioText: "다치셨습니까?"
-          },
-          ne: {
-            question: "तपाईंलाई चोट लागेको छ?",
-            answers: [
-              { label: "चोट लागेको छ", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" },
-              { label: "चोट लागेको छैन", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }
-            ],
-            audioText: "तपाईंलाई चोट लागेको छ?"
-          },
-          tl: {
-            question: "May sugat ka ba?",
-            answers: [
-              { label: "May sugat", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" },
-              { label: "Walang sugat", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }
-            ],
-            audioText: "May sugat ka ba?"
-          },
-          en: {
-            question: "Are you injured?",
-            answers: [
-              { label: "YES", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" },
-              { label: "NO", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }
-            ],
-            audioText: "Are you injured?"
-          },
-          "zh-tw": {
-            question: "你受傷了嗎？",
-            answers: [
-              { label: "受傷了", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" },
-              { label: "沒有受傷", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }
-            ],
-            audioText: "你受傷了嗎？"
-          },
-          th: {
-            question: "คุณได้รับบาดเจ็บหรือไม่?",
-            answers: [
-              { label: "บาดเจ็บ", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" },
-              { label: "ไม่บาดเจ็บ", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }
-            ],
-            audioText: "คุณได้รับบาดเจ็บหรือไม่?"
-          },
-          km: {
-            question: "តើអ្នកមានរបួសទេ?",
-            answers: [
-              { label: "មានរបួស", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" },
-              { label: "គ្មានរបួសទេ", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }
-            ],
-            audioText: "តើអ្នកមានរបួសទេ?"
-          },
-          hi: {
-            question: "क्या आप घायल हैं?",
-            answers: [
-              { label: "हाँ, घायल हूँ", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" },
-              { label: "नहीं, ठीक हूँ", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }
-            ],
-            audioText: "क्या आप घायल हैं?"
-          },
-          si: {
-            question: "ඔබට තුවාල සිදුවී තිබේද?",
-            answers: [
-              { label: "තුවාල ඇත", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" },
-              { label: "තුවාල නැත", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }
-            ],
-            audioText: "ඔබට තුවාල සිදුවී තිබේද?"
-          },
-          bn: {
-            question: "আপনি কি আহত?",
-            answers: [
-              { label: "হ্যাঁ, আহত", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" },
-              { label: "না, ঠিক আছি", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }
-            ],
-            audioText: "আপনি কি আহত?"
-          },
-          ur: {
-            question: "کیا آپ زخمی ہیں؟",
-            answers: [
-              { label: "زخمی ہوں", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" },
-              { label: "ٹھیک ہوں", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }
-            ],
-            audioText: "کیا آپ زخمی ہیں؟"
-          },
-          "pt-br": {
-            question: "Você está ferido?",
-            answers: [
-              { label: "Sim, ferido", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" },
-              { label: "Não ferido", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }
-            ],
-            audioText: "Você está ferido?"
-          },
-          mn: {
-            question: "Та гэмтсэн үү?",
-            answers: [
-              { label: "Гэмтсэн", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" },
-              { label: "Гэмтээгүй", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }
-            ],
-            audioText: "Та гэмтсэн үү?"
-          },
-          ru: {
-            question: "Вы ранены?",
-            answers: [
-              { label: "Ранен", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" },
-              { label: "Не ранен", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }
-            ],
-            audioText: "Вы ранены?"
-          },
-          uk: {
-            question: "Ви поранені?",
-            answers: [
-              { label: "Поранений", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" },
-              { label: "Не поранений", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }
-            ],
-            audioText: "Ви поранені?"
-          },
-          de: {
-            question: "Sind Sie verletzt?",
-            answers: [
-              { label: "Verletzt", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" },
-              { label: "Nicht verletzt", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }
-            ],
-            audioText: "Sind Sie verletzt?"
-          },
-          fr: {
-            question: "Êtes-vous blessé ?",
-            answers: [
-              { label: "Blessé", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" },
-              { label: "Non blessé", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }
-            ],
-            audioText: "Êtes-vous blessé ?"
-          },
-          it: {
-            question: "Sei ferito?",
-            answers: [
-              { label: "Ferito", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" },
-              { label: "Non ferito", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }
-            ],
-            audioText: "Sei ferito?"
-          },
-          nl: {
-            question: "Bent u gewond?",
-            answers: [
-              { label: "Gewond", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" },
-              { label: "Niet gewond", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }
-            ],
-            audioText: "Bent u gewond?"
-          },
-          ja: {
-            question: "ケガはありますか？",
-            answers: [
-              { label: "はい", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" },
-              { label: "いいえ", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }
-            ],
-            audioText: "ケガはありますか？"
-          }
+          vi: { question: "Bạn có bị thương không?", answers: [{ label: "Có bị thương", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "Không bị thương", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "Bạn có bị thương không?" },
+          id: { question: "Apakah Anda terluka?", answers: [{ label: "Terluka", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "Tidak terluka", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "Apakah Anda terluka?" },
+          zh: { question: "你受伤了吗？", answers: [{ label: "受伤了", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "没有受伤", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "你受伤了吗？" },
+          my: { question: "ဒဏ်ရာရထားပါသလား။", answers: [{ label: "ဒဏ်ရာရထားသည်", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "ဒဏ်ရာမရပါ", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "ဒဏ်ရာရထားပါသလား။" },
+          ko: { question: "다치셨습니까?", answers: [{ label: "부상 있음", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "부상 없음", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "다치셨습니까?" },
+          ne: { question: "तपाईंलाई चोट लागेको छ?", answers: [{ label: "चोट लागेको छ", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "चोट लागेको छैन", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "तपाईंलाई चोट लागेको छ?" },
+          tl: { question: "May sugat ka ba?", answers: [{ label: "May sugat", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "Walang sugat", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "May sugat ka ba?" },
+          en: { question: "Are you injured?", answers: [{ label: "YES", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "NO", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "Are you injured?" },
+          "zh-tw": { question: "你受傷了嗎？", answers: [{ label: "受傷了", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "沒有受傷", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "你受傷了嗎？" },
+          th: { question: "คุณได้รับบาดเจ็บหรือไม่?", answers: [{ label: "บาดเจ็บ", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "ไม่บาดเจ็บ", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "คุณได้รับบาดเจ็บหรือไม่?" },
+          km: { question: "តើអ្នកមានរបួសទេ?", answers: [{ label: "មានរបួស", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "គ្មានរបួសទេ", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "តើអ្នកមានរបួសទេ?" },
+          hi: { question: "क्या आप घायल हैं?", answers: [{ label: "हाँ, घायल हूँ", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "نہیں, ठीक हूँ", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "क्या आप घायल हैं?" },
+          si: { question: "ඔබට තුවාල සිදුවී තිබේද?", answers: [{ label: "තුවාල ඇත", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "තුවාල නැත", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "ඔබට තුවාල සිදුවී තිබේද?" },
+          bn: { question: "আপনি কি আহত?", answers: [{ label: "হ্যাঁ, আহত", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "না, ঠিক আছি", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "আপনি কি আহত?" },
+          ur: { question: "کیا آپ زخمی ہیں؟", answers: [{ label: "زخمی ہوں", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "ٹھیک ہوں", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "کیا آپ زخمی ہیں؟" },
+          "pt-br": { question: "Você está ferido?", answers: [{ label: "Sim, ferido", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "Não ferido", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "Você está ferido?" },
+          mn: { question: "Та гэмтсэн үү?", answers: [{ label: "Гэмтсэн", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "Гэмтээгүй", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "Та гэмтсэн үү?" },
+          ru: { question: "Вы ранены?", answers: [{ label: "Ранен", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "Не ранен", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "Вы ранены?" },
+          uk: { question: "Ви поранені?", answers: [{ label: "Поранений", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "Не поранений", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "Ви поранені?" },
+          de: { question: "Sind Sie verletzt?", answers: [{ label: "Verletzt", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "Nicht verletzt", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "Sind Sie verletzt?" },
+          fr: { question: "Êtes-vous blessé ?", answers: [{ label: "Blessé", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "Non blessé", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "Êtes-vous blessé ?" },
+          it: { question: "Sei ferito?", answers: [{ label: "Ferito", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "Non ferito", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "Sei ferito?" },
+          nl: { question: "Bent u gewond?", answers: [{ label: "Gewond", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "Niet gewond", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "Bent u gewond?" },
+          ja: { question: "ケガはありますか？", answers: [{ label: "はい", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "いいえ", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "ケガはありますか？" }
         }
       },
       {
         id: 1,
         japaneseTitle: "歩けますか？",
+        category: "fire",
         translations: {
-          vi: {
-            question: "Bạn có thể đi bộ được không?",
-            answers: [
-              { label: "Có thể đi", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" },
-              { label: "Không thể đi", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }
-            ],
-            audioText: "Bạn có thể đi bộ được không?"
-          },
-          id: {
-            question: "Apakah Anda bisa berjalan?",
-            answers: [
-              { label: "Bisa berjalan", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" },
-              { label: "Tidak bisa", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }
-            ],
-            audioText: "Apakah Anda bisa berjalan?"
-          },
-          zh: {
-            question: "你能走路吗？",
-            answers: [
-              { label: "能走", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" },
-              { label: "不能走", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }
-            ],
-            audioText: "你能走路吗？"
-          },
-          my: {
-            question: "လမ်းလျှောက်နိုင်ပါသလား။",
-            answers: [
-              { label: "လျှောက်နိုင်သည်", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" },
-              { label: "မလျှောက်နိုင်ပါ", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }
-            ],
-            audioText: "လမ်းလျှောက်နိုင်ပါသလား။"
-          },
-          ko: {
-            question: "걸을 수 있습니까?",
-            answers: [
-              { label: "걸을 수 있음", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" },
-              { label: "걸을 수 없음", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }
-            ],
-            audioText: "걸을 수 있습니까?"
-          },
-          ne: {
-            question: "तपाईं हिड्न सक्नुहुन्छ?",
-            answers: [
-              { label: "हिड्न सक्छु", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" },
-              { label: "हिड्न सक्दिन", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }
-            ],
-            audioText: "तपाईं हिड्न सक्नुहुन्छ?"
-          },
-          tl: {
-            question: "Kaya mo bang maglakad?",
-            answers: [
-              { label: "Kayang maglakad", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" },
-              { label: "Hindi kaya", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }
-            ],
-            audioText: "Kaya mo bang maglakad?"
-          },
-          en: {
-            question: "Can you walk?",
-            answers: [
-              { label: "Can walk", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" },
-              { label: "Cannot walk", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }
-            ],
-            audioText: "Can you walk?"
-          },
-          "zh-tw": {
-            question: "你能走路嗎？",
-            answers: [
-              { label: "能走", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" },
-              { label: "不能走", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }
-            ],
-            audioText: "你能走路嗎？"
-          },
-          th: {
-            question: "คุณเดินได้ไหม?",
-            answers: [
-              { label: "เดินได้", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" },
-              { label: "เดินไม่ได้", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }
-            ],
-            audioText: "คุณเดินได้ไหม?"
-          },
-          km: {
-            question: "តើអ្នកអាចដើរបានទេ?",
-            answers: [
-              { label: "អាចដើរបាន", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" },
-              { label: "មិនអាចដើរទេ", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }
-            ],
-            audioText: "តើអ្នកអាចដើរបានទេ?"
-          },
-          hi: {
-            question: "क्या आप चल सकते हैं?",
-            answers: [
-              { label: "चल सकता हूँ", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" },
-              { label: "नहीं चल सकता", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }
-            ],
-            audioText: "क्या आप चल सकते हैं?"
-          },
-          si: {
-            question: "ඔබට ඇවිදීමට හැකිද?",
-            answers: [
-              { label: "ඇවිදිය හැක", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" },
-              { label: "ඇවිදිය නොහැක", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }
-            ],
-            audioText: "ඔබට ඇවිදීමට හැකිද?"
-          },
-          bn: {
-            question: "আপনি কি হাঁটতে পারেন?",
-            answers: [
-              { label: "হাঁটতে পারি", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" },
-              { label: "হাঁটতে পারি না", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }
-            ],
-            audioText: "আপনি কি হাঁটতে পারেন?"
-          },
-          ur: {
-            question: "کیا آپ چل سکتے ہیں؟",
-            answers: [
-              { label: "چل سکتا ہوں", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" },
-              { label: "نہیں چل سکتا", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }
-            ],
-            audioText: "کیا آپ چل سکتے ہیں؟"
-          },
-          "pt-br": {
-            question: "Você consegue caminhar?",
-            answers: [
-              { label: "Consigo", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" },
-              { label: "Não consigo", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }
-            ],
-            audioText: "Você consegue caminhar?"
-          },
-          mn: {
-            question: "Та алхаж чадах уу?",
-            answers: [
-              { label: "Чадна", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" },
-              { label: "Чадахгүй", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }
-            ],
-            audioText: "Та алхаж чадах уу?"
-          },
-          ru: {
-            question: "Вы можете идти?",
-            answers: [
-              { label: "Могу идти", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" },
-              { label: "Не могу идти", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }
-            ],
-            audioText: "Вы можете идти?"
-          },
-          uk: {
-            question: "Ви можете йти?",
-            answers: [
-              { label: "Можу йти", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" },
-              { label: "Не можу", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }
-            ],
-            audioText: "Ви можете йти?"
-          },
-          de: {
-            question: "Können Sie gehen?",
-            answers: [
-              { label: "Kann gehen", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" },
-              { label: "Kann nicht", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }
-            ],
-            audioText: "Können Sie gehen?"
-          },
-          fr: {
-            question: "Pouvez-vous marcher ?",
-            answers: [
-              { label: "Peut marcher", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" },
-              { label: "Ne peut pas", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }
-            ],
-            audioText: "Pouvez-vous marcher ?"
-          },
-          it: {
-            question: "Puoi camminare?",
-            answers: [
-              { label: "Posso", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" },
-              { label: "Non posso", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }
-            ],
-            audioText: "Puoi camminare?"
-          },
-          nl: {
-            question: "Kunt u lopen?",
-            answers: [
-              { label: "Kan lopen", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" },
-              { label: "Kan niet", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }
-            ],
-            audioText: "Kunt u lopen?"
-          },
-          ja: {
-            question: "歩けますか？",
-            answers: [
-              { label: "歩ける", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" },
-              { label: "歩けない", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }
-            ],
-            audioText: "歩けますか？"
-          }
+          vi: { question: "Bạn có thể đi bộ được không?", answers: [{ label: "Có thể đi", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" }, { label: "Không thể đi", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }], audioText: "Bạn có thể đi bộ được không?" },
+          id: { question: "Apakah Anda bisa berjalan?", answers: [{ label: "Bisa berjalan", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" }, { label: "Tidak bisa", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }], audioText: "Apakah Anda bisa berjalan?" },
+          zh: { question: "你能走路吗？", answers: [{ label: "能走", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" }, { label: "不能走", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }], audioText: "你能走路吗？" },
+          my: { question: "လမ်းလျှောက်နိုင်ပါသလား။", answers: [{ label: "လျှောက်နိုင်သည်", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" }, { label: "မလျှောက်နိုင်ပါ", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }], audioText: "လမ်းလျှောက်နိုင်ပါသလား။" },
+          ko: { question: "걸을 수 있습니까?", answers: [{ label: "걸을 수 있음", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" }, { label: "걸을 수 없음", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }], audioText: "걸을 수 있습니까?" },
+          ne: { question: "तपाईं हिड्न सक्नुहुन्छ?", answers: [{ label: "हिड्न सक्छु", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" }, { label: "हिड्न सक्दिन", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }], audioText: "तपाईं हिड्न सक्नुहुन्छ?" },
+          tl: { question: "Kaya mo bang maglakad?", answers: [{ label: "Kayang maglakad", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" }, { label: "Hindi kaya", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }], audioText: "Kaya mo bang maglakad?" },
+          en: { question: "Can you walk?", answers: [{ label: "Can walk", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" }, { label: "Cannot walk", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }], audioText: "Can you walk?" },
+          "zh-tw": { question: "你能走路嗎？", answers: [{ label: "能走", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" }, { label: "不能走", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }], audioText: "你能走路嗎？" },
+          th: { question: "คุณเดินได้ไหม?", answers: [{ label: "เดินได้", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" }, { label: "เดินไม่ได้", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }], audioText: "คุณเดินได้ไหม?" },
+          km: { question: "តើអ្នកអាចដើរបានទេ?", answers: [{ label: "អាចដើរបាន", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" }, { label: "មិនអាចដើរទេ", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }], audioText: "តើអ្នកអាចដើរបានទេ?" },
+          hi: { question: "क्या आप चल सकते हैं?", answers: [{ label: "चल सकता हूँ", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" }, { label: "नहीं चल सकता", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }], audioText: "क्या आप चल सकते हैं?" },
+          si: { question: "ඔබට ඇවිදීමට හැකිද?", answers: [{ label: "ඇවිදිය හැක", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" }, { label: "ඇවිදිය නොහැක", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }], audioText: "ඔබට ඇවිදීමට හැකිද?" },
+          bn: { question: "আপনি কি হাঁটতে পারেন?", answers: [{ label: "হাঁটতে পারি", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" }, { label: "হাঁটতে পারি না", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }], audioText: "আপনি কি হাঁটতে পারেন?" },
+          ur: { question: "کیا آپ چل سکتے ہیں؟", answers: [{ label: "چل سکتا ہوں", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" }, { label: "نہیں چل سکتا", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }], audioText: "کیا آپ چل سکتے ہیں؟" },
+          "pt-br": { question: "Você consegue caminhar?", answers: [{ label: "Consigo", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" }, { label: "Não consigo", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }], audioText: "Você consegue caminhar?" },
+          mn: { question: "Та алхаж чадах уу?", answers: [{ label: "Чадна", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" }, { label: "Чадахгүй", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }], audioText: "Та алхаж чадах уу?" },
+          ru: { question: "Вы можете идти?", answers: [{ label: "Могу идти", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" }, { label: "Не могу идти", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }], audioText: "Вы можете идти?" },
+          uk: { question: "Ви можете йти?", answers: [{ label: "Можу йти", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" }, { label: "Не можу", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }], audioText: "Ви можете йти?" },
+          de: { question: "Können Sie gehen?", answers: [{ label: "Kann gehen", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" }, { label: "Kann nicht", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }], audioText: "Können Sie gehen?" },
+          fr: { question: "Pouvez-vous marcher ?", answers: [{ label: "Peut marcher", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" }, { label: "Ne peut pas", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }], audioText: "Pouvez-vous marcher ?" },
+          it: { question: "Puoi camminare?", answers: [{ label: "Posso", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" }, { label: "Non posso", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }], audioText: "Puoi camminare?" },
+          nl: { question: "Kunt u lopen?", answers: [{ label: "Kan lopen", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" }, { label: "Kan niet", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }], audioText: "Kunt u lopen?" },
+          ja: { question: "歩けますか？", answers: [{ label: "歩ける", subText: "YES ⭕", value: "歩行可能", class: "btn-safe" }, { label: "歩けない", subText: "NO ❌", value: "歩行不可", class: "btn-yes" }], audioText: "歩けますか？" }
         }
       },
       {
         id: 2,
         japaneseTitle: "家にまだ誰かいますか？",
+        category: "fire",
         translations: {
-          vi: {
-            question: "Còn ai ở trong nhà không?",
-            answers: [
-              { label: "Còn người", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" },
-              { label: "Không còn ai", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }
-            ],
-            audioText: "Còn ai ở trong nhà không?"
-          },
-          id: {
-            question: "Apakah masih ada orang di dalam rumah?",
-            answers: [
-              { label: "Ada orang", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" },
-              { label: "Tidak ada orang", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }
-            ],
-            audioText: "Apakah masih ada orang di dalam rumah?"
-          },
-          zh: {
-            question: "屋里还有其他人吗？",
-            answers: [
-              { label: "还有人", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" },
-              { label: "没有其他人", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }
-            ],
-            audioText: "屋里还有其他人吗？"
-          },
-          my: {
-            question: "အိမ်ထဲမှာ လူကျန်သေးသလား။",
-            answers: [
-              { label: "လူကျန်သေးသည်", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" },
-              { label: "မကျန်တော့ပါ", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }
-            ],
-            audioText: "အိမ်ထဲမှာ လူကျန်သေးသလား။"
-          },
-          ko: {
-            question: "집 안에 다른 사람이 있습니까?",
-            answers: [
-              { label: "사람 있음", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" },
-              { label: "사람 없음", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }
-            ],
-            audioText: "집 안에 다른 사람이 있습니까?"
-          },
-          ne: {
-            question: "घर भित्र कोही बाँकी छ?",
-            answers: [
-              { label: "कोही छ", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" },
-              { label: "कोही छैन", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }
-            ],
-            audioText: "घर भित्र कोही बाँकी छ?"
-          },
-          tl: {
-            question: "May tao pa ba sa loob ng bahay?",
-            answers: [
-              { label: "May tao pa", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" },
-              { label: "Wala nang tao", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }
-            ],
-            audioText: "May tao pa ba sa loob ng bahay?"
-          },
-          en: {
-            question: "Is anyone else left inside the house?",
-            answers: [
-              { label: "Yes, someone", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" },
-              { label: "No one", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }
-            ],
-            audioText: "Is anyone else left inside the house?"
-          },
-          "zh-tw": {
-            question: "屋裡還有其他人嗎？",
-            answers: [
-              { label: "還有人", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" },
-              { label: "沒有其他人", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }
-            ],
-            audioText: "屋裡還有其他人嗎？"
-          },
-          th: {
-            question: "ยังมีใครอยู่ในบ้านไหม?",
-            answers: [
-              { label: "มีคนอยู่", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" },
-              { label: "ไม่มีใคร", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }
-            ],
-            audioText: "ยังมีใครอยู่ในบ้านไหม?"
-          },
-          km: {
-            question: "តើមាននរណាម្នាក់នៅក្នុងផ្ទះទេ?",
-            answers: [
-              { label: "មានមនុស្ស", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" },
-              { label: "គ្មានទេ", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }
-            ],
-            audioText: "តើមាននរណាម្នាក់នៅក្នុងផ្ទះទេ?"
-          },
-          hi: {
-            question: "क्या घर के अंदर कोई बचा है?",
-            answers: [
-              { label: "हाँ, कोई है", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" },
-              { label: "कोई नहीं है", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }
-            ],
-            audioText: "क्या घर के अंदर कोई बचा है?"
-          },
-          si: {
-            question: "නිවස තුළ තවමත් ಯಾರාවක් සිටීද?",
-            answers: [
-              { label: "කෙනෙක් සිටී", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" },
-              { label: "කවුරුත් නැත", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }
-            ],
-            audioText: "නිවස තුළ තවමත් ಯಾರාවක් සිටීද?"
-          },
-          bn: {
-            question: "ঘরের ভেতরে কি কেউ আছে?",
-            answers: [
-              { label: "হ্যাঁ, আছে", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" },
-              { label: "কেউ নেই", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }
-            ],
-            audioText: "ঘরের ভেতরে কি কেউ আছে?"
-          },
-          ur: {
-            question: "کیا گھر کے اندر کوئی ہے؟",
-            answers: [
-              { label: "کوئی ہے", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" },
-              { label: "کوئی نہیں ہے", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }
-            ],
-            audioText: "کیا گھر کے اندر کوئی ہے؟"
-          },
-          "pt-br": {
-            question: "Tem mais alguém dentro de casa?",
-            answers: [
-              { label: "Tem alguém", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" },
-              { label: "Ninguém", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }
-            ],
-            audioText: "Tem mais alguém dentro de casa?"
-          },
-          mn: {
-            question: "Гэрт хүн үлдсэн үү?",
-            answers: [
-              { label: "Байгаа", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" },
-              { label: "Байхгүй", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }
-            ],
-            audioText: "Гэрт хүн үлдсэн үү?"
-          },
-          ru: {
-            question: "Есть кто-то в доме?",
-            answers: [
-              { label: "Кто-то есть", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" },
-              { label: "Никого нет", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }
-            ],
-            audioText: "Есть кто-то в доме?"
-          },
-          uk: {
-            question: "У будинку хтось є?",
-            answers: [
-              { label: "Є хтось", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" },
-              { label: "Нікого", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }
-            ],
-            audioText: "У будинку хтось є?"
-          },
-          de: {
-            question: "Ist noch jemand im Haus?",
-            answers: [
-              { label: "Jemand da", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" },
-              { label: "Niemand mehr", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }
-            ],
-            audioText: "Ist noch jemand im Haus?"
-          },
-          fr: {
-            question: "Y a-t-il quelqu'un dans la maison ?",
-            answers: [
-              { label: "Oui, quelqu'un", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" },
-              { label: "Personne", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }
-            ],
-            audioText: "Y a-t-il quelqu'un dans la maison ?"
-          },
-          it: {
-            question: "C'è qualcun altro in casa?",
-            answers: [
-              { label: "C'è qualcuno", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" },
-              { label: "Nessuno", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }
-            ],
-            audioText: "C'è qualcun altro in casa?"
-          },
-          nl: {
-            question: "Is er nog iemand in huis?",
-            answers: [
-              { label: "Er is iemand", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" },
-              { label: "Niemand meer", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }
-            ],
-            audioText: "Is er nog iemand in huis?"
-          },
-          ja: {
-            question: "家にまだ誰かいますか？",
-            answers: [
-              { label: "いる", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" },
-              { label: "いない", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }
-            ],
-            audioText: "家にまだ誰かいますか？"
-          }
+          vi: { question: "Còn ai ở trong nhà không?", answers: [{ label: "Còn người", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "Không còn ai", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "Còn ai ở trong nhà không?" },
+          id: { question: "Apakah masih ada orang di dalam rumah?", answers: [{ label: "Ada orang", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "Tidak ada orang", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "Apakah masih ada orang di dalam rumah?" },
+          zh: { question: "屋里还有其他人吗？", answers: [{ label: "还有人", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "没有其他人", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "屋里还有其他人吗？" },
+          my: { question: "အိမ်ထဲမှာ လူကျန်သေးသလား။", answers: [{ label: "လူကျန်သေးသည်", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "မကျန်တော့ပါ", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "အိမ်ထဲမှာ လူကျန်သေးသလား။" },
+          ko: { question: "집 안에 다른 사람이 있습니까?", answers: [{ label: "사람 있음", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "사람 없음", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "집 안에 다른 사람이 있습니까?" },
+          ne: { question: "घर भित्र कोही बाँकी छ?", answers: [{ label: "कोही छ", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "कोही छैन", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "घर भित्र कोही बाँकी छ?" },
+          tl: { question: "May tao pa ba sa loob ng bahay?", answers: [{ label: "May tao pa", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "Wala nang tao", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "May tao pa ba sa loob ng bahay?" },
+          en: { question: "Is anyone else left inside the house?", answers: [{ label: "Yes, someone", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "No one", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "Is anyone else left inside the house?" },
+          "zh-tw": { question: "屋裡還有其他人嗎？", answers: [{ label: "還有人", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "沒有其他人", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "屋裡還有其他人嗎？" },
+          th: { question: "ยังมีใครอยู่ในบ้านไหม?", answers: [{ label: "มีคนอยู่", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "ไม่มีใคร", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "ยังมีใครอยู่ในบ้านไหม?" },
+          km: { question: "តើមាននរណាម្នាក់នៅក្នុងផ្ទះទេ?", answers: [{ label: "មានមនុស្ស", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "គ្មានទេ", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "តើមាននរណាម្នាក់នៅក្នុងផ្ទះទេ?" },
+          hi: { question: "क्या घर के अंदर कोई बचा है?", answers: [{ label: "हाँ, कोई है", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "कोई نہیں ہے", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "क्या घर के अंदर कोई बचा है?" },
+          si: { question: "නිවස තුළ තවමත් யாரාවක් සිටීද?", answers: [{ label: "කෙනෙක් සිටී", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "කවුරුත් නැත", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "නිවස තුළ තවමත් யாரාවක් සිටීද?" },
+          bn: { question: "ঘরের ভেতরে কি কেউ আছে?", answers: [{ label: "হ্যাঁ, আছে", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "কেউ নেই", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "ঘরের ভেতরে কি কেউ আছে?" },
+          ur: { question: "کیا گھر کے اندر کوئی ہے؟", answers: [{ label: "کوئی ہے", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "کوئی نہیں ہے", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "کیا گھر के अंदर कोई है؟" },
+          "pt-br": { question: "Tem mais alguém dentro de casa?", answers: [{ label: "Tem alguém", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "Ninguém", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "Tem mais alguém dentro de casa?" },
+          mn: { question: "Гэрт хүн үлдсэн үү?", answers: [{ label: "Байгаа", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "Байхгүй", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "Гэрт хүн үлдсэн үү?" },
+          ru: { question: "Есть кто-то в доме?", answers: [{ label: "Кто-то есть", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "Никого нет", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "Есть кто-то в доме?" },
+          uk: { question: "У будинку хтось є?", answers: [{ label: "Є хтось", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "Нікого", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "У будинку хтось є?" },
+          de: { question: "Ist noch jemand im Haus?", answers: [{ label: "Jemand da", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "Niemand mehr", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "Ist noch jemand im Haus?" },
+          fr: { question: "Y a-t-il quelqu'un dans la maison ?", answers: [{ label: "Oui, quelqu'un", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "Personne", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "Y a-t-il quelqu'un dans la maison ?" },
+          it: { question: "C'è qualcun altro in casa?", answers: [{ label: "C'è qualcuno", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "Nessuno", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "C'è qualcun altro in casa?" },
+          nl: { question: "Is er nog iemand in huis?", answers: [{ label: "Er is iemand", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "Niemand meer", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "Is er nog iemand in huis?" },
+          ja: { question: "家にまだ誰かいますか？", answers: [{ label: "いる", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "いない", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "家にまだ誰かいますか？" }
+        }
+      },
+
+      // ==========================================
+      // 【行政・避難所】カテゴリ (新規追加)
+      // ==========================================
+      {
+        id: 3,
+        japaneseTitle: "食べられない物はありますか？",
+        category: "admin",
+        translations: {
+          vi: { question: "Bạn có bị dị ứng hay kiêng ăn gì không?", answers: [{ label: "Có", subText: "YES ⭕", value: "食事制限あり", class: "btn-yes" }, { label: "Không", subText: "NO ❌", value: "食事制限なし", class: "btn-no" }], audioText: "Bạn có bị dị ứng hay kiêng ăn gì không?" },
+          id: { question: "Apakah Anda memiliki alergi atau pantangan makanan?", answers: [{ label: "Ada", subText: "YES ⭕", value: "食事制限あり", class: "btn-yes" }, { label: "Tidak ada", subText: "NO ❌", value: "食事制限なし", class: "btn-no" }], audioText: "Apakah Anda memiliki alergi atau pantangan makanan?" },
+          zh: { question: "你有食物过敏或忌口吗？", answers: [{ label: "有", subText: "YES ⭕", value: "食事制限あり", class: "btn-yes" }, { label: "没有", subText: "NO ❌", value: "食事制限なし", class: "btn-no" }], audioText: "你有食物过敏或忌口吗？" },
+          my: { question: "အစားအသောက်ဓာတ်မတည့်တာ ဒါမှမဟုတ် ရှောင်တာရှိပါသလား။", answers: [{ label: "ရှိတယ်", subText: "YES ⭕", value: "食事制限あり", class: "btn-yes" }, { label: "မရှိဘူး", subText: "NO ❌", value: "食事制限なし", class: "btn-no" }], audioText: "အစားအသောက်ဓာတ်မတည့်တာ ဒါမှမဟုတ် ရှောင်တာရှိပါသလား။" },
+          ko: { question: "음식 알레르기나 금기 식품이 있습니까?", answers: [{ label: "있음", subText: "YES ⭕", value: "食事制限あり", class: "btn-yes" }, { label: "없음", subText: "NO ❌", value: "食事制限なし", class: "btn-no" }], audioText: "음식 알레르기나 금기 식품이 있습니까?" },
+          ne: { question: "तपाईंलाई कुनै खाद्य एलर्जी वा प्रतिबन्ध छ?", answers: [{ label: "छ", subText: "YES ⭕", value: "食事制限あり", class: "btn-yes" }, { label: "छैन", subText: "NO ❌", value: "食事制限なし", class: "btn-no" }], audioText: "तपाईंलाई कुनै खाद्य एलर्जी वा प्रतिबन्ध छ?" },
+          tl: { question: "Mayroon ka bang allergy o bawal na pagkain?", answers: [{ label: "Mayroon", subText: "YES ⭕", value: "食事制限あり", class: "btn-yes" }, { label: "Wala", subText: "NO ❌", value: "食事制限なし", class: "btn-no" }], audioText: "Mayroon ka bang allergy o bawal na pagkain?" },
+          en: { question: "Do you have food allergies or restrictions?", answers: [{ label: "YES", subText: "YES ⭕", value: "食事制限あり", class: "btn-yes" }, { label: "NO", subText: "NO ❌", value: "食事制限なし", class: "btn-no" }], audioText: "Do you have food allergies or restrictions?" },
+          "zh-tw": { question: "你有食物過敏或忌口嗎？", answers: [{ label: "有", subText: "YES ⭕", value: "食事制限あり", class: "btn-yes" }, { label: "沒有", subText: "NO ❌", value: "食事制限なし", class: "btn-no" }], audioText: "你有食物過敏或忌口嗎？" },
+          th: { question: "มีข้อจำกัดด้านอาหารหรือการแพ้อาหารไหม?", answers: [{ label: "มี", subText: "YES ⭕", value: "食事制限あり", class: "btn-yes" }, { label: "ไม่มี", subText: "NO ❌", value: "食事制限なし", class: "btn-no" }], audioText: "มีข้อจำกัดด้านอาหารหรือการแพ้อาหารไหม?" },
+          km: { question: "តើអ្នកមានការតមអាហារឬអាឡែស៊ីទេ?", answers: [{ label: "មាន", subText: "YES ⭕", value: "食事制限あり", class: "btn-yes" }, { label: "គ្មានទេ", subText: "NO ❌", value: "食事制限なし", class: "btn-no" }], audioText: "តើអ្នកមានការតមអាហារឬអាឡែស៊ីទេ?" },
+          hi: { question: "क्या आपको कोई खाद्य एलर्जी या प्रतिबंध है?", answers: [{ label: "हाँ, है", subText: "YES ⭕", value: "食事制限あり", class: "btn-yes" }, { label: "नहीं", subText: "NO ❌", value: "食事制限なし", class: "btn-no" }], audioText: "क्या आपको कोई खाद्य एलर्जी या प्रतिबंध है?" },
+          si: { question: "ඔබට ආහාර අසාත්මිකතා හෝ සීමාවන් තිබේද?", answers: [{ label: "ඇත", subText: "YES ⭕", value: "食事制限あり", class: "btn-yes" }, { label: "නැත", subText: "NO ❌", value: "食事制限なし", class: "btn-no" }], audioText: "ඔබට ආහාර අසාත්මිකතා හෝ සීමාවන් තිබේද?" },
+          bn: { question: "আপনার কি কোনো খাবারে অ্যালার্জি বা নিষেধাজ্ঞা আছে?", answers: [{ label: "হ্যাঁ, আছে", subText: "YES ⭕", value: "食事制限あり", class: "btn-yes" }, { label: "নেই", subText: "NO ❌", value: "食事制限なし", class: "btn-no" }], audioText: "আপনার কি কোনো খাবারে অ্যালার্জি বা নিষেধাজ্ঞা আছে?" },
+          ur: { question: "کیا آپ کو کھانے کی الرجی یا پابندی ہے؟", answers: [{ label: "ہاں، ہے", subText: "YES ⭕", value: "食事制限あり", class: "btn-yes" }, { label: "نہیں ہے", subText: "NO ❌", value: "食事制限なし", class: "btn-no" }], audioText: "کیا آپ کو کھانے کی الرجی یا پابندی ہے؟" },
+          "pt-br": { question: "Você tem alergia ou restrição alimentar?", answers: [{ label: "Sim, tenho", subText: "YES ⭕", value: "食事制限あり", class: "btn-yes" }, { label: "Não tenho", subText: "NO ❌", value: "食事制限なし", class: "btn-no" }], audioText: "Você tem alergia ou restrição alimentar?" },
+          mn: { question: "Та хүнсний харшил эсвэл хоригтой юу?", answers: [{ label: "Байгаа", subText: "YES ⭕", value: "食事制限あり", class: "btn-yes" }, { label: "Байхгүй", subText: "NO ❌", value: "食事制限なし", class: "btn-no" }], audioText: "Та хүнсний харшил эсвэл хоригтой юу?" },
+          ru: { question: "У вас есть пищевая аллергия или ограничения?", answers: [{ label: "Есть", subText: "YES ⭕", value: "食事制限あり", class: "btn-yes" }, { label: "Нет", subText: "NO ❌", value: "食事制限なし", class: "btn-no" }], audioText: "У вас есть пищевая аллергия или ограничения?" },
+          uk: { question: "Маєте харчову алергію чи обмеження?", answers: [{ label: "Маю", subText: "YES ⭕", value: "食事制限あり", class: "btn-yes" }, { label: "Не маю", subText: "NO ❌", value: "食事制限なし", class: "btn-no" }], audioText: "Маєте харчову алергію чи обмеження?" },
+          de: { question: "Haben Sie Lebensmittelallergien oder -einschränkungen?", answers: [{ label: "Ja, habe", subText: "YES ⭕", value: "食事制限あり", class: "btn-yes" }, { label: "Nein", subText: "NO ❌", value: "食事制限なし", class: "btn-no" }], audioText: "Haben Sie Lebensmittelallergien oder -einschränkungen?" },
+          fr: { question: "Avez-vous des allergies ou restrictions alimentaires ?", answers: [{ label: "Oui", subText: "YES ⭕", value: "食事制限あり", class: "btn-yes" }, { label: "Non", subText: "NO ❌", value: "食事制限なし", class: "btn-no" }], audioText: "Avez-vous des allergies ou restrictions alimentaires ?" },
+          it: { question: "Hai allergie o restrizioni alimentari?", answers: [{ label: "Sì", subText: "YES ⭕", value: "食事制限あり", class: "btn-yes" }, { label: "No", subText: "NO ❌", value: "食事制限なし", class: "btn-no" }], audioText: "Hai allergie o restrizioni alimentari?" },
+          nl: { question: "Heeft u voedselallergieën of -beperkingen?", answers: [{ label: "Ja", subText: "YES ⭕", value: "食事制限あり", class: "btn-yes" }, { label: "Nee", subText: "NO ❌", value: "食事制限なし", class: "btn-no" }], audioText: "Heeft u voedselallergieën of -beperkingen?" },
+          ja: { question: "アレルギーや宗教上、食べられないものはありますか？", answers: [{ label: "ある", subText: "YES ⭕", value: "食事制限あり", class: "btn-yes" }, { label: "ない", subText: "NO ❌", value: "食事制限なし", class: "btn-no" }], audioText: "アレルギーや宗教上、食べられないものはありますか？" }
+        }
+      },
+      {
+        id: 4,
+        japaneseTitle: "薬や医療支援が必要ですか？",
+        category: "admin",
+        translations: {
+          vi: { question: "Bạn có cần thuốc uống hay hỗ trợ y tế không?", answers: [{ label: "Có cần", subText: "YES ⭕", value: "医療支援必要", class: "btn-yes" }, { label: "Không cần", subText: "NO ❌", value: "医療支援不要", class: "btn-no" }], audioText: "Bạn có cần thuốc uống hay hỗ trợ y tế không?" },
+          id: { question: "Apakah Anda memerlukan obat atau bantuan medis?", answers: [{ label: "Perlu", subText: "YES ⭕", value: "医療支援必要", class: "btn-yes" }, { label: "Tidak perlu", subText: "NO ❌", value: "医療支援不要", class: "btn-no" }], audioText: "Apakah Anda memerlukan obat atau bantuan medis?" },
+          zh: { question: "你需要药物或医疗协助吗？", answers: [{ label: "需要", subText: "YES ⭕", value: "医療支援必要", class: "btn-yes" }, { label: "不需要", subText: "NO ❌", value: "医療支援不要", class: "btn-no" }], audioText: "你需要药物或医疗协助吗？" },
+          my: { question: "ဆေးဝါး ဒါမှမဟုတ် ဆေးဘက်ဆိုင်ရာအကူအညီ လိုအပ်ပါသလား။", answers: [{ label: "လိုအပ်တယ်", subText: "YES ⭕", value: "医療支援必要", class: "btn-yes" }, { label: "မလိုအပ်ဘူး", subText: "NO ❌", value: "医療支援不要", class: "btn-no" }], audioText: "ဆေးဝါး ဒါမှမဟုတ် ဆေးဘက်ဆိုင်ရာအကူအညီ လိုအပ်ပါသလား။" },
+          ko: { question: "약이나 의료 지원이 필요하십니까?", answers: [{ label: "필요함", subText: "YES ⭕", value: "医療支援必要", class: "btn-yes" }, { label: "필요 없음", subText: "NO ❌", value: "医療支援不要", class: "btn-no" }], audioText: "약이나 의료 지원이 필요하십니까?" },
+          ne: { question: "तपाईंलाई औषधि वा चिकित्सा सहायता चाहिन्छ?", answers: [{ label: "चाहिन्छ", subText: "YES ⭕", value: "医療支援必要", class: "btn-yes" }, { label: "चाहिँदैन", subText: "NO ❌", value: "医療支援不要", class: "btn-no" }], audioText: "तपाईंलाई औषधि वा चिकित्सा सहायता चाहिन्छ?" },
+          tl: { question: "Kailangan mo ba ng gamot o tulong medikal?", answers: [{ label: "Kailangan", subText: "YES ⭕", value: "医療支援必要", class: "btn-yes" }, { label: "Hindi", subText: "NO ❌", value: "医療支援不要", class: "btn-no" }], audioText: "Kailangan mo ba ng gamot o tulong medikal?" },
+          en: { question: "Do you need medicine or medical support?", answers: [{ label: "YES", subText: "YES ⭕", value: "医療支援必要", class: "btn-yes" }, { label: "NO", subText: "NO ❌", value: "医療支援不要", class: "btn-no" }], audioText: "Do you need medicine or medical support?" },
+          "zh-tw": { question: "你需要藥物或醫療協助嗎？", answers: [{ label: "需要", subText: "YES ⭕", value: "医療支援必要", class: "btn-yes" }, { label: "不需要", subText: "NO ❌", value: "医療支援不要", class: "btn-no" }], audioText: "你需要藥物或醫療協助嗎？" },
+          th: { question: "คุณต้องการยาหรือความช่วยเหลือทางการแพทย์ไหม?", answers: [{ label: "ต้องการ", subText: "YES ⭕", value: "医療支援必要", class: "btn-yes" }, { label: "ไม่ต้องการ", subText: "NO ❌", value: "医療支援不要", class: "btn-no" }], audioText: "คุณต้องการยาหรือความช่วยเหลือทางการแพทย์ไหม?" },
+          km: { question: "តើអ្នកត្រូវការថ្នាំឬជំនួយវេជ្ជសាស្ត្រទេ?", answers: [{ label: "ត្រូវការ", subText: "YES ⭕", value: "医療支援必要", class: "btn-yes" }, { label: "មិនត្រូវការ", subText: "NO ❌", value: "医療支援不要", class: "btn-no" }], audioText: "តើអ្នកត្រូវការថ្នាំឬជំនួយវេជ្ជសាស្ត្រទេ?" },
+          hi: { question: "क्या आपको दवा या चिकित्सा सहायता की आवश्यकता है?", answers: [{ label: "हाँ, चाहिए", subText: "YES ⭕", value: "医療支援必要", class: "btn-yes" }, { label: "नहीं", subText: "NO ❌", value: "医療支援不要", class: "btn-no" }], audioText: "क्या आपको दवा या चिकित्सा सहायता की आवश्यकता है?" },
+          si: { question: "ඔබට ඖෂධ හෝ වෛද්‍ය ආධාර අවශ්‍යද?", answers: [{ label: "අවශ්‍යයි", subText: "YES ⭕", value: "医療支援必要", class: "btn-yes" }, { label: "අවශ්‍ය නැත", subText: "NO ❌", value: "医療支援不要", class: "btn-no" }], audioText: "ඔබට ඖෂධ හෝ වෛද්‍ය ආධාර අවශ්‍යද?" },
+          bn: { question: "আপনার কি ওষুধ বা চিকিৎসা সহায়তার প্রয়োজন আছে?", answers: [{ label: "হ্যাঁ, প্রয়োজন", subText: "YES ⭕", value: "医療支援必要", class: "btn-yes" }, { label: "প্রয়োজন নেই", subText: "NO ❌", value: "医療支援不要", class: "btn-no" }], audioText: "আপনার কি ওষুধ বা চিকিৎসা সহায়তার প্রয়োজন আছে?" },
+          ur: { question: "کیا آپ کو دوا یا طبی مدد کی ضرورت ہے؟", answers: [{ label: "ضرورت ہے", subText: "YES ⭕", value: "医療支援必要", class: "btn-yes" }, { label: "ضرورت نہیں", subText: "NO ❌", value: "医療支援不要", class: "btn-no" }], audioText: "کیا آپ کو دوا یا طبی مدد کی ضرورت ہے؟" },
+          "pt-br": { question: "Você precisa de remédio ou assistência médica?", answers: [{ label: "Sim, preciso", subText: "YES ⭕", value: "医療支援必要", class: "btn-yes" }, { label: "Não preciso", subText: "NO ❌", value: "医療支援不要", class: "btn-no" }], audioText: "Você precisa de remédio ou assistência médica?" },
+          mn: { question: "Танд эм эсвэл эмнэлгийн тусламж хэрэгтэй юу?", answers: [{ label: "Хэрэгтэй", subText: "YES ⭕", value: "医療支援必要", class: "btn-yes" }, { label: "Хэрэггүй", subText: "NO ❌", value: "医療支援不要", class: "btn-no" }], audioText: "Танд эм эсвэл эмнэлгийн тусламж хэрэгтэй юу?" },
+          ru: { question: "Вам нужны лекарства или медицинская помощь?", answers: [{ label: "Нужны", subText: "YES ⭕", value: "医療支援必要", class: "btn-yes" }, { label: "Не нужны", subText: "NO ❌", value: "医療支援不要", class: "btn-no" }], audioText: "Вам нужны лекарства или медицинская помощь?" },
+          uk: { question: "Вам потрібні ліки чи медична допомога?", answers: [{ label: "Потрібні", subText: "YES ⭕", value: "医療支援必要", class: "btn-yes" }, { label: "Не потрібні", subText: "NO ❌", value: "医療支援不要", class: "btn-no" }], audioText: "Вам потрібні ліки чи медична допомога?" },
+          de: { question: "Benötigen Sie Medikamente oder medizinische Hilfe?", answers: [{ label: "Ja, benötige", subText: "YES ⭕", value: "医療支援必要", class: "btn-yes" }, { label: "Nein", subText: "NO ❌", value: "医療支援不要", class: "btn-no" }], audioText: "Benötigen Sie Medikamente oder medizinische Hilfe?" },
+          fr: { question: "Avez-vous besoin de médicaments ou d'aide médicale ?", answers: [{ label: "Oui", subText: "YES ⭕", value: "医療支援必要", class: "btn-yes" }, { label: "Non", subText: "NO ❌", value: "医療支援不要", class: "btn-no" }], audioText: "Avez-vous besoin de médicaments ou d'aide médicale ?" },
+          it: { question: "Hai bisogno di farmaci o assistenza medica?", answers: [{ label: "Sì", subText: "YES ⭕", value: "医療支援必要", class: "btn-yes" }, { label: "No", subText: "NO ❌", value: "医療支援不要", class: "btn-no" }], audioText: "Hai bisogno di farmaci o assistenza medica?" },
+          nl: { question: "Heeft u medicijnen of medische hulp nodig?", answers: [{ label: "Ja", subText: "YES ⭕", value: "医療支援必要", class: "btn-yes" }, { label: "Nee", subText: "NO ❌", value: "医療支援不要", class: "btn-no" }], audioText: "Heeft u medicijnen of medische hulp nodig?" },
+          ja: { question: "持病の薬や、医療の支援が必要ですか？", answers: [{ label: "必要", subText: "YES ⭕", value: "医療支援必要", class: "btn-yes" }, { label: "不要", subText: "NO ❌", value: "医療支援不要", class: "btn-no" }], audioText: "持病の薬や、医療の支援が必要ですか？" }
+        }
+      },
+      {
+        id: 5,
+        japaneseTitle: "避難所登録をしますか？",
+        category: "admin",
+        translations: {
+          vi: { question: "Bạn có muốn đăng ký vào trại tị nạn này không?", answers: [{ label: "Có đăng ký", subText: "YES ⭕", value: "避難所登録する", class: "btn-yes" }, { label: "Không đăng ký", subText: "NO ❌", value: "避難所登録しない", class: "btn-no" }], audioText: "Bạn có muốn đăng ký vào trại tị nạn này không?" },
+          id: { question: "Apakah Anda ingin mendaftar di tempat pengungsian ini?", answers: [{ label: "Ya, daftar", subText: "YES ⭕", value: "避難所登録する", class: "btn-yes" }, { label: "Tidak", subText: "NO ❌", value: "避難所登録しない", class: "btn-no" }], audioText: "Apakah Anda ingin mendaftar di tempat pengungsian ini?" },
+          zh: { question: "你想要在这个避难所登记登记吗？", answers: [{ label: "登记", subText: "YES ⭕", value: "避難所登録する", class: "btn-yes" }, { label: "不登记", subText: "NO ❌", value: "避難所登録しない", class: "btn-no" }], audioText: "你想要在这个避难所登记登记吗？" },
+          my: { question: "ဒီကယ်ဆယ်ရေးစခန်းမှာ မှတ်ပုံတင်ချင်ပါသလား။", answers: [{ label: "မှတ်ပုံတင်မယ်", subText: "YES ⭕", value: "避難所登録する", class: "btn-yes" }, { label: "မတင်ဘူး", subText: "NO ❌", value: "避難所登録しない", class: "btn-no" }], audioText: "ဒီကယ်ဆယ်ရေးစခန်းမှာ မှတ်ပုံတင်ချင်ပါသလား။" },
+          ko: { question: "이 대피소에 등록(입소)하시겠습니까?", answers: [{ label: "등록함", subText: "YES ⭕", value: "避難所登録する", class: "btn-yes" }, { label: "안 함", subText: "NO ❌", value: "避難所登録しない", class: "btn-no" }], audioText: "이 대피소에 등록(입소)하시겠습니까?" },
+          ne: { question: "तपाईं यस आश्रयमा दर्ता गर्न चाहनुहुन्छ?", answers: [{ label: "चाहन्छु", subText: "YES ⭕", value: "避難所登録する", class: "btn-yes" }, { label: "चाहन्न", subText: "NO ❌", value: "避難所登録しない", class: "btn-no" }], audioText: "तपाईं यस आश्रयमा दर्ता गर्न चाहनुहुन्छ?" },
+          tl: { question: "Gusto mo bang magrehistro sa evacuation center na ito?", answers: [{ label: "Gusto", subText: "YES ⭕", value: "避難所登録する", class: "btn-yes" }, { label: "Hindi gusto", subText: "NO ❌", value: "避難所登録しない", class: "btn-no" }], audioText: "Gusto mo bang magrehistro sa evacuation center na ito?" },
+          en: { question: "Do you want to register at this shelter?", answers: [{ label: "YES", subText: "YES ⭕", value: "避難所登録する", class: "btn-yes" }, { label: "NO", subText: "NO ❌", value: "避難所登録しない", class: "btn-no" }], audioText: "Do you want to register at this shelter?" },
+          "zh-tw": { question: "你想要在這個避難所登記登記嗎？", answers: [{ label: "登記", subText: "YES ⭕", value: "避難所登録する", class: "btn-yes" }, { label: "不登記", subText: "NO ❌", value: "避難所登録しない", class: "btn-no" }], audioText: "你想要在這個避難所登記登記嗎？" },
+          th: { question: "คุณต้องการลงทะเบียนที่ศูนย์อพยพนี้ไหม?", answers: [{ label: "ต้องการ", subText: "YES ⭕", value: "避難所登録する", class: "btn-yes" }, { label: "ไม่ต้องการ", subText: "NO ❌", value: "避難所登録しない", class: "btn-no" }], audioText: "คุณต้องการลงทะเบียนที่ศูนย์อพยพนี้ไหม?" },
+          km: { question: "តើអ្នកចង់ចុះឈ្មោះនៅមណ្ឌលភៀសខ្លួននេះទេ?", answers: [{ label: "ចង់", subText: "YES ⭕", value: "避難所登録する", class: "btn-yes" }, { label: "មិនចង់ទេ", subText: "NO ❌", value: "避難所登録しない", class: "btn-no" }], audioText: "តើអ្នកចង់ចុះឈ្មោះនៅមណ្ឌលភៀសខ្លួននេះទេ?" },
+          hi: { question: "क्या आप इस आश्रय में पंजीकरण करना चाहते हैं?", answers: [{ label: "हाँ, करना है", subText: "YES ⭕", value: "避難所登録する", class: "btn-yes" }, { label: "नहीं", subText: "NO ❌", value: "避難所登録しない", class: "btn-no" }], audioText: "क्या आप इस आश्रय में पंजीकरण करना चाहते हैं?" },
+          si: { question: "ඔබට මෙම නවාතැනේ ලියාපදිංචි වීමට අවශ්‍යද?", answers: [{ label: "අවශ්‍යයි", subText: "YES ⭕", value: "避難所登録する", class: "btn-yes" }, { label: "අවශ්‍ය නැත", subText: "NO ❌", value: "避難所登録しない", class: "btn-no" }], audioText: "ඔබට මෙම නවාතැනේ ලියාපදිංచि වීමට අවශ්‍යද?" },
+          bn: { question: "আপনি কি এই আশ্রয়কেন্দ্রে নিবন্ধন করতে চান?", answers: [{ label: "হ্যাঁ, চাই", subText: "YES ⭕", value: "避難所登録する", class: "btn-yes" }, { label: "চাই না", subText: "NO ❌", value: "避難所登録しない", class: "btn-no" }], audioText: "আপনি কি এই আশ্রয়কেন্দ্রে নিবন্ধন করতে চান?" },
+          ur: { question: "کیا آپ اس پناہ گاہ میں رجسٹریشن کروانا چاہتے ہیں؟", answers: [{ label: "ہاں, رجسٹریشن", subText: "YES ⭕", value: "避難所登録する", class: "btn-yes" }, { label: "نہیں", subText: "NO ❌", value: "避難所登録しない", class: "btn-no" }], audioText: "کیا آپ اس پناہ گاہ میں رجسٹریشن کروانا چاہتے ہیں؟" },
+          "pt-br": { question: "Você quer se registrar neste abrigo?", answers: [{ label: "Sim, quero", subText: "YES ⭕", value: "避難所登録する", class: "btn-yes" }, { label: "Não quero", subText: "NO ❌", value: "避難所登録しない", class: "btn-no" }], audioText: "Você quer se registrar neste abrigo?" },
+          mn: { question: "Та энэ хорогдох байранд бүртгүүлэх үү?", answers: [{ label: "Бүртгүүлнэ", subText: "YES ⭕", value: "避難所登録する", class: "btn-yes" }, { label: "Үгүй", subText: "NO ❌", value: "避難所登録しない", class: "btn-no" }], audioText: "Та энэ хорогдох байранд бүртгүүлэх үү?" },
+          ru: { question: "Вы хотите зарегистрироваться в этом приюте?", answers: [{ label: "Хочу", subText: "YES ⭕", value: "避難所登録する", class: "btn-yes" }, { label: "Не хочу", subText: "NO ❌", value: "避難所登録しない", class: "btn-no" }], audioText: "Вы хотите зарегистрироваться в этом приюте?" },
+          uk: { question: "Бажаєте зареєструватися в цьому притулку?", answers: [{ label: "Бажаю", subText: "YES ⭕", value: "避難所登録する", class: "btn-yes" }, { label: "Ні, не бажаю", subText: "NO ❌", value: "避難所登録しない", class: "btn-no" }], audioText: "Бажаєте зареєструватися в цьому притулку?" },
+          de: { question: "Möchten Sie sich in dieser Unterkunft registrieren?", answers: [{ label: "Ja, möchte", subText: "YES ⭕", value: "避難所登録する", class: "btn-yes" }, { label: "Nein", subText: "NO ❌", value: "避難所登録しない", class: "btn-no" }], audioText: "Möchten Sie sich in dieser Unterkunft registrieren?" },
+          fr: { question: "Voulez-vous vous inscrire dans ce refuge ?", answers: [{ label: "Oui", subText: "YES ⭕", value: "避難所登録する", class: "btn-yes" }, { label: "Non", subText: "NO ❌", value: "避難所登録しない", class: "btn-no" }], audioText: "Voulez-vous vous inscrire dans ce refuge ?" },
+          it: { question: "Vuoi registrarti in questo rifugio?", answers: [{ label: "Sì, voglio", subText: "YES ⭕", value: "避難所登録する", class: "btn-yes" }, { label: "No", subText: "NO ❌", value: "避難所登録しない", class: "btn-no" }], audioText: "Vuoi registrarti in questo rifugio?" },
+          nl: { question: "Wilt u zich registreren in deze opvang?", answers: [{ label: "Ja, graag", subText: "YES ⭕", value: "避難所登録する", class: "btn-yes" }, { label: "Nee", subText: "NO ❌", value: "避難所登録しない", class: "btn-no" }], audioText: "Wilt u zich registreren in deze opvang?" },
+          ja: { question: "この避難所に登録（避難）しますか？", answers: [{ label: "登録する", subText: "YES ⭕", value: "避難所登録する", class: "btn-yes" }, { label: "登録しない", subText: "NO ❌", value: "避難所登録しない", class: "btn-no" }], audioText: "この避難所に登録（避難）しますか？" }
         }
       }
     ];
@@ -1644,24 +1302,32 @@
     const questionTitles = {
       0: "ケガ確認",
       1: "歩行可否",
-      2: "屋内残留"
+      2: "屋内残留",
+      3: "食事制限",
+      4: "薬・医療",
+      5: "避難登録"
     };
 
-    // 全質問に対する回答履歴のメモリ内保管
+    // 全質問に対する回答履歴のメモリ内保管 (全6問)
     let responseHistory = {
       0: "未回答",
       1: "未回答",
-      2: "未回答"
+      2: "未回答",
+      3: "未回答",
+      4: "未回答",
+      5: "未回答"
     };
 
-    // アプリ状態管理 (デフォルトはベトナム語)
+    // アプリ状態管理
     let currentLanguage = 'vi';
-    let currentQuestionIndex = 0;
+    let currentQuestionIndex = 0; // デフォルト：ケガ確認
+    let currentCategory = 'fire'; // デフォルト：消防・救急
 
     // 初期化
     window.addEventListener('DOMContentLoaded', () => {
       renderApp();
       setupSpeech();
+      switchCategory('fire'); // 初期状態の表示カテゴリ制限
       
       // オンライン・オフライン検知
       const updateOnlineStatus = () => {
@@ -1708,6 +1374,30 @@
       });
     }
 
+    // カテゴリの切り替え
+    function switchCategory(category) {
+      triggerFeedback();
+      currentCategory = category;
+
+      // タブボタンのアクティブ状態切り替え
+      document.getElementById('tab-fire').classList.toggle('active', category === 'fire');
+      document.getElementById('tab-admin').classList.toggle('active', category === 'admin');
+
+      // 質問カードの表示切り替え
+      const cards = document.querySelectorAll('.question-card');
+      cards.forEach(card => {
+        if (card.getAttribute('data-category') === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // カテゴリ切替後、そのカテゴリの最初の質問を自動選択する
+      const firstQuestionIndex = category === 'fire' ? 0 : 3;
+      selectQuestion(firstQuestionIndex);
+    }
+
     // 言語の選択（起動画面から）
     function selectLanguage(lang) {
       triggerFeedback();
@@ -1728,12 +1418,12 @@
       triggerFeedback();
       currentQuestionIndex = index;
       
-      // アクティブカードの切り替え
-      for (let i = 0; i < disasterData.length; i++) {
-        document.getElementById(`q-card-${i}`).classList.toggle('active', i === index);
-      }
+      // すべてのカードからactiveクラスを除去し、対象のみに適用
+      const cards = document.querySelectorAll('.question-card');
+      cards.forEach(card => card.classList.remove('active'));
+      document.getElementById(`q-card-${index}`).classList.add('active');
       
-      // ログ表示を過去の履歴データから最新の回答状態に戻す
+      // ログ表示を対象の回答データに戻す
       document.getElementById('response-display').textContent = responseHistory[index];
       
       renderApp();
@@ -1759,8 +1449,12 @@
     // 回答履歴モーダルの表示
     function showHistoryModal() {
       triggerFeedback();
-      const listContainer = document.getElementById('history-list');
-      listContainer.innerHTML = '';
+      
+      const fireList = document.getElementById('history-list-fire');
+      const adminList = document.getElementById('history-list-admin');
+      
+      fireList.innerHTML = '';
+      adminList.innerHTML = '';
       
       for (let key in responseHistory) {
         const item = document.createElement('div');
@@ -1769,7 +1463,12 @@
           <span class="history-item-title">${questionTitles[key]}</span>
           <span class="history-item-value">${responseHistory[key]}</span>
         `;
-        listContainer.appendChild(item);
+        
+        if (key < 3) {
+          fireList.appendChild(item);
+        } else {
+          adminList.appendChild(item);
+        }
       }
       
       document.getElementById('history-modal').classList.remove('hidden');
@@ -1788,7 +1487,10 @@
       responseHistory = {
         0: "未回答",
         1: "未回答",
-        2: "未回答"
+        2: "未回答",
+        3: "未回答",
+        4: "未回答",
+        5: "未回答"
       };
     }
 
@@ -1833,7 +1535,7 @@
 
       const data = disasterData[currentQuestionIndex];
       const translation = data.translations[currentLanguage];
-      const utterance = new SpeechSynthesisUtterance(translation.audioText);
+      const utterance = new SpeechSynthesisUtterance(translation.question);
       
       let langCode = 'vi-VN';
       if (currentLanguage === 'vi') langCode = 'vi-VN';
