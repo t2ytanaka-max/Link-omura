@@ -592,7 +592,69 @@
     .pulse {
       animation: pulse 0.5s ease-in-out;
     }
-  </style>
+
+      /* 詳細モード用のグリッドスタイル */
+      .answer-grid.detail-mode {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        margin-bottom: 4px;
+      }
+      .answer-btn.detail-btn {
+        height: 84px;
+        font-size: 1.05rem;
+        border-radius: 12px;
+        padding: 4px;
+        background: linear-gradient(135deg, var(--color-primary), #B71C1C);
+        border: 1px solid rgba(255,255,255,0.2);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+      }
+      .answer-btn.detail-btn.btn-nausea {
+        background: linear-gradient(135deg, #8BC34A, #689F38); /* 吐き気：黄緑 */
+      }
+      .answer-btn.detail-btn.btn-unwell {
+        background: linear-gradient(135deg, #FF9800, #F57C00); /* 体調不良：オレンジ */
+      }
+      .answer-btn.detail-btn-wide {
+        grid-column: span 3;
+        height: 60px;
+        font-size: 1.15rem;
+      }
+      .detail-icon {
+        font-size: 1.6rem;
+        margin-bottom: 2px;
+      }
+
+      .answer-btn.detail-btn.selected {
+        border: 3.5px solid var(--color-warning) !important;
+        background: linear-gradient(135deg, #B71C1C, #7F0000) !important;
+        box-shadow: 0 0 10px var(--color-warning) !important;
+      }
+      .answer-btn.detail-btn.btn-nausea.selected {
+        background: linear-gradient(135deg, #689F38, #33691E) !important;
+      }
+      .answer-btn.detail-btn.btn-unwell.selected {
+        background: linear-gradient(135deg, #F57C00, #E65100) !important;
+      }
+      .answer-btn.confirm-btn {
+        grid-column: span 3;
+        height: 60px;
+        font-size: 1.25rem;
+        background: linear-gradient(135deg, var(--color-safe), #1B5E20);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+      }
+      .answer-btn.confirm-btn:active {
+        transform: scale(0.98);
+        background: linear-gradient(135deg, #1B5E20, #0D3C12);
+      }
+      .answer-btn.confirm-btn.disabled {
+        opacity: 0.5;
+        pointer-events: none;
+      }
+    </style>
 </head>
 <body>
 
@@ -1020,7 +1082,7 @@
             <path d="M50 25v50M25 50h50" stroke="#FFF" stroke-width="16" stroke-linecap="round"/>
             <circle cx="50" cy="50" r="12" fill="#E53935"/>
           </svg>
-          <span>ケガ確認</span>
+          <span>ケガ体調確認</span>
         </div>
         <div class="question-card" id="q-card-1" onclick="selectQuestion(1)" data-category="fire" style="display: flex;">
           <!-- 歩行（歩く人） -->
@@ -1111,38 +1173,685 @@
       // ==========================================
       // 【消防・救急】カテゴリ
       // ==========================================
-      {
+            {
         id: 0,
-        japaneseTitle: "ケガはありますか？",
+        japaneseTitle: "ケガ体調確認",
         category: "fire",
         translations: {
-          vi: { question: "Bạn có bị thương không?", answers: [{ label: "Có bị thương", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "Không bị thương", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "Bạn có bị thương không?" },
-          id: { question: "Apakah Anda terluka?", answers: [{ label: "Terluka", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "Tidak terluka", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "Apakah Anda terluka?" },
-          zh: { question: "你受伤了吗？", answers: [{ label: "受伤了", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "没有受伤", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "你受伤了吗？" },
-          my: { question: "ဒဏ်ရာရထားပါသလား။", answers: [{ label: "ဒဏ်ရာရထားသည်", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "ဒဏ်ရာမရပါ", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "ဒဏ်ရာရထားပါသလား။" },
-          ko: { question: "다치셨습니까?", answers: [{ label: "부상 있음", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "부상 없음", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "다치셨습니까?" },
-          ne: { question: "तपाईंलाई चोट लागेको छ?", answers: [{ label: "चोट लागेको छ", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "चोट लागेको छैन", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "तपाईंलाई चोट लागेको छ?" },
-          tl: { question: "May sugat ka ba?", answers: [{ label: "May sugat", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "Walang sugat", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "May sugat ka ba?" },
-          en: { question: "Are you injured?", answers: [{ label: "YES", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "NO", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "Are you injured?" },
-          "zh-tw": { question: "你受傷了嗎？", answers: [{ label: "受傷了", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "沒有受傷", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "你受傷了嗎？" },
-          th: { question: "คุณได้รับบาดเจ็บหรือไม่?", answers: [{ label: "บาดเจ็บ", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "ไม่บาดเจ็บ", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "คุณได้รับบาดเจ็บหรือไม่?" },
-          km: { question: "តើអ្នកមានរបួសទេ?", answers: [{ label: "មានរបួស", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "គ្មានរបួសទេ", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "តើអ្នកមានរបួសទេ?" },
-          hi: { question: "क्या आप घायल हैं?", answers: [{ label: "हाँ, घायल हूँ", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "نہیں, ठीक हूँ", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "क्या आप घायल हैं?" },
-          si: { question: "ඔබට තුවාල සිදුවී තිබේද?", answers: [{ label: "තුවාල ඇත", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "තුවාල නැත", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "ඔබට තුවාල සිදුවී තිබේද?" },
-          bn: { question: "আপনি কি আহত?", answers: [{ label: "হ্যাঁ, আহত", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "না, ঠিক আছি", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "আপনি কি আহত?" },
-          ur: { question: "کیا آپ زخمی ہیں؟", answers: [{ label: "زخمی ہوں", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "ٹھیک ہوں", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "کیا آپ زخمی ہیں؟" },
-          "pt-br": { question: "Você está ferido?", answers: [{ label: "Sim, ferido", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "Não ferido", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "Você está ferido?" },
-          mn: { question: "Та гэмтсэн үү?", answers: [{ label: "Гэмтсэн", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "Гэмтээгүй", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "Та гэмтсэн үү?" },
-          ru: { question: "Вы ранены?", answers: [{ label: "Ранен", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "Не ранен", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "Вы ранены?" },
-          uk: { question: "Ви поранені?", answers: [{ label: "Поранений", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "Не поранений", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "Ви поранені?" },
-          de: { question: "Sind Sie verletzt?", answers: [{ label: "Verletzt", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "Nicht verletzt", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "Sind Sie verletzt?" },
-          fr: { question: "Êtes-vous blessé ?", answers: [{ label: "Blessé", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "Non blessé", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "Êtes-vous blessé ?" },
-          it: { question: "Sei ferito?", answers: [{ label: "Ferito", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "Non ferito", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "Sei ferito?" },
-          nl: { question: "Bent u gewond?", answers: [{ label: "Gewond", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "Niet gewond", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "Bent u gewond?" },
-          ja: { question: "ケガはありますか？", answers: [{ label: "はい", subText: "YES ⭕", value: "ケガあり", class: "btn-yes" }, { label: "いいえ", subText: "NO ❌", value: "ケガなし (無事)", class: "btn-no" }], audioText: "ケガはありますか？" }
-        }
+  "vi": {
+    "question": "Bạn bị thương hay thấy mệt mỏi?",
+    "detailQuestion": "Bạn đau ở đâu hoặc thấy thế nào?",
+    "answers": [
+      {
+        "label": "Có",
+        "subText": "YES ⭕",
+        "value": "ケガ・体調不良あり",
+        "class": "btn-yes"
       },
       {
+        "label": "Không",
+        "subText": "NO ❌",
+        "value": "ケガ・体調不良なし",
+        "class": "btn-no"
+      }
+    ],
+    "details": {
+      "head": "Đầu",
+      "chest": "Ngực",
+      "abdomen": "Bụng",
+      "hand": "Tay",
+      "leg": "Chân",
+      "nausea": "Buồn nôn",
+      "unwell": "Người không khỏe"
+    },
+    "confirm": "Đồng ý (OK)"
+  },
+  "id": {
+    "question": "Apakah Anda terluka atau merasa sakit?",
+    "detailQuestion": "Di mana yang sakit, atau apa yang Anda rasakan?",
+    "answers": [
+      {
+        "label": "Ya",
+        "subText": "YES ⭕",
+        "value": "ケガ・体調不良あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "Tidak",
+        "subText": "NO ❌",
+        "value": "ケガ・体調不良なし",
+        "class": "btn-no"
+      }
+    ],
+    "details": {
+      "head": "Kepala",
+      "chest": "Dada",
+      "abdomen": "Perut",
+      "hand": "Tangan",
+      "leg": "Kaki",
+      "nausea": "Mual",
+      "unwell": "Kurang sehat"
+    },
+    "confirm": "Setuju (OK)"
+  },
+  "zh": {
+    "question": "你受伤或身体不舒服吗？",
+    "detailQuestion": "你哪里痛，或哪里不舒服？",
+    "answers": [
+      {
+        "label": "有",
+        "subText": "YES ⭕",
+        "value": "ケガ・体調不良あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "没有",
+        "subText": "NO ❌",
+        "value": "ケガ・体調不良なし",
+        "class": "btn-no"
+      }
+    ],
+    "details": {
+      "head": "头",
+      "chest": "胸",
+      "abdomen": "腹",
+      "hand": "手",
+      "leg": "脚",
+      "nausea": "恶心想吐",
+      "unwell": "身体不舒服"
+    },
+    "confirm": "确定 (OK)"
+  },
+  "my": {
+    "question": "ဒဏ်ရာရတာ ဒါမှမဟုတ် နေမကောင်းဖြစ်နေပါသလား။",
+    "detailQuestion": "ဘယ်နေရာက နာကျင်နေပါသလဲ။",
+    "answers": [
+      {
+        "label": "ရှိသည်",
+        "subText": "YES ⭕",
+        "value": "ケガ・体調不良あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "မရှိပါ",
+        "subText": "NO ❌",
+        "value": "ケガ・体調不良なし",
+        "class": "btn-no"
+      }
+    ],
+    "details": {
+      "head": "ခေါင်း",
+      "chest": "ရင်ဘတ်",
+      "abdomen": "ဗိုက်",
+      "hand": "လက်",
+      "leg": "ခြေထောက်",
+      "nausea": "ပျို့အန်ချင်",
+      "unwell": "နေမကောင်းဖြစ်"
+    },
+    "confirm": "အတည်ပြုသည် (OK)"
+  },
+  "ko": {
+    "question": "다치셨거나 몸이 아프십니까?",
+    "detailQuestion": "어디가 아프거나 안 좋으십니까?",
+    "answers": [
+      {
+        "label": "있음",
+        "subText": "YES ⭕",
+        "value": "ケガ・体調不良あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "없음",
+        "subText": "NO ❌",
+        "value": "ケガ・体調不良なし",
+        "class": "btn-no"
+      }
+    ],
+    "details": {
+      "head": "머리",
+      "chest": "가슴",
+      "abdomen": "배",
+      "hand": "손/팔",
+      "leg": "발/다리",
+      "nausea": "속이 울렁거림",
+      "unwell": "몸 상태 안 좋음"
+    },
+    "confirm": "확인 (OK)"
+  },
+  "ne": {
+    "question": "तपाईलाई चोट लागेको वा बिरामी हुनुहुन्छ?",
+    "detailQuestion": "तपाईलाई कहाँ दुखिरहेको छ वा कस्तो छ?",
+    "answers": [
+      {
+        "label": "छ",
+        "subText": "YES ⭕",
+        "value": "ケガ・体調不良あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "छैन",
+        "subText": "NO ❌",
+        "value": "ケガ・体調不良なし",
+        "class": "btn-no"
+      }
+    ],
+    "details": {
+      "head": "टाउको",
+      "chest": "छाती",
+      "abdomen": "पेट",
+      "hand": "हात",
+      "leg": "खुट्टा",
+      "nausea": "वाकवाकी लागेको",
+      "unwell": "अस्वस्थ महसुस"
+    },
+    "confirm": "सम्मत (OK)"
+  },
+  "tl": {
+    "question": "May sugat ka ba o masama ang pakiramdam?",
+    "detailQuestion": "Saan ang masakit, o ano ang nararamdaman mo?",
+    "answers": [
+      {
+        "label": "Mayroon",
+        "subText": "YES ⭕",
+        "value": "ケガ・体調不良あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "Wala",
+        "subText": "NO ❌",
+        "value": "ケガ・体調不良なし",
+        "class": "btn-no"
+      }
+    ],
+    "details": {
+      "head": "Ulo",
+      "chest": "Dibdib",
+      "abdomen": "Tiyan",
+      "hand": "Kamay",
+      "leg": "Paa",
+      "nausea": "Nasisiraan ng tiyan",
+      "unwell": "Masama ang timpla"
+    },
+    "confirm": "Kumpirmahin (OK)"
+  },
+  "en": {
+    "question": "Are you injured or feeling sick?",
+    "detailQuestion": "Where does it hurt, or how do you feel bad?",
+    "answers": [
+      {
+        "label": "YES",
+        "subText": "YES ⭕",
+        "value": "ケガ・体調不良あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "NO",
+        "subText": "NO ❌",
+        "value": "ケガ・体調不良なし",
+        "class": "btn-no"
+      }
+    ],
+    "details": {
+      "head": "Head",
+      "chest": "Chest",
+      "abdomen": "Abdomen",
+      "hand": "Hand",
+      "leg": "Leg",
+      "nausea": "Nausea",
+      "unwell": "Feeling unwell"
+    },
+    "confirm": "Confirm (OK)"
+  },
+  "zh-tw": {
+    "question": "你受傷或身體不舒服嗎？",
+    "detailQuestion": "你哪裡痛，或哪裡不舒服？",
+    "answers": [
+      {
+        "label": "有",
+        "subText": "YES ⭕",
+        "value": "ケガ・体調不良あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "沒有",
+        "subText": "NO ❌",
+        "value": "ケガ・体調不良なし",
+        "class": "btn-no"
+      }
+    ],
+    "details": {
+      "head": "頭",
+      "chest": "胸",
+      "abdomen": "腹",
+      "hand": "手",
+      "leg": "腳",
+      "nausea": "噁心想吐",
+      "unwell": "身體不舒服"
+    },
+    "confirm": "確定 (OK)"
+  },
+  "th": {
+    "question": "คุณบาดเจ็บหรือรู้สึกไม่สบายไหม?",
+    "detailQuestion": "เจ็บตรงไหน หรือรู้สึกไม่สบายอย่างไร?",
+    "answers": [
+      {
+        "label": "ใช่",
+        "subText": "YES ⭕",
+        "value": "ケガ・体調不良あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "ไม่ใช่",
+        "subText": "NO ❌",
+        "value": "ケガ・体調不良なし",
+        "class": "btn-no"
+      }
+    ],
+    "details": {
+      "head": "ศีรษะ",
+      "chest": "หน้าอก",
+      "abdomen": "ท้อง",
+      "hand": "มือ",
+      "leg": "ขา",
+      "nausea": "คลื่นไส้",
+      "unwell": "รู้สึกไม่สบาย"
+    },
+    "confirm": "ตกลง (OK)"
+  },
+  "km": {
+    "question": "តើអ្នកមានរបួសឬមានអារម្មណ៍មិនស្រួលខ្លួនទេ?",
+    "detailQuestion": "តើអ្នកឈឺនៅត្រង់ណា ឬមានអារម្មណ៍ដូចម្តេច?",
+    "answers": [
+      {
+        "label": "មាន",
+        "subText": "YES ⭕",
+        "value": "ケガ・体調不良あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "គ្មានទេ",
+        "subText": "NO ❌",
+        "value": "ケガ・体調不良なし",
+        "class": "btn-no"
+      }
+    ],
+    "details": {
+      "head": "ក្បាល",
+      "chest": "ទ្រូង",
+      "abdomen": "ពោះ",
+      "hand": "ដៃ",
+      "leg": "ជើង",
+      "nausea": "ចង្អោর",
+      "unwell": "មិនស្រួលខ្លួន"
+    },
+    "confirm": "យល់ព្រម (OK)"
+  },
+  "hi": {
+    "question": "क्या आप घायल हैं या बीमार महसूस कर रहे हैं?",
+    "detailQuestion": "आपको कहाँ दर्द है, या कैसा महसूस हो रहा है?",
+    "answers": [
+      {
+        "label": "हाँ",
+        "subText": "YES ⭕",
+        "value": "ケガ・体調不良あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "नहीं",
+        "subText": "NO ❌",
+        "value": "ケガ・体調不良なし",
+        "class": "btn-no"
+      }
+    ],
+    "details": {
+      "head": "सिर",
+      "chest": "छाती",
+      "abdomen": "पेट",
+      "hand": "हाथ",
+      "leg": "पैर",
+      "nausea": "मतली आ रही है",
+      "unwell": "अस्वस्थ महसूस"
+    },
+    "confirm": "पुष्टि करें (OK)"
+  },
+  "si": {
+    "question": "ඔබට තුවාල සිදුවී හෝ අසනීප වී තිබේද?",
+    "detailQuestion": "ඔබට රිදෙන්නේ කොහේද, නැතහොත් කෙසේ දැනේද?",
+    "answers": [
+      {
+        "label": "ඔව්",
+        "subText": "YES ⭕",
+        "value": "ケガ・体調不良あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "නැත",
+        "subText": "NO ❌",
+        "value": "ケガ・体調不良なし",
+        "class": "btn-no"
+      }
+    ],
+    "details": {
+      "head": "හිස",
+      "chest": "පපුව",
+      "abdomen": "බඩ",
+      "hand": "අත",
+      "leg": "කකුල",
+      "nausea": "ඔක්කාරය දැනේ",
+      "unwell": "අසනීප ගතියක්"
+    },
+    "confirm": "තහවුරු කරන්න (OK)"
+  },
+  "bn": {
+    "question": "আপনি কি আহত বা অসুস্থ বোধ করছেন?",
+    "detailQuestion": "আপনার কোথায় ব্যথা করছে বা কেমন লাগছে?",
+    "answers": [
+      {
+        "label": "হ্যাঁ",
+        "subText": "YES ⭕",
+        "value": "ケガ・体調不良あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "না",
+        "subText": "NO ❌",
+        "value": "ケガ・体調不良なし",
+        "class": "btn-no"
+      }
+    ],
+    "details": {
+      "head": "মাথা",
+      "chest": "বুক",
+      "abdomen": "পেট",
+      "hand": "হাত",
+      "leg": "পা",
+      "nausea": "বমি বমি ভাব",
+      "unwell": "অসুস্থ বোধ করা"
+    },
+    "confirm": "ঠিক আছে (OK)"
+  },
+  "ur": {
+    "question": "کیا آپ زخمی ہیں یا بیمار محسوس کر رہے ہیں؟",
+    "detailQuestion": "آپ کو کہاں درد ہے، یا کیسا محسوس ہو رہا ہے؟",
+    "answers": [
+      {
+        "label": "ہاں",
+        "subText": "YES ⭕",
+        "value": "ケガ・体調不良あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "نہیں",
+        "subText": "NO ❌",
+        "value": "ケガ・体調不良なし",
+        "class": "btn-no"
+      }
+    ],
+    "details": {
+      "head": "سر",
+      "chest": "چھاتی",
+      "abdomen": "پیٹ",
+      "hand": "ہاتھ",
+      "leg": "ٹانگ",
+      "nausea": "متلی ہونا",
+      "unwell": "طبیعت خراب"
+    },
+    "confirm": "تصدیق کریں (OK)"
+  },
+  "pt-br": {
+    "question": "Você está ferido ou se sentindo mal?",
+    "detailQuestion": "Onde dói, ou o que você está sentindo?",
+    "answers": [
+      {
+        "label": "Sim",
+        "subText": "YES ⭕",
+        "value": "ケガ・体調不良あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "Não",
+        "subText": "NO ❌",
+        "value": "ケガ・体調不良なし",
+        "class": "btn-no"
+      }
+    ],
+    "details": {
+      "head": "Cabeça",
+      "chest": "Peito",
+      "abdomen": "Abdômen",
+      "hand": "Mão",
+      "leg": "Perna",
+      "nausea": "Náusea",
+      "unwell": "Sentindo-se mal"
+    },
+    "confirm": "Confirmar (OK)"
+  },
+  "mn": {
+    "question": "Та гэмтсэн эсвэл бие тааруу байна уу?",
+    "detailQuestion": "Таны хаана өвдөж, бие яаж байна вэ?",
+    "answers": [
+      {
+        "label": "Тийм",
+        "subText": "YES ⭕",
+        "value": "ケガ・体調不良あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "Үгүй",
+        "subText": "NO ❌",
+        "value": "ケガ・体調不良なし",
+        "class": "btn-no"
+      }
+    ],
+    "details": {
+      "head": "Толгой",
+      "chest": "Цээж",
+      "abdomen": "Хэвлий",
+      "hand": "Гар",
+      "leg": "Хөл",
+      "nausea": "Дотвор эвгүйрэх",
+      "unwell": "Бие тааруурах"
+    },
+    "confirm": "Баталгаажуулах (OK)"
+  },
+  "ru": {
+    "question": "Вы ранены или плохо себя чувствуете?",
+    "detailQuestion": "Где у вас болит или как вы себя чувствуете?",
+    "answers": [
+      {
+        "label": "Да",
+        "subText": "YES ⭕",
+        "value": "ケガ・体調不良あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "Нет",
+        "subText": "NO ❌",
+        "value": "ケガ・体調不良なし",
+        "class": "btn-no"
+      }
+    ],
+    "details": {
+      "head": "Голова",
+      "chest": "Грудь",
+      "abdomen": "Живот",
+      "hand": "Рука",
+      "leg": "Нога",
+      "nausea": "Тошнота",
+      "unwell": "Плохое самочувствие"
+    },
+    "confirm": "Подтвердить (OK)"
+  },
+  "uk": {
+    "question": "Ви поранені або погано почуваєтеся?",
+    "detailQuestion": "Де у вас болить або як ви почуваетесь?",
+    "answers": [
+      {
+        "label": "Так",
+        "subText": "YES ⭕",
+        "value": "ケガ・体調不良あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "Ні",
+        "subText": "NO ❌",
+        "value": "ケガ・体調不良なし",
+        "class": "btn-no"
+      }
+    ],
+    "details": {
+      "head": "Голова",
+      "chest": "Груди",
+      "abdomen": "Живіт",
+      "hand": "Рука",
+      "leg": "Нога",
+      "nausea": "Нудота",
+      "unwell": "Погане самопочуття"
+    },
+    "confirm": "Підтвердити (OK)"
+  },
+  "de": {
+    "question": "Sind Sie verletzt oder fühlen Sie sich krank?",
+    "detailQuestion": "Wo tut es weh oder wie fühlen Sie sich?",
+    "answers": [
+      {
+        "label": "Ja",
+        "subText": "YES ⭕",
+        "value": "ケガ・体調不良あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "Nein",
+        "subText": "NO ❌",
+        "value": "ケガ・体調不良なし",
+        "class": "btn-no"
+      }
+    ],
+    "details": {
+      "head": "Kopf",
+      "chest": "Brust",
+      "abdomen": "Bauch",
+      "hand": "Hand",
+      "leg": "Bein",
+      "nausea": "Übelkeit",
+      "unwell": "Unwohlsein"
+    },
+    "confirm": "Bestätigen (OK)"
+  },
+  "fr": {
+    "question": "Êtes-vous blessé ou malade ?",
+    "detailQuestion": "Où avez-vous mal ou comment vous sentez-vous ?",
+    "answers": [
+      {
+        "label": "Oui",
+        "subText": "YES ⭕",
+        "value": "ケガ・体調不良あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "Non",
+        "subText": "NO ❌",
+        "value": "ケガ・体調不良なし",
+        "class": "btn-no"
+      }
+    ],
+    "details": {
+      "head": "Tête",
+      "chest": "Poitrine",
+      "abdomen": "Ventre",
+      "hand": "Main",
+      "leg": "Jambe",
+      "nausea": "Nausée",
+      "unwell": "Malade"
+    },
+    "confirm": "Valider (OK)"
+  },
+  "it": {
+    "question": "Sei ferito o ti senti male?",
+    "detailQuestion": "Dove ti fa male o come ti senti?",
+    "answers": [
+      {
+        "label": "Sì",
+        "subText": "YES ⭕",
+        "value": "ケガ・体調不良あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "No",
+        "subText": "NO ❌",
+        "value": "ケガ・体調不良なし",
+        "class": "btn-no"
+      }
+    ],
+    "details": {
+      "head": "Testa",
+      "chest": "Petto",
+      "abdomen": "Addome",
+      "hand": "Mano",
+      "leg": "Gamba",
+      "nausea": "Nausea",
+      "unwell": "Malessere"
+    },
+    "confirm": "Conferma (OK)"
+  },
+  "nl": {
+    "question": "Bent u gewond of voelt u zich onwel?",
+    "detailQuestion": "Waar doet het pijn of hoe voelt u zich?",
+    "answers": [
+      {
+        "label": "Ja",
+        "subText": "YES ⭕",
+        "value": "ケガ・体調不良あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "Nee",
+        "subText": "NO ❌",
+        "value": "ケガ・体調不良なし",
+        "class": "btn-no"
+      }
+    ],
+    "details": {
+      "head": "Kopf",
+      "chest": "Borst",
+      "abdomen": "Buik",
+      "hand": "Hand",
+      "leg": "Been",
+      "nausea": "Misselijk",
+      "unwell": "Onwel voelen"
+    },
+    "confirm": "Bevestigen (OK)"
+  },
+  "ja": {
+    "question": "ケガ・体調が悪いですか？",
+    "detailQuestion": "どこが痛いですか？（どのような体調不良ですか？）",
+    "answers": [
+      {
+        "label": "はい",
+        "subText": "YES ⭕",
+        "value": "ケガ・体調不良あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "いいえ",
+        "subText": "NO ❌",
+        "value": "ケガ・体調不良なし",
+        "class": "btn-no"
+      }
+    ],
+    "details": {
+      "head": "頭",
+      "chest": "胸",
+      "abdomen": "腹",
+      "hand": "手",
+      "leg": "足",
+      "nausea": "吐き気がする",
+      "unwell": "体調不良"
+    },
+    "confirm": "決定 (OK)"
+  }
+}
+      },  {
         id: 1,
         japaneseTitle: "歩けますか？",
         category: "fire",
@@ -1305,7 +2014,7 @@
 
     // 各質問の日本語タイトル定義 (履歴表示用)
     const questionTitles = {
-      0: "ケガ確認",
+      0: "ケガ体調確認",
       1: "歩行可否",
       2: "屋内残留",
       3: "食事制限",
@@ -1327,6 +2036,8 @@
     let currentLanguage = 'vi';
     let currentQuestionIndex = 0; // デフォルト：ケガ確認
     let currentCategory = 'fire'; // デフォルト：消防・救急
+    let isDetailMode = false; // 詳細症状選択モードフラグ
+    let selectedSymptoms = []; // 複数選択された症状の一時保管
 
     // 初期化
     window.addEventListener('DOMContentLoaded', () => {
@@ -1353,33 +2064,67 @@
     function renderApp() {
       const data = disasterData[currentQuestionIndex];
       const translation = data.translations[currentLanguage];
-      
-      // 質問文の更新
       const qTextElement = document.getElementById('foreign-question-text');
-      qTextElement.textContent = translation.question;
+      const container = document.getElementById('answer-buttons-container');
+      const backBtn = document.getElementById('detail-back-container');
+      
+      container.innerHTML = '';
+      
+      // ケガ体調確認（ID 0）かつ詳細モードの場合
+      if (currentQuestionIndex === 0 && isDetailMode) {
+        qTextElement.textContent = translation.detailQuestion;
+        if (backBtn) backBtn.style.display = 'block';
+        
+        container.className = 'answer-grid detail-mode';
+        
+        // 7つの選択項目定義
+        const details = translation.details;
+        const symptoms = [
+          { label: details.head, icon: '👤', rawLabel: '頭', class: 'detail-btn' },
+          { label: details.chest, icon: '🫁', rawLabel: '胸', class: 'detail-btn' },
+          { label: details.abdomen, icon: '🫃', rawLabel: '腹', class: 'detail-btn' },
+          { label: details.hand, icon: '🫱', rawLabel: '手', class: 'detail-btn' },
+          { label: details.leg, icon: '👣', rawLabel: '足', class: 'detail-btn' },
+          { label: details.nausea, icon: '🤢', rawLabel: '吐き気', class: 'detail-btn btn-nausea' },
+          { label: details.unwell, icon: '🤒', rawLabel: '体調不良', class: 'detail-btn btn-unwell' }
+        ];
+        
+        symptoms.forEach(sym => {
+          const btn = document.createElement('button');
+          const isSelected = selectedSymptoms.includes(sym.rawLabel);
+          btn.className = 'answer-btn ' + sym.class + (isSelected ? ' selected' : '');
+          btn.innerHTML = '<span class="detail-icon">' + sym.icon + '</span><span>' + sym.label + '</span>';
+          btn.onclick = () => toggleSymptom(sym.rawLabel);
+          container.appendChild(btn);
+        });
+
+        // 決定ボタンを追加
+        const confirmBtn = document.createElement('button');
+        confirmBtn.className = 'answer-btn confirm-btn' + (selectedSymptoms.length === 0 ? ' disabled' : '');
+        confirmBtn.innerHTML = '<span>✔️ ' + (translation.confirm || '決定 (OK)') + '</span>';
+        confirmBtn.onclick = () => submitSymptoms();
+        container.appendChild(confirmBtn);
+      } else {
+        // 通常のレンダリング
+        qTextElement.textContent = translation.question;
+        if (backBtn) backBtn.style.display = 'none';
+        container.className = 'answer-grid';
+        
+        translation.answers.forEach(ans => {
+          const btn = document.createElement('button');
+          btn.className = 'answer-btn ' + ans.class;
+          btn.innerHTML = '<span>' + ans.label + '</span><span class="answer-btn-sub">' + ans.subText + '</span>';
+          btn.onclick = () => selectAnswer(ans.value);
+          container.appendChild(btn);
+        });
+      }
       
       // アニメーション適用
       qTextElement.parentElement.classList.remove('pulse');
-      void qTextElement.parentElement.offsetWidth; // リフロー発生させてアニメーションリセット
+      void qTextElement.parentElement.offsetWidth;
       qTextElement.parentElement.classList.add('pulse');
-
-      // 回答ボタンの生成
-      const container = document.getElementById('answer-buttons-container');
-      container.innerHTML = '';
-      
-      translation.answers.forEach(ans => {
-        const btn = document.createElement('button');
-        btn.className = `answer-btn ${ans.class}`;
-        btn.innerHTML = `
-          <span>${ans.label}</span>
-          <span class="answer-btn-sub">${ans.subText}</span>
-        `;
-        btn.onclick = () => selectAnswer(ans.value);
-        container.appendChild(btn);
-      });
     }
 
-    // カテゴリの切り替え
     function switchCategory(category) {
       triggerFeedback();
       currentCategory = category;
@@ -1420,6 +2165,7 @@
     // 質問選択（団員側）
     function selectQuestion(index, silent) {
       triggerFeedback();
+      isDetailMode = false; // 質問が切り替わったら詳細モードは自動解除
       currentQuestionIndex = index;
       
       // すべてのカードからactiveクラスを除去し、対象のみに適用
@@ -1440,6 +2186,18 @@
     function selectAnswer(value) {
       triggerFeedback();
       
+      // ケガ体調確認（ID 0）かつ通常モードでYESが押された場合のみ、詳細モードに切り替える
+      if (currentQuestionIndex === 0 && !isDetailMode && value === 'ケガ・体調不良あり') {
+        isDetailMode = true;
+        selectedSymptoms = []; // 選択肢を初期化
+        renderApp();
+        speakDetailQuestion();
+        return;
+      }
+      
+      // それ以外（詳細モードで部位選択、またはNO）は通常通り保存
+      isDetailMode = false;
+      
       // 履歴保管庫に回答を保存
       responseHistory[currentQuestionIndex] = value;
       
@@ -1450,9 +2208,82 @@
       display.classList.remove('pulse');
       void display.offsetWidth;
       display.classList.add('pulse');
+      
+      // 通常画面にリセット
+      renderApp();
+    }
+    
+    // 症状の選択トグル
+    function toggleSymptom(rawLabel) {
+      triggerFeedback();
+      const idx = selectedSymptoms.indexOf(rawLabel);
+      if (idx === -1) {
+        selectedSymptoms.push(rawLabel);
+      } else {
+        selectedSymptoms.splice(idx, 1);
+      }
+      renderApp();
+    }
+    
+    // 症状決定・送信
+    function submitSymptoms() {
+      if (selectedSymptoms.length === 0) return;
+      const joined = selectedSymptoms.join('・');
+      const finalValue = 'ケガ・体調不良あり (症状: ' + joined + ')';
+      selectAnswer(finalValue);
+    }
+    
+    // 詳細画面から最初の質問に戻る
+    function goBackToInitialQuestion() {
+      triggerFeedback();
+      isDetailMode = false;
+      selectedSymptoms = [];
+      renderApp();
+    }
+    
+    // 詳細質問「どこが痛いですか？」の音声合成
+    function speakDetailQuestion() {
+      if (!synth) return;
+      synth.cancel();
+      
+      const data = disasterData[0];
+      const translation = data.translations[currentLanguage];
+      const utterance = new SpeechSynthesisUtterance(translation.detailQuestion);
+      
+      let langCode = 'vi-VN';
+      if (currentLanguage === 'vi') langCode = 'vi-VN';
+      if (currentLanguage === 'id') langCode = 'id-ID';
+      if (currentLanguage === 'zh') langCode = 'zh-CN';
+      if (currentLanguage === 'my') langCode = 'my-MM';
+      if (currentLanguage === 'ko') langCode = 'ko-KR';
+      if (currentLanguage === 'ne') langCode = 'ne-NP';
+      if (currentLanguage === 'tl') langCode = 'tl-PH';
+      if (currentLanguage === 'en') langCode = 'en-US';
+      if (currentLanguage === 'zh-tw') langCode = 'zh-TW';
+      if (currentLanguage === 'th') langCode = 'th-TH';
+      if (currentLanguage === 'km') langCode = 'km-KH';
+      if (currentLanguage === 'hi') langCode = 'hi-IN';
+      if (currentLanguage === 'si') langCode = 'si-LK';
+      if (currentLanguage === 'bn') langCode = 'bn-BD';
+      if (currentLanguage === 'ur') langCode = 'ur-PK';
+      if (currentLanguage === 'pt-br') langCode = 'pt-BR';
+      if (currentLanguage === 'mn') langCode = 'mn-MN';
+      if (currentLanguage === 'ru') langCode = 'ru-RU';
+      if (currentLanguage === 'uk') langCode = 'uk-UA';
+      if (currentLanguage === 'de') langCode = 'de-DE';
+      if (currentLanguage === 'fr') langCode = 'fr-FR';
+      if (currentLanguage === 'it') langCode = 'it-IT';
+      if (currentLanguage === 'nl') langCode = 'nl-NL';
+      if (currentLanguage === 'ja') langCode = 'ja-JP';
+      
+      utterance.lang = langCode;
+      const targetVoice = voices.find(voice => voice.lang.startsWith(langCode));
+      if (targetVoice) {
+        utterance.voice = targetVoice;
+      }
+      synth.speak(utterance);
     }
 
-    // 回答履歴モーダルの表示
     function showHistoryModal() {
       triggerFeedback();
       
