@@ -1092,6 +1092,9 @@
     <div class="modal-content">
       <h2>📋 回答履歴一覧</h2>
       
+      <!-- 選択国籍表示エリア -->
+      <div id="history-selected-country" style="display: flex; align-items: center; gap: 12px; background-color: #000; padding: 10px 14px; border-radius: 10px; margin-top: 4px; margin-bottom: 4px; border: 1px solid rgba(255,255,255,0.15);"></div>
+      
       <div class="history-category-title">🚒 消防・救急</div>
       <div id="history-list-fire" class="history-list"></div>
       
@@ -1452,6 +1455,29 @@
     // 回答履歴モーダルの表示
     function showHistoryModal() {
       triggerFeedback();
+      
+      // 選択された国籍/言語の表示
+      const countryBox = document.getElementById('history-selected-country');
+      if (countryBox) {
+        const flagCards = document.querySelectorAll('.flag-card');
+        const activeCard = Array.from(flagCards).find(card => {
+          const onclickAttr = card.getAttribute('onclick') || '';
+          return onclickAttr.includes(`selectLanguage('${currentLanguage}')`);
+        });
+        
+        if (activeCard) {
+          const flagSvg = activeCard.querySelector('.flag-svg-container').innerHTML;
+          const countryName = activeCard.querySelector('span').textContent;
+          const nativeLang = activeCard.querySelector('.native-lang').textContent;
+          countryBox.innerHTML = `
+            <div style="width: 45px; aspect-ratio: 3/2; border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; overflow: hidden; display: flex; align-items: center;">${flagSvg}</div>
+            <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 1px; line-height: 1.2;">
+              <span style="font-size: 0.95rem; font-weight: bold; color: #FFF;">対象国籍/言語: ${countryName}</span>
+              <span style="font-size: 0.75rem; color: var(--color-text-muted);">${nativeLang}</span>
+            </div>
+          `;
+        }
+      }
       
       const fireList = document.getElementById('history-list-fire');
       const adminList = document.getElementById('history-list-admin');
