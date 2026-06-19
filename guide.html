@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link大村市消防団 - ご利用ガイド</title>
+    
+    <!-- Google Fonts: Inter & Noto Sans JP -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --primary: #E53935; /* 防災レッド */
+            --primary-dark: #B71C1C;
+            --secondary: #222222; /* ダークグレー */
+            --secondary-light: #333333;
+            --accent: #FDD835; /* 警告イエロー */
+            --accent-green: #43A047; /* 安全グリーン */
+            --bg-light: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ヘッダー */
+        header {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
+            color: white;
+            padding: 2.5rem 1rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 5px solid var(--primary);
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(229, 57, 53, 0.15) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .logo-container {
+            width: 90px;
+            height: 90px;
+            background: white;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border: 3px solid var(--primary);
+            overflow: hidden;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #ffffff, #ffcdd2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p {
+            font-size: 1rem;
+            color: #b0bec5;
+            font-weight: 700;
+        }
+
+        /* コンテナ */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* セクション共通 */
+        section {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--secondary);
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 0.5rem;
+            width: fit-content;
+        }
+
+        h2 i {
+            color: var(--primary);
+        }
+
+        /* タブ切り替え */
+        .tab-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            background: #f1f5f9;
+            padding: 0.35rem;
+            border-radius: 14px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            background: transparent;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: var(--secondary);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* 導入ステップカード */
+        .step-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media(min-width: 768px) {
+            .step-list {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .step-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 18px;
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-num {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            font-weight: 900;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(229, 57, 53, 0.3);
+            border: 2px solid white;
+        }
+
+        .step-icon-wrapper {
+            font-size: 2rem;
+            margin: 1rem 0;
+            color: var(--secondary);
+            display: flex;
+            justify-content: center;
+        }
+
+        .step-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+        }
+
+        .step-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-align: left;
+        }
+
+        /* アプリ使用マニュアル */
+        .manual-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .manual-item {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        @media(min-width: 768px) {
+            .manual-item {
+                grid-template-columns: 1fr 1fr;
+            }
+            .manual-item.reverse {
+                direction: rtl;
+            }
+            .manual-item.reverse .manual-desc {
+                direction: ltr;
+            }
+        }
+
+        .manual-desc h3 {
+            font-size: 1.35rem;
+            font-weight: 900;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .manual-desc p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .manual-desc ul {
+            list-style: none;
+        }
+
+        .manual-desc li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .manual-desc li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: 900;
+        }
+
+        /* スマホモックアップUI */
+        .phone-mockup {
+            width: 100%;
+            max-width: 290px;
+            height: 540px;
+            background: #000;
+            border-radius: 36px;
+            margin: 0 auto;
+            border: 8px solid #333;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            font-size: 0.8rem;
+        }
+
+        /* インナー画面 */
+        .screen {
+            flex: 1;
+            background: #111111;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* アプリヘッダー */
+        .app-header {
+            background: #222;
+            color: white;
+            padding: 0.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: 900;
+            font-size: 0.75rem;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .app-badge-mock {
+            background: var(--primary);
+            color: white;
+            font-size: 0.55rem;
+            padding: 1px 4px;
+            border-radius: 3px;
+        }
+
+        /* モックアップコンテンツ */
+        .mock-content {
+            padding: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            flex: 1;
+            justify-content: space-between;
+        }
+
+        .foreigner-bubble-mock {
+            background: #1e1e1e;
+            border-radius: 10px;
+            padding: 0.8rem;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .answers-grid-mock {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+
+        .mock-ans-btn {
+            height: 50px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--primary), #B71C1C);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 0.75rem;
+        }
+
+        .mock-ans-btn.no {
+            background: linear-gradient(135deg, #37474F, #21272A);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .member-zone-mock {
+            background: #222;
+            border-top: 2px solid var(--primary);
+            padding: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .mock-tabs {
+            display: flex;
+            background: #000;
+            border-radius: 6px;
+            padding: 2px;
+            gap: 2px;
+        }
+
+        .mock-tab {
+            flex: 1;
+            text-align: center;
+            padding: 0.25rem;
+            font-size: 0.6rem;
+            color: #aaa;
+            font-weight: 700;
+            border-radius: 4px;
+        }
+
+        .mock-tab.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .mock-q-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+        }
+
+        .mock-q-card {
+            background: #333;
+            border-radius: 6px;
+            padding: 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.55rem;
+            font-weight: 700;
+            color: white;
+            text-align: center;
+        }
+
+        .mock-q-card.active {
+            background: rgba(253, 216, 53, 0.2);
+            border: 1px solid var(--accent);
+        }
+
+        .mock-log-box {
+            background: #000;
+            padding: 0.4rem;
+            border-radius: 4px;
+            border-left: 3px solid var(--accent);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.65rem;
+        }
+
+        .mock-log-value {
+            color: var(--accent);
+            font-weight: 900;
+        }
+
+        /* 180度反転アニメーション */
+        .rotated-section-mock {
+            transform: rotate(180deg);
+        }
+
+        /* フッター */
+        footer {
+            background: var(--secondary);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 4rem;
+            border-top: 5px solid var(--primary);
+            font-size: 0.85rem;
+        }
+
+        footer p {
+            color: #b0bec5;
+            margin-bottom: 0.5rem;
+        }
+
+        /* アニメーション */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ヘッダー -->
+    <header>
+        <div class="logo-container">
+            <img src="./icon.jpg" alt="大村市消防団">
+        </div>
+        <h1>Link大村市消防団</h1>
+        <p>多言語指差し防災アプリ - ご利用ガイド</p>
+    </header>
+
+    <div class="container">
+
+        <!-- アプリの概要 -->
+        <section>
+            <h2><i data-lucide="info"></i>本アプリについて</h2>
+            <p style="font-weight: 700; margin-bottom: 0.5rem;">大村市消防団員の皆様、地域にお住まいの外国人の皆様へ</p>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem;">
+                本アプリ（Link大村市消防団）は、災害時に言葉の壁がある外国人避難者と、現場の消防団員が**対面で画面を指差し合いながら円滑にコミュニケーションを取るため**の対面多言語対話防災アプリです。
+                ベトナム語、インドネシア語、英語、中国語など、大村市に多く住む24ヶ国の多言語に対応しています。
+                完全オフライン（ネット通信不要）で動作するため、通信環境が遮断された避難所や被災現場でも安心して使用できます。
+            </p>
+        </section>
+
+        <!-- 導入方法（PWA追加方法） -->
+        <section id="install">
+            <h2><i data-lucide="smartphone"></i>スマホのホーム画面に追加する（導入方法）</h2>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">
+                本アプリは、ブラウザからスマートフォンのホーム画面に追加（PWAインストール）することで、電波が繋がらない完全なオフライン状態でもネイティブアプリのようにいつでも起動・使用できるようになります。
+            </p>
+            
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="switchTab('ios')"><i data-lucide="apple"></i>iPhone (iOS) の場合</button>
+                <button class="tab-btn" onclick="switchTab('android')"><i data-lucide="smartphone"></i>Android の場合</button>
+            </div>
+
+            <!-- iOS手順 -->
+            <div id="ios-steps" class="tab-content active">
+                <div class="step-list">
+                    <div class="step-card">
+                        <div class="step-num">1</div>
+                        <div class="step-icon-wrapper"><i data-lucide="compass"></i></div>
+                        <h3>Safariで開く</h3>
+                        <p>ブラウザでアプリを開き、必ず標準ブラウザの「Safari」で閲覧してください。（他のSNS内ブラウザ等ではホーム画面追加ができません）</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-num">2</div>
+                        <div class="step-icon-wrapper"><i data-lucide="share"></i></div>
+                        <h3>共有ボタンをタップ</h3>
+                        <p>画面下部にある「共有アイコン（四角から上向き矢印が飛び出ているマーク）」をタップします。</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-num">3</div>
+                        <div class="step-icon-wrapper"><i data-lucide="plus-square"></i></div>
+                        <h3>ホーム画面に追加</h3>
+                        <p>メニューリストから「ホーム画面に追加」を選択して追加すると、ホーム画面に「Link大村市消防団」のアイコンが表示されます。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Android手順 -->
+            <div id="android-steps" class="tab-content">
+                <div class="step-list">
+                    <div class="step-card">
+                        <div class="step-num">1</div>
+                        <div class="step-icon-wrapper"><i data-lucide="chrome"></i></div>
+                        <h3>Chromeで開く</h3>
+                        <p>ブラウザでアプリを開き、標準ブラウザである「Google Chrome」で閲覧してください。</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-num">2</div>
+                        <div class="step-icon-wrapper"><i data-lucide="more-vertical"></i></div>
+                        <h3>メニューをタップ</h3>
+                        <p>画面右上（または右下）にある「その他メニュー（縦の点3つマーク）」をタップします。</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-num">3</div>
+                        <div class="step-icon-wrapper"><i data-lucide="download"></i></div>
+                        <h3>アプリをインストール</h3>
+                        <p>メニューの中にある「アプリをインストール」または「ホーム画面に追加」をタップし、指示に従ってインストールを行います。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- アプリ操作マニュアル -->
+        <section id="manual">
+            <h2><i data-lucide="book-open"></i>アプリ操作マニュアル</h2>
+            <div class="manual-grid">
+                
+                <!-- ステップ1: 言語選択 -->
+                <div class="manual-item">
+                    <div class="manual-desc">
+                        <h3><span>1.</span> 起動と言語の選択</h3>
+                        <p>
+                            アプリを起動すると、言語選択画面（国旗一覧）が表示されます。相手の国籍、または理解できる言語を選択してもらいます。
+                        </p>
+                        <ul>
+                            <li>大村市に多く居住するベトナム語、インドネシア語などを優先配置。</li>
+                            <li>日本語を含めた全24言語から簡単に選択できます。</li>
+                            <li>画面右上には、起動画面自体を反転させるボタンも配置しています。</li>
+                        </ul>
+                    </div>
+                    <div class="phone-mockup">
+                        <div class="screen" style="justify-content: center; padding: 1rem;">
+                            <div class="welcome-header" style="text-align:center; color:white; margin-bottom:1rem;">
+                                <div style="font-size:1.5rem;">🌐</div>
+                                <div style="font-weight:900; font-size:0.8rem;">Select language</div>
+                                <div style="font-size:0.6rem; color:#aaa;">国籍・言語を選択してください</div>
+                            </div>
+                            <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 6px;">
+                                <div style="background:#1e1e1e; border-radius:6px; padding:6px; text-align:center; color:white; font-size:0.6rem; font-weight:700;">🇻🇳 ベトナム</div>
+                                <div style="background:#1e1e1e; border-radius:6px; padding:6px; text-align:center; color:white; font-size:0.6rem; font-weight:700;">🇮🇩 インドネシア</div>
+                                <div style="background:#1e1e1e; border-radius:6px; padding:6px; text-align:center; color:white; font-size:0.6rem; font-weight:700;">🇨🇳 中国</div>
+                                <div style="background:#1e1e1e; border-radius:6px; padding:6px; text-align:center; color:white; font-size:0.6rem; font-weight:700;">🇲🇲 ミャンマー</div>
+                                <div style="background:#1e1e1e; border-radius:6px; padding:6px; text-align:center; color:white; font-size:0.6rem; font-weight:700;">🇺🇸 英語</div>
+                                <div style="background:#1e1e1e; border-radius:6px; padding:6px; text-align:center; color:white; font-size:0.6rem; font-weight:700;">🇯🇵 日本語</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ステップ2: 対面コミュニケーションと180度反転 -->
+                <div class="manual-item reverse">
+                    <div class="manual-desc">
+                        <h3><span>2.</span> 対面操作と180度反転機能</h3>
+                        <p>
+                            本アプリは、1台のスマートフォンを団員と被災者の二者で挟み込むように向かい合って使います。
+                        </p>
+                        <ul>
+                            <li>**上半分（外国人住民エリア）**: 選択された言語で質問が表示されます。右上にある「反転ボタン（🔄）」を押すことで、**文字とボタンが180度回転し、対面の相手から正しく読める向きになります。**</li>
+                            <li>**下半分（団員エリア）**: 日本語で質問カードや相手の回答ログ、履歴が表示されます。</li>
+                        </ul>
+                    </div>
+                    <div class="phone-mockup">
+                        <div class="screen">
+                            <!-- アプリヘッダー -->
+                            <div class="app-header">
+                                <div class="app-title">🔄 対面操作</div>
+                            </div>
+                            <div class="mock-content">
+                                <!-- 上半分：外国人住民エリア（反転状態） -->
+                                <div class="rotated-section-mock" style="background: #111; padding: 0.5rem; border-radius: 8px; border: 1px dashed var(--primary); display:flex; flex-direction:column; gap:0.4rem;">
+                                    <div class="foreigner-bubble-mock" style="padding: 0.4rem; font-size:0.65rem;">Are you injured?</div>
+                                    <div class="answers-grid-mock">
+                                        <div class="mock-ans-btn" style="height:35px; font-size:0.65rem;">YES ⭕</div>
+                                        <div class="mock-ans-btn no" style="height:35px; font-size:0.65rem;">NO ❌</div>
+                                    </div>
+                                </div>
+                                <div style="text-align:center; font-size:0.55rem; color:#666;">（向かい合って会話）</div>
+                                <!-- 下半分：団員エリア -->
+                                <div class="member-zone-mock" style="border:none; padding:0;">
+                                    <div class="mock-log-box" style="padding: 0.3rem;">
+                                        <span>相手の回答:</span>
+                                        <span class="mock-log-value">未回答</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ステップ3: 質問カードの切り替えと詳細画面 -->
+                <div class="manual-item">
+                    <div class="manual-desc">
+                        <h3><span>3.</span> 質問の選択と詳細画面の展開</h3>
+                        <p>
+                            団員が下半分の質問カードをタップすると、上半分の質問内容が瞬時にその言語に翻訳され、自動音声で読み上げられます。
+                        </p>
+                        <ul>
+                            <li>**タブでのカテゴリ切り替え**: 「🚒 緊急（生命の危機）」と「🏫 避難所・避難生活」の2つのカテゴリを瞬時に切り替え可能。</li>
+                            <li>**詳細画面への移行**: 「ケガ体調確認」「屋内残留」「持病確認」「下敷き確認」などで被災者が「はい（いる）」と回答すると、自動的に「どこが痛いか（部位）」「何人いるか（人数）」「何の病気か」「声が聞こえるか」を選択するピクトグラム付きの詳細画面に切り替わります。</li>
+                        </ul>
+                    </div>
+                    <div class="phone-mockup">
+                        <div class="screen">
+                            <div class="app-header">
+                                <div class="app-title">🚒 緊急カテゴリ</div>
+                            </div>
+                            <div class="mock-content" style="justify-content: flex-end;">
+                                <div class="foreigner-bubble-mock" style="font-size:0.7rem; margin-bottom: 0.5rem;">
+                                    Please select the illness. (持病)
+                                </div>
+                                <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-bottom: 0.5rem;">
+                                    <div style="background:var(--primary); color:white; border-radius:6px; padding:4px; text-align:center; font-size:0.55rem; font-weight:700;">🫀 心臓病</div>
+                                    <div style="background:var(--primary); color:white; border-radius:6px; padding:4px; text-align:center; font-size:0.55rem; font-weight:700;">💉 糖尿病</div>
+                                    <div style="background:var(--primary); color:white; border-radius:6px; padding:4px; text-align:center; font-size:0.55rem; font-weight:700;">🩸 高血圧</div>
+                                </div>
+                                <div class="member-zone-mock">
+                                    <div class="mock-tabs">
+                                        <div class="mock-tab active">🚒 緊急</div>
+                                        <div class="mock-tab">🏫 避難生活</div>
+                                    </div>
+                                    <div class="mock-q-grid">
+                                        <div class="mock-q-card">🩹 ケガ</div>
+                                        <div class="mock-q-card">🚶 歩行</div>
+                                        <div class="mock-q-card active">🩺 持病</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ステップ4: 回答履歴の一覧確認 -->
+                <div class="manual-item reverse">
+                    <div class="manual-desc">
+                        <h3><span>4.</span> 相手の回答ログと「履歴一覧」</h3>
+                        <p>
+                            被災者がボタンを押すと、団員エリアの「相手の回答」欄に日本語でリアルタイムに回答内容が表示されます。
+                        </p>
+                        <ul>
+                            <li>**回答の即時反映**: 「持病あり（病名: 糖尿病）」「屋内に人あり（人数: 3人）」「下敷きあり（声: 会話できる）」など、被災者の選択が日本語で詳細にログに反映されます。</li>
+                            <li>**履歴一覧モーダル**: 右下の「一覧」ボタンを押すと、すべての質問に対する回答状況を緊急カテゴリ・避難所カテゴリに分けて一覧（チェックリスト形式）で一画面に表示し、情報収集の取りこぼしを防ぎます。</li>
+                        </ul>
+                    </div>
+                    <div class="phone-mockup">
+                        <div class="screen" style="background:#222; padding:0.5rem; justify-content:center;">
+                            <div style="background:#222; border: 2px solid var(--primary); border-radius:12px; padding:0.8rem; color:white;">
+                                <h4 style="text-align:center; font-size:0.75rem; border-bottom:1px solid var(--primary); padding-bottom:4px; margin-bottom:6px;">📋 回答履歴一覧</h4>
+                                <div style="font-size:0.55rem; color:#aaa; margin-bottom:4px;">🚒 緊急（生命の危機）</div>
+                                <div style="background:#000; border-radius:6px; padding:4px; display:flex; flex-direction:column; gap:2px; font-size:0.6rem; margin-bottom:6px;">
+                                    <div style="display:flex; justify-content:space-between; border-bottom:1px solid #111; padding:2px 0;">
+                                        <span>ケガ体調</span><span style="color:var(--accent);">ケガなし</span>
+                                    </div>
+                                    <div style="display:flex; justify-content:space-between; border-bottom:1px solid #111; padding:2px 0;">
+                                        <span>屋内残留</span><span style="color:var(--accent);">人あり (3人)</span>
+                                    </div>
+                                    <div style="display:flex; justify-content:space-between; padding:2px 0;">
+                                        <span>下敷き確認</span><span style="color:var(--accent);">下敷きなし</span>
+                                    </div>
+                                </div>
+                                <div style="text-align:center; background:var(--primary); padding:4px; border-radius:6px; font-size:0.65rem; font-weight:700;">閉じる</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 注意事項・ポリシー -->
+        <section id="notes">
+            <h2><i data-lucide="shield-check"></i>運用上の注意事項</h2>
+            <div style="background: #fff5f5; border: 1px solid #fed7d7; border-radius: 18px; padding: 1.5rem; font-size: 0.95rem; display: flex; flex-direction: column; gap: 1rem;">
+                <p style="font-weight: 700; color: #c53030;">⚠️ 確実な音声読み上げ機能（SpeechSynthesis）の利用のために</p>
+                <p style="color: #4a5568; font-size: 0.9rem; line-height: 1.7;">
+                    本アプリの音声読み上げ機能は、スマートフォンのOS内蔵の音声エンジン（SpeechSynthesis）を利用します。
+                    端末の設定や言語パックのダウンロード状況によっては、一部の言語で音声が読み上げられない場合があります。
+                    より確実な多言語発話を行うため、あらかじめ端末の「設定」➔「アクセシビリティ」➔「読み上げコンテンツ」等から、多言語の音声データをインストールしておくことを推奨します。
+                </p>
+                <hr style="border:0; border-top:1px solid #fed7d7; margin:0.5rem 0;">
+                <p style="font-weight: 700; color: #2d3748;">🔒 個人情報およびデータ管理について</p>
+                <p style="color: #4a5568; font-size: 0.9rem; line-height: 1.7;">
+                    本アプリは完全ローカル（ブラウザのメモリ内）で動作し、送信された回答データや被災者の入力情報が外部のサーバーに送信されることは一切ありません。
+                    「一覧（回答履歴）」に記録された情報は、アプリのクリアボタンを押すか、ブラウザをリロード・閉じることで完全に初期化されます。個人情報の外部流出リスクはなく、安全に使用していただけます。
+                </p>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- フッター -->
+    <footer>
+        <p>Copyright &copy; 2026 大村市消防団 田中哲也. All rights reserved.</p>
+        <p style="font-size: 0.75rem; color: #b0bec5; margin-top: 0.6rem; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.6;">本アプリおよび本マニュアルに関する一切の権利（著作権を含む）は、開発者（大村市消防団 田中哲也）に帰属します。無断での複製、転載、再配布を禁じます。</p>
+        <p style="font-size: 0.75rem; color: #90a4ae; margin-top: 0.5rem;">対面多言語指差し防災アプリ - Link大村市消防団</p>
+    </footer>
+
+    <!-- Lucideアイコンイニシャライズ -->
+    <script>
+        lucide.createIcons();
+
+        // タブ切り替え制御
+        function switchTab(platform) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            if (platform === 'ios') {
+                event.currentTarget.classList.add('active');
+                document.getElementById('ios-steps').classList.add('active');
+            } else if (platform === 'android') {
+                event.currentTarget.classList.add('active');
+                document.getElementById('android-steps').classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -272,6 +272,201 @@
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+
+    .welcome-header {
+      text-align: center;
+      margin-top: 12px;
+      margin-bottom: 12px;
+    }
+
+    .welcome-header h1 {
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      line-height: 1.4;
+      padding: 0 40px;
+    }
+
+    .welcome-subtitle {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      margin-top: 2px;
+    }
+
+    .flag-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      max-width: 600px;
+      margin: 0 auto;
+      width: 100%;
+      padding-bottom: 32px;
+    }
+
+    .flag-card {
+      background-color: var(--color-card-外国人);
+      border: 1.5px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 6px 2px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.1s, border-color 0.2s, background-color 0.2s;
+    }
+
+    .flag-card:active {
+      transform: scale(0.96);
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .flag-svg-container {
+      width: 100%;
+      max-width: 70px;
+      aspect-ratio: 3 / 2;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      margin-bottom: 3px;
+    }
+
+    .flag-svg-container svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .flag-card span {
+      font-size: 0.75rem;
+      font-weight: bold;
+      color: #FFFFFF;
+      margin-top: 1px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .flag-card .native-lang {
+      font-size: 0.65rem;
+      color: var(--color-text-muted);
+      margin-top: 1px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    /* ----------------------------------------------------
+       2. メインの対面コミュニケーション画面のスタイル
+       ---------------------------------------------------- */
+    .app-container {
+      display: flex;
+      flex-direction: column;
+      width: 100vw;
+      height: 100vh;
+      height: -webkit-fill-available;
+      transition: filter 0.3s;
+    }
+
+    /* 上半分：外国人エリア */
+    .section-foreigner {
+      flex: 1;
+      background-color: var(--color-bg-外国人);
+      display: flex;
+      flex-direction: column;
+      padding: 12px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* 下半分：団員エリア */
+    .section-member {
+      flex: 1;
+      background-color: var(--color-bg-団員);
+      border-top: 4px solid var(--color-primary);
+      display: flex;
+      flex-direction: column;
+      padding: 8px 12px 12px 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 180度回転状態（外国人エリア） */
+    .section-foreigner.rotated {
+      transform: rotate(180deg);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .app-title {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .app-badge {
+      background-color: var(--color-primary);
+      color: #fff;
+      font-size: 0.7rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    .back-to-lang-btn {
+      background-color: var(--color-card-団員);
+      border: 2px solid var(--color-primary);
+      color: #FFFFFF;
+      padding: 6px 12px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .back-to-lang-btn:active {
+      background-color: var(--color-primary);
+    }
+
+    /* カテゴリ切り替えタブ */
+    .category-tabs {
+      display: flex;
+      background-color: #000000;
+      border-radius: 10px;
+      padding: 3px;
+      margin-bottom: 8px;
+      gap: 4px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      background-color: transparent;
+      border: none;
+      color: var(--color-text-muted);
+      padding: 10px;
+      font-size: 0.95rem;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       gap: 6px;
       transition: all 0.2s;
     }
@@ -286,9 +481,11 @@
     .question-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
+      gap: 6px;
       flex: 1;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
+      overflow-y: auto;
+      max-height: 160px;
     }
 
     .question-card {
@@ -299,10 +496,11 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 6px;
+      padding: 4px;
       cursor: pointer;
       text-align: center;
       transition: all 0.2s;
+      height: 68px;
     }
 
     .question-card.active {
@@ -311,13 +509,13 @@
     }
 
     .question-card svg {
-      width: 44px;
-      height: 44px;
-      margin-bottom: 4px;
+      width: 28px;
+      height: 28px;
+      margin-bottom: 1px;
     }
 
     .question-card span {
-      font-size: 0.8rem;
+      font-size: 0.7rem;
       font-weight: bold;
       line-height: 1.2;
     }
@@ -1069,8 +1267,8 @@
 
       <!-- 新設：カテゴリ切り替えタブ -->
       <div class="category-tabs">
-        <button class="tab-btn active" id="tab-fire" onclick="switchCategory('fire')">🚒 消防・救急</button>
-        <button class="tab-btn" id="tab-admin" onclick="switchCategory('admin')">🏫 行政・避難所</button>
+        <button class="tab-btn active" id="tab-fire" onclick="switchCategory('fire')">🚒 緊急（生命の危機）</button>
+        <button class="tab-btn" id="tab-admin" onclick="switchCategory('admin')">🏫 避難所・避難生活</button>
       </div>
 
       <!-- 質問選択カード (消防・救急カテゴリ) -->
@@ -1102,6 +1300,37 @@
             <path d="M38 72 c0-10 8-12 12-12 s12 2 12 12" fill="#111"/>
           </svg>
           <span>屋内残留</span>
+        </div>
+        <div class="question-card" id="q-card-6" onclick="selectQuestion(6)" data-category="fire" style="display: flex;">
+          <!-- 持病（聴診器） -->
+          <svg viewBox="0 0 100 100">
+            <rect x="10" y="10" width="80" height="80" rx="15" fill="#9C27B0"/>
+            <path d="M50 25 C35 12, 20 30, 50 65 C80 30, 65 12, 50 25 Z" fill="#FFF"/>
+            <path d="M30 65 h40" stroke="#FFF" stroke-width="8" stroke-linecap="round"/>
+            <circle cx="50" cy="50" r="10" fill="#9C27B0"/>
+          </svg>
+          <span>持病確認</span>
+        </div>
+        <div class="question-card" id="q-card-7" onclick="selectQuestion(7)" data-category="fire" style="display: flex;">
+          <!-- 妊娠（妊婦） -->
+          <svg viewBox="0 0 100 100">
+            <rect x="10" y="10" width="80" height="80" rx="15" fill="#E91E63"/>
+            <circle cx="50" cy="28" r="8" fill="#FFF"/>
+            <path d="M42 42 h16 l-2 28 h-12 Z" fill="#FFF"/>
+            <path d="M54 52 A 10 10 0 0 1 44 62" stroke="#E91E63" stroke-width="4" fill="none"/>
+          </svg>
+          <span>妊娠確認</span>
+        </div>
+        <div class="question-card" id="q-card-8" onclick="selectQuestion(8)" data-category="fire" style="display: flex;">
+          <!-- 下敷き（倒壊家屋と人影） -->
+          <svg viewBox="0 0 100 100">
+            <rect x="10" y="10" width="80" height="80" rx="15" fill="#E53935"/>
+            <path d="M20 55 L45 35 L70 55 V80 H20 Z" fill="none" stroke="#FFF" stroke-width="6" stroke-linejoin="round"/>
+            <path d="M15 48 L45 25 L85 45" stroke="#FFF" stroke-width="8" stroke-linecap="round"/>
+            <circle cx="50" cy="65" r="6" fill="#FFF"/>
+            <path d="M42 80 c0-8 6-8 8-8 s8 0 8 8" fill="#FFF"/>
+          </svg>
+          <span>下敷き確認</span>
         </div>
 
         <!-- 質問選択カード (行政・避難所カテゴリ) -->
@@ -1157,10 +1386,10 @@
       <!-- 選択国籍表示エリア -->
       <div id="history-selected-country" style="display: flex; align-items: center; gap: 12px; background-color: #000; padding: 10px 14px; border-radius: 10px; margin-top: 4px; margin-bottom: 4px; border: 1px solid rgba(255,255,255,0.15);"></div>
       
-      <div class="history-category-title">🚒 消防・救急</div>
+      <div class="history-category-title">🚒 緊急（生命の危機）</div>
       <div id="history-list-fire" class="history-list"></div>
       
-      <div class="history-category-title">🏫 行政・避難所</div>
+      <div class="history-category-title">🏫 避難所・避難生活</div>
       <div id="history-list-admin" class="history-list"></div>
       
       <button class="modal-close-btn" onclick="closeHistoryModal()">閉じる</button>
@@ -1168,6 +1397,29 @@
   </div>
 
   <script>
+    // PWA強制キャッシュクリアロジック (v20)
+    (function() {
+      const CURRENT_VERSION = 'link-omura-pwa-v33';
+      if (localStorage.getItem('app_pwa_version') !== CURRENT_VERSION) {
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.getRegistrations().then(registrations => {
+            for (let r of registrations) {
+              r.unregister();
+            }
+            caches.keys().then(keys => {
+              Promise.all(keys.map(k => caches.delete(k))).then(() => {
+                localStorage.setItem('app_pwa_version', CURRENT_VERSION);
+                console.log('PWA cache cleared for version update.');
+                window.location.reload(true);
+              });
+            });
+          });
+        } else {
+          localStorage.setItem('app_pwa_version', CURRENT_VERSION);
+        }
+      }
+    })();
+
     // 24ヶ国語辞書データ構造（計6問）
     const disasterData = [
       // ==========================================
@@ -1887,31 +2139,679 @@
         japaneseTitle: "家にまだ誰かいますか？",
         category: "fire",
         translations: {
-          vi: { question: "Còn ai ở trong nhà không?", answers: [{ label: "Còn người", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "Không còn ai", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "Còn ai ở trong nhà không?" },
-          id: { question: "Apakah masih ada orang di dalam rumah?", answers: [{ label: "Ada orang", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "Tidak ada orang", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "Apakah masih ada orang di dalam rumah?" },
-          zh: { question: "屋里还有其他人吗？", answers: [{ label: "还有人", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "没有其他人", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "屋里还有其他人吗？" },
-          my: { question: "အိမ်ထဲမှာ လူကျန်သေးသလား။", answers: [{ label: "လူကျန်သေးသည်", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "မကျန်တော့ပါ", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "အိမ်ထဲမှာ လူကျန်သေးသလား။" },
-          ko: { question: "집 안에 다른 사람이 있습니까?", answers: [{ label: "사람 있음", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "사람 없음", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "집 안에 다른 사람이 있습니까?" },
-          ne: { question: "घर भित्र कोही बाँकी छ?", answers: [{ label: "कोही छ", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "कोही छैन", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "घर भित्र कोही बाँकी छ?" },
-          tl: { question: "May tao pa ba sa loob ng bahay?", answers: [{ label: "May tao pa", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "Wala nang tao", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "May tao pa ba sa loob ng bahay?" },
-          en: { question: "Is anyone else left inside the house?", answers: [{ label: "Yes, someone", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "No one", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "Is anyone else left inside the house?" },
-          "zh-tw": { question: "屋裡還有其他人嗎？", answers: [{ label: "還有人", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "沒有其他人", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "屋裡還有其他人嗎？" },
-          th: { question: "ยังมีใครอยู่ในบ้านไหม?", answers: [{ label: "มีคนอยู่", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "ไม่มีใคร", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "ยังมีใครอยู่ในบ้านไหม?" },
-          km: { question: "តើមាននរណាម្នាក់នៅក្នុងផ្ទះទេ?", answers: [{ label: "មានមនុស្ស", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "គ្មានទេ", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "តើមាននរណាម្នាក់នៅក្នុងផ្ទះទេ?" },
-          hi: { question: "क्या घर के अंदर कोई बचा है?", answers: [{ label: "हाँ, कोई है", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "कोई نہیں ہے", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "क्या घर के अंदर कोई बचा है?" },
-          si: { question: "නිවස තුළ තවමත් யாரාවක් සිටීද?", answers: [{ label: "කෙනෙක් සිටී", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "කවුරුත් නැත", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "නිවස තුළ තවමත් யாரාවක් සිටීද?" },
-          bn: { question: "ঘরের ভেতরে কি কেউ আছে?", answers: [{ label: "হ্যাঁ, আছে", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "কেউ নেই", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "ঘরের ভেতরে কি কেউ আছে?" },
-          ur: { question: "کیا گھر کے اندر کوئی ہے؟", answers: [{ label: "کوئی ہے", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "کوئی نہیں ہے", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "کیا گھر के अंदर कोई है؟" },
-          "pt-br": { question: "Tem mais alguém dentro de casa?", answers: [{ label: "Tem alguém", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "Ninguém", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "Tem mais alguém dentro de casa?" },
-          mn: { question: "Гэрт хүн үлдсэн үү?", answers: [{ label: "Байгаа", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "Байхгүй", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "Гэрт хүн үлдсэн үү?" },
-          ru: { question: "Есть кто-то в доме?", answers: [{ label: "Кто-то есть", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "Никого нет", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "Есть кто-то в доме?" },
-          uk: { question: "У будинку хтось є?", answers: [{ label: "Є хтось", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "Нікого", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "У будинку хтось є?" },
-          de: { question: "Ist noch jemand im Haus?", answers: [{ label: "Jemand da", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "Niemand mehr", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "Ist noch jemand im Haus?" },
-          fr: { question: "Y a-t-il quelqu'un dans la maison ?", answers: [{ label: "Oui, quelqu'un", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "Personne", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "Y a-t-il quelqu'un dans la maison ?" },
-          it: { question: "C'è qualcun altro in casa?", answers: [{ label: "C'è qualcuno", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "Nessuno", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "C'è qualcun altro in casa?" },
-          nl: { question: "Is er nog iemand in huis?", answers: [{ label: "Er is iemand", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "Niemand meer", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "Is er nog iemand in huis?" },
-          ja: { question: "家にまだ誰かいますか？", answers: [{ label: "いる", subText: "YES ⭕", value: "屋内に人あり", class: "btn-yes" }, { label: "いない", subText: "NO ❌", value: "屋内に人なし", class: "btn-no" }], audioText: "家にまだ誰かいますか？" }
-        }
+  "vi": {
+    "question": "Còn ai ở trong nhà không?",
+    "answers": [
+      {
+        "label": "Còn người",
+        "subText": "YES ⭕",
+        "value": "屋内に人あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "Không còn ai",
+        "subText": "NO ❌",
+        "value": "屋内に人なし",
+        "class": "btn-no"
+      }
+    ],
+    "audioText": "Còn ai ở trong nhà không?",
+    "detailQuestion": "Có bao nhiêu người?",
+    "details": {
+      "p1": "1 người",
+      "p2": "2 người",
+      "p3": "3 người",
+      "p4": "4 người",
+      "p5": "5 người",
+      "p6plus": "6 người trở lên"
+    },
+    "confirm": "Đồng ý (OK)"
+  },
+  "id": {
+    "question": "Apakah masih ada orang di dalam rumah?",
+    "answers": [
+      {
+        "label": "Ada orang",
+        "subText": "YES ⭕",
+        "value": "屋内に人あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "Tidak ada orang",
+        "subText": "NO ❌",
+        "value": "屋内に人なし",
+        "class": "btn-no"
+      }
+    ],
+    "audioText": "Apakah masih ada orang di dalam rumah?",
+    "detailQuestion": "Ada berapa orang?",
+    "details": {
+      "p1": "1 orang",
+      "p2": "2 orang",
+      "p3": "3 orang",
+      "p4": "4 orang",
+      "p5": "5 orang",
+      "p6plus": "6 orang atau lebih"
+    },
+    "confirm": "Setuju (OK)"
+  },
+  "zh": {
+    "question": "屋里还有其他人吗？",
+    "answers": [
+      {
+        "label": "还有人",
+        "subText": "YES ⭕",
+        "value": "屋内に人あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "没有其他人",
+        "subText": "NO ❌",
+        "value": "屋内に人なし",
+        "class": "btn-no"
+      }
+    ],
+    "audioText": "屋里还有其他人吗？",
+    "detailQuestion": "有几个人？",
+    "details": {
+      "p1": "1人",
+      "p2": "2人",
+      "p3": "3人",
+      "p4": "4人",
+      "p5": "5人",
+      "p6plus": "6人以上"
+    },
+    "confirm": "确定 (OK)"
+  },
+  "my": {
+    "question": "အိမ်ထဲမှာ လူကျန်သေးသလား။",
+    "answers": [
+      {
+        "label": "လူကျန်သေးသည်",
+        "subText": "YES ⭕",
+        "value": "屋内に人あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "မကျန်တော့ပါ",
+        "subText": "NO ❌",
+        "value": "屋内に人なし",
+        "class": "btn-no"
+      }
+    ],
+    "audioText": "အိမ်ထဲမှာ လူကျန်သေးသလား။",
+    "detailQuestion": "လူဘယ်နှယောက်ရှိပါသလဲ။",
+    "details": {
+      "p1": "၁ ယောက်",
+      "p2": "၂ ယောက်",
+      "p3": "၃ ယောက်",
+      "p4": "၄ ယောက်",
+      "p5": "၅ ယောက်",
+      "p6plus": "၆ ယောက်နှင့်အထက်"
+    },
+    "confirm": "အတည်ပြုသည် (OK)"
+  },
+  "ko": {
+    "question": "집 안에 다른 사람이 있습니까?",
+    "answers": [
+      {
+        "label": "사람 있음",
+        "subText": "YES ⭕",
+        "value": "屋内に人あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "사람 없음",
+        "subText": "NO ❌",
+        "value": "屋内に人なし",
+        "class": "btn-no"
+      }
+    ],
+    "audioText": "집 안에 다른 사람이 있습니까?",
+    "detailQuestion": "몇 명 있습니까?",
+    "details": {
+      "p1": "1명",
+      "p2": "2명",
+      "p3": "3명",
+      "p4": "4명",
+      "p5": "5명",
+      "p6plus": "6명 이상"
+    },
+    "confirm": "확인 (OK)"
+  },
+  "ne": {
+    "question": "घर भित्र कोही बाँकी छ?",
+    "answers": [
+      {
+        "label": "कोही छ",
+        "subText": "YES ⭕",
+        "value": "屋内に人あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "कोही छैन",
+        "subText": "NO ❌",
+        "value": "屋内に人なし",
+        "class": "btn-no"
+      }
+    ],
+    "audioText": "घर भित्र कोही बाँकी छ?",
+    "detailQuestion": "कति जना हुनुहुन्छ?",
+    "details": {
+      "p1": "१ जना",
+      "p2": "२ जना",
+      "p3": "३ जना",
+      "p4": "४ जना",
+      "p5": "५ जना",
+      "p6plus": "६ जना वा बढी"
+    },
+    "confirm": "सम्मत (OK)"
+  },
+  "tl": {
+    "question": "May tao pa ba sa loob ng bahay?",
+    "answers": [
+      {
+        "label": "May tao pa",
+        "subText": "YES ⭕",
+        "value": "屋内に人あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "Wala nang tao",
+        "subText": "NO ❌",
+        "value": "屋内に人なし",
+        "class": "btn-no"
+      }
+    ],
+    "audioText": "May tao pa ba sa loob ng bahay?",
+    "detailQuestion": "Ilang tao ang naroon?",
+    "details": {
+      "p1": "1 tao",
+      "p2": "2 tao",
+      "p3": "3 tao",
+      "p4": "4 na tao",
+      "p5": "5 tao",
+      "p6plus": "6 o higit pa"
+    },
+    "confirm": "Kumpirmahin (OK)"
+  },
+  "en": {
+    "question": "Is anyone else left inside the house?",
+    "answers": [
+      {
+        "label": "Yes, someone",
+        "subText": "YES ⭕",
+        "value": "屋内に人あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "No one",
+        "subText": "NO ❌",
+        "value": "屋内に人なし",
+        "class": "btn-no"
+      }
+    ],
+    "audioText": "Is anyone else left inside the house?",
+    "detailQuestion": "How many people are there?",
+    "details": {
+      "p1": "1 person",
+      "p2": "2 people",
+      "p3": "3 people",
+      "p4": "4 people",
+      "p5": "5 people",
+      "p6plus": "6 or more people"
+    },
+    "confirm": "Confirm (OK)"
+  },
+  "zh-tw": {
+    "question": "屋裡還有其他人嗎？",
+    "answers": [
+      {
+        "label": "還有人",
+        "subText": "YES ⭕",
+        "value": "屋内に人あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "沒有其他人",
+        "subText": "NO ❌",
+        "value": "屋内に人なし",
+        "class": "btn-no"
+      }
+    ],
+    "audioText": "屋裡還有其他人嗎？",
+    "detailQuestion": "有幾個人？",
+    "details": {
+      "p1": "1人",
+      "p2": "2人",
+      "p3": "3人",
+      "p4": "4人",
+      "p5": "5人",
+      "p6plus": "6人以上"
+    },
+    "confirm": "確定 (OK)"
+  },
+  "th": {
+    "question": "ยังมีใครอยู่ในบ้านไหม?",
+    "answers": [
+      {
+        "label": "มีคนอยู่",
+        "subText": "YES ⭕",
+        "value": "屋内に人あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "ไม่มีใคร",
+        "subText": "NO ❌",
+        "value": "屋内に人なし",
+        "class": "btn-no"
+      }
+    ],
+    "audioText": "ยังมีใครอยู่ในบ้านไหม?",
+    "detailQuestion": "มีกี่คน?",
+    "details": {
+      "p1": "1 คน",
+      "p2": "2 คน",
+      "p3": "3 คน",
+      "p4": "4 คน",
+      "p5": "5 คน",
+      "p6plus": "6 คนขึ้นไป"
+    },
+    "confirm": "ตกลง (OK)"
+  },
+  "km": {
+    "question": "តើមាននរណាម្នាក់នៅក្នុងផ្ទះទេ?",
+    "answers": [
+      {
+        "label": "មានមនុស្ស",
+        "subText": "YES ⭕",
+        "value": "屋内に人あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "គ្មានទេ",
+        "subText": "NO ❌",
+        "value": "屋内に人なし",
+        "class": "btn-no"
+      }
+    ],
+    "audioText": "តើមាននរណាម្នាក់នៅក្នុងផ្ទះទេ?",
+    "detailQuestion": "តើមានមនុស្សប៉ុន្មាននាក់?",
+    "details": {
+      "p1": "១ នាក់",
+      "p2": "២ នាក់",
+      "p3": "៣ នាក់",
+      "p4": "៤ នាក់",
+      "p5": "៥ នាក់",
+      "p6plus": "៦ នាក់ឬច្រើនជាងនេះ"
+    },
+    "confirm": "យល់ព្រម (OK)"
+  },
+  "hi": {
+    "question": "क्या घर के अंदर कोई बचा है?",
+    "answers": [
+      {
+        "label": "हाँ, कोई है",
+        "subText": "YES ⭕",
+        "value": "屋内に人あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "कोई نہیں ہے",
+        "subText": "NO ❌",
+        "value": "屋内に人なし",
+        "class": "btn-no"
+      }
+    ],
+    "audioText": "क्या घर के अंदर कोई बचा है?",
+    "detailQuestion": "कितने लोग हैं?",
+    "details": {
+      "p1": "1 व्यक्ति",
+      "p2": "2 लोग",
+      "p3": "3 लोग",
+      "p4": "4 लोग",
+      "p5": "5 लोग",
+      "p6plus": "6 या अधिक लोग"
+    },
+    "confirm": "पुष्टि करें (OK)"
+  },
+  "si": {
+    "question": "නිවස තුළ තවමත් யாரාවක් සිටීද?",
+    "answers": [
+      {
+        "label": "කෙනෙක් සිටී",
+        "subText": "YES ⭕",
+        "value": "屋内に人あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "කවුරුත් නැත",
+        "subText": "NO ❌",
+        "value": "屋内に人なし",
+        "class": "btn-no"
+      }
+    ],
+    "audioText": "නිවස තුළ තවමත් யாரාවක් සිටීද?",
+    "detailQuestion": "කී දෙනෙක් සිටිනවාද?",
+    "details": {
+      "p1": "1 අයෙක්",
+      "p2": "2 අයෙක්",
+      "p3": "3 අයෙක්",
+      "p4": "4 අයෙක්",
+      "p5": "5 අයෙක්",
+      "p6plus": "6ක් හෝ ඊට වැඩි"
+    },
+    "confirm": "තහවුරු කරන්න (OK)"
+  },
+  "bn": {
+    "question": "ঘরের ভেতরে কি কেউ আছে?",
+    "answers": [
+      {
+        "label": "হ্যাঁ, আছে",
+        "subText": "YES ⭕",
+        "value": "屋内に人あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "কেউ নেই",
+        "subText": "NO ❌",
+        "value": "屋内に人なし",
+        "class": "btn-no"
+      }
+    ],
+    "audioText": "ঘরের ভেতরে কি কেউ আছে?",
+    "detailQuestion": "কত জন মানুষ আছে?",
+    "details": {
+      "p1": "১ জন",
+      "p2": "২ জন",
+      "p3": "৩ জন",
+      "p4": "৪ জন",
+      "p5": "৫ জন",
+      "p6plus": "৬ জন বা তার বেশি"
+    },
+    "confirm": "ঠিক আছে (OK)"
+  },
+  "ur": {
+    "question": "کیا گھر کے اندر کوئی ہے؟",
+    "answers": [
+      {
+        "label": "کوئی ہے",
+        "subText": "YES ⭕",
+        "value": "屋内に人あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "کوئی نہیں ہے",
+        "subText": "NO ❌",
+        "value": "屋内に人なし",
+        "class": "btn-no"
+      }
+    ],
+    "audioText": "کیا گھر के अंदर कोई है؟",
+    "detailQuestion": "کتنے لوگ ہیں؟",
+    "details": {
+      "p1": "1 شخص",
+      "p2": "2 لوگ",
+      "p3": "3 لوگ",
+      "p4": "4 لوگ",
+      "p5": "5 لوگ",
+      "p6plus": "6 یا اس سے زیادہ لوگ"
+    },
+    "confirm": "تصدیق کریں (OK)"
+  },
+  "pt-br": {
+    "question": "Tem mais alguém dentro de casa?",
+    "answers": [
+      {
+        "label": "Tem alguém",
+        "subText": "YES ⭕",
+        "value": "屋内に人あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "Ninguém",
+        "subText": "NO ❌",
+        "value": "屋内に人なし",
+        "class": "btn-no"
+      }
+    ],
+    "audioText": "Tem mais alguém dentro de casa?",
+    "detailQuestion": "Quantas pessoas estão?",
+    "details": {
+      "p1": "1 pessoa",
+      "p2": "2 pessoas",
+      "p3": "3 pessoas",
+      "p4": "4 pessoas",
+      "p5": "5 pessoas",
+      "p6plus": "6 ou mais pessoas"
+    },
+    "confirm": "Confirmar (OK)"
+  },
+  "mn": {
+    "question": "Гэрт хүн үлдсэн үү?",
+    "answers": [
+      {
+        "label": "Байгаа",
+        "subText": "YES ⭕",
+        "value": "屋内に人あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "Байхгүй",
+        "subText": "NO ❌",
+        "value": "屋内に人なし",
+        "class": "btn-no"
+      }
+    ],
+    "audioText": "Гэрт хүн үлдсэн үү?",
+    "detailQuestion": "Хэдэн хүн байгаа вэ?",
+    "details": {
+      "p1": "1 хүн",
+      "p2": "2 хүн",
+      "p3": "3 хүн",
+      "p4": "4 хүн",
+      "p5": "5 хүн",
+      "p6plus": "6 ба түүнээс дээш хүн"
+    },
+    "confirm": "Баталгаажуулах (OK)"
+  },
+  "ru": {
+    "question": "Есть кто-то в доме?",
+    "answers": [
+      {
+        "label": "Кто-то есть",
+        "subText": "YES ⭕",
+        "value": "屋内に人あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "Никого нет",
+        "subText": "NO ❌",
+        "value": "屋内に人なし",
+        "class": "btn-no"
+      }
+    ],
+    "audioText": "Есть кто-то в доме?",
+    "detailQuestion": "Сколько человек там?",
+    "details": {
+      "p1": "1 человек",
+      "p2": "2 человека",
+      "p3": "3 человека",
+      "p4": "4 человека",
+      "p5": "5 человек",
+      "p6plus": "6 или более человек"
+    },
+    "confirm": "Подтвердить (OK)"
+  },
+  "uk": {
+    "question": "У будинку хтось є?",
+    "answers": [
+      {
+        "label": "Є хтось",
+        "subText": "YES ⭕",
+        "value": "屋内に人あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "Нікого",
+        "subText": "NO ❌",
+        "value": "屋内に人なし",
+        "class": "btn-no"
+      }
+    ],
+    "audioText": "У будинку хтось є?",
+    "detailQuestion": "Скільки людей там?",
+    "details": {
+      "p1": "1 особа",
+      "p2": "2 особи",
+      "p3": "3 особи",
+      "p4": "4 особи",
+      "p5": "5 осіб",
+      "p6plus": "6 або більше осіб"
+    },
+    "confirm": "Підтвердити (OK)"
+  },
+  "de": {
+    "question": "Ist noch jemand im Haus?",
+    "answers": [
+      {
+        "label": "Jemand da",
+        "subText": "YES ⭕",
+        "value": "屋内に人あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "Niemand mehr",
+        "subText": "NO ❌",
+        "value": "屋内に人なし",
+        "class": "btn-no"
+      }
+    ],
+    "audioText": "Ist noch jemand im Haus?",
+    "detailQuestion": "Wie viele Personen sind da?",
+    "details": {
+      "p1": "1 Person",
+      "p2": "2 Personen",
+      "p3": "3 Personen",
+      "p4": "4 Personen",
+      "p5": "5 Personen",
+      "p6plus": "6 oder mehr Personen"
+    },
+    "confirm": "Bestätigen (OK)"
+  },
+  "fr": {
+    "question": "Y a-t-il quelqu'un dans la maison ?",
+    "answers": [
+      {
+        "label": "Oui, quelqu'un",
+        "subText": "YES ⭕",
+        "value": "屋内に人あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "Personne",
+        "subText": "NO ❌",
+        "value": "屋内に人なし",
+        "class": "btn-no"
+      }
+    ],
+    "audioText": "Y a-t-il quelqu'un dans la maison ?",
+    "detailQuestion": "Combien de personnes sont là ?",
+    "details": {
+      "p1": "1 personne",
+      "p2": "2 personnes",
+      "p3": "3 personnes",
+      "p4": "4 personnes",
+      "p5": "5 personnes",
+      "p6plus": "6 personnes ou plus"
+    },
+    "confirm": "Valider (OK)"
+  },
+  "it": {
+    "question": "C'è qualcun altro in casa?",
+    "answers": [
+      {
+        "label": "C'è qualcuno",
+        "subText": "YES ⭕",
+        "value": "屋内に人あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "Nessuno",
+        "subText": "NO ❌",
+        "value": "屋内に人なし",
+        "class": "btn-no"
+      }
+    ],
+    "audioText": "C'è qualcun altro in casa?",
+    "detailQuestion": "Quante persone ci sono?",
+    "details": {
+      "p1": "1 persona",
+      "p2": "2 persone",
+      "p3": "3 persone",
+      "p4": "4 persone",
+      "p5": "5 persone",
+      "p6plus": "6 o più persone"
+    },
+    "confirm": "Conferma (OK)"
+  },
+  "nl": {
+    "question": "Is er nog iemand in huis?",
+    "answers": [
+      {
+        "label": "Er is iemand",
+        "subText": "YES ⭕",
+        "value": "屋内に人あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "Niemand meer",
+        "subText": "NO ❌",
+        "value": "屋内に人なし",
+        "class": "btn-no"
+      }
+    ],
+    "audioText": "Is er nog iemand in huis?",
+    "detailQuestion": "Hoeveel mensen zijn er?",
+    "details": {
+      "p1": "1 persoon",
+      "p2": "2 personen",
+      "p3": "3 personen",
+      "p4": "4 personen",
+      "p5": "5 personen",
+      "p6plus": "6 of meer mensen"
+    },
+    "confirm": "Bevestigen (OK)"
+  },
+  "ja": {
+    "question": "家にまだ誰かいますか？",
+    "answers": [
+      {
+        "label": "いる",
+        "subText": "YES ⭕",
+        "value": "屋内に人あり",
+        "class": "btn-yes"
+      },
+      {
+        "label": "いない",
+        "subText": "NO ❌",
+        "value": "屋内に人なし",
+        "class": "btn-no"
+      }
+    ],
+    "audioText": "家にまだ誰かいますか？",
+    "detailQuestion": "人数を教えて下さい",
+    "details": {
+      "p1": "1人",
+      "p2": "2人",
+      "p3": "3人",
+      "p4": "4人",
+      "p5": "5人",
+      "p6plus": "6人以上"
+    },
+    "confirm": "決定 (OK)"
+  }
+}
       },
 
       // ==========================================
@@ -2010,6 +2910,1372 @@
           ja: { question: "この避難所に登録（避難）しますか？", answers: [{ label: "登録する", subText: "YES ⭕", value: "避難所登録する", class: "btn-yes" }, { label: "登録しない", subText: "NO ❌", value: "避難所登録しない", class: "btn-no" }], audioText: "この避難所に登録（避難）しますか？" }
         }
       }
+    ,
+      {
+  "id": 6,
+  "japaneseTitle": "持病（慢性疾患）はありますか？",
+  "category": "fire",
+  "translations": {
+    "vi": {
+      "question": "Bạn có mắc bệnh mãn tính nào không?",
+      "detailQuestion": "Vui lòng chọn tên bệnh.",
+      "answers": [
+        {
+          "label": "Có",
+          "subText": "YES ⭕",
+          "value": "持病あり",
+          "class": "btn-yes"
+        },
+        {
+          "label": "Không",
+          "subText": "NO ❌",
+          "value": "持病なし",
+          "class": "btn-no"
+        }
+      ],
+      "details": {
+        "heart": "Bệnh tim",
+        "diabetes": "Tiểu đường",
+        "hypertension": "Cao huyết áp",
+        "asthma": "Hen suyễn",
+        "other": "Khác"
+      },
+      "confirm": "Đồng ý (OK)"
+    },
+    "id": {
+      "question": "Apakah Anda memiliki penyakit kronis?",
+      "detailQuestion": "Silakan pilih nama penyakit.",
+      "answers": [
+        {
+          "label": "Ada",
+          "subText": "YES ⭕",
+          "value": "持病あり",
+          "class": "btn-yes"
+        },
+        {
+          "label": "Tidak ada",
+          "subText": "NO ❌",
+          "value": "持病なし",
+          "class": "btn-no"
+        }
+      ],
+      "details": {
+        "heart": "Penyakit jantung",
+        "diabetes": "Diabetes",
+        "hypertension": "Hipertensi",
+        "asthma": "Asma",
+        "other": "Lainnya"
+      },
+      "confirm": "Setuju (OK)"
+    },
+    "zh": {
+      "question": "你有什么慢性疾病吗？",
+      "detailQuestion": "请选择疾病名称。",
+      "answers": [
+        {
+          "label": "有",
+          "subText": "YES ⭕",
+          "value": "持病あり",
+          "class": "btn-yes"
+        },
+        {
+          "label": "没有",
+          "subText": "NO ❌",
+          "value": "持病なし",
+          "class": "btn-no"
+        }
+      ],
+      "details": {
+        "heart": "心脏病",
+        "diabetes": "糖尿病",
+        "hypertension": "高血压",
+        "asthma": "哮喘",
+        "other": "其他"
+      },
+      "confirm": "确定 (OK)"
+    },
+    "my": {
+      "question": "နာတာရှည်ရောဂါ တစ်ခုခုရှိပါသလား။",
+      "detailQuestion": "ရောဂါအမည်ကို ရွေးချယ်ပေးပါ။",
+      "answers": [
+        {
+          "label": "ရှိတယ်",
+          "subText": "YES ⭕",
+          "value": "持病あり",
+          "class": "btn-yes"
+        },
+        {
+          "label": "မရှိဘူး",
+          "subText": "NO ❌",
+          "value": "持病なし",
+          "class": "btn-no"
+        }
+      ],
+      "details": {
+        "heart": "နှလုံးရောဂါ",
+        "diabetes": "ဆီးချိုရောဂါ",
+        "hypertension": "သွေးတိုးရောဂါ",
+        "asthma": "ရင်ကြပ်ရောဂါ",
+        "other": "အခြား"
+      },
+      "confirm": "အတည်ပြုသည် (OK)"
+    },
+    "ko": {
+      "question": "만성 질환이 있습니까?",
+      "detailQuestion": "병명을 선택해 주십시오.",
+      "answers": [
+        {
+          "label": "있음",
+          "subText": "YES ⭕",
+          "value": "持病あり",
+          "class": "btn-yes"
+        },
+        {
+          "label": "없음",
+          "subText": "NO ❌",
+          "value": "持病なし",
+          "class": "btn-no"
+        }
+      ],
+      "details": {
+        "heart": "심장병",
+        "diabetes": "당뇨병",
+        "hypertension": "고혈압",
+        "asthma": "천식",
+        "other": "기타"
+      },
+      "confirm": "확인 (OK)"
+    },
+    "ne": {
+      "question": "के तपाईंलाई कुनै दीर्घकालीन रोग छ?",
+      "detailQuestion": "कृपया रोगको नाम छनोट गर्नुहोस्।",
+      "answers": [
+        {
+          "label": "छ",
+          "subText": "YES ⭕",
+          "value": "持病あり",
+          "class": "btn-yes"
+        },
+        {
+          "label": "छैन",
+          "subText": "NO ❌",
+          "value": "持病なし",
+          "class": "btn-no"
+        }
+      ],
+      "details": {
+        "heart": "मुटुको रोग",
+        "diabetes": "मधुमेह",
+        "hypertension": "उच्च रक्तचाप",
+        "asthma": "दम",
+        "other": "अन्य"
+      },
+      "confirm": "सम्मत (OK)"
+    },
+    "tl": {
+      "question": "Mayroon ka bang anumang malalang sakit?",
+      "detailQuestion": "Mangyaring piliin ang pangalan ng sakit.",
+      "answers": [
+        {
+          "label": "Mayroon",
+          "subText": "YES ⭕",
+          "value": "持病あり",
+          "class": "btn-yes"
+        },
+        {
+          "label": "Wala",
+          "subText": "NO ❌",
+          "value": "持病なし",
+          "class": "btn-no"
+        }
+      ],
+      "details": {
+        "heart": "Sakit sa puso",
+        "diabetes": "Diabetes",
+        "hypertension": "High blood",
+        "asthma": "Hika",
+        "other": "Iba pa"
+      },
+      "confirm": "Kumpirmahin (OK)"
+    },
+    "en": {
+      "question": "Do you have any chronic diseases?",
+      "detailQuestion": "Please select the name of the disease.",
+      "answers": [
+        {
+          "label": "YES",
+          "subText": "YES ⭕",
+          "value": "持病あり",
+          "class": "btn-yes"
+        },
+        {
+          "label": "NO",
+          "subText": "NO ❌",
+          "value": "持病なし",
+          "class": "btn-no"
+        }
+      ],
+      "details": {
+        "heart": "Heart disease",
+        "diabetes": "Diabetes",
+        "hypertension": "Hypertension",
+        "asthma": "Asthma",
+        "other": "Other"
+      },
+      "confirm": "Confirm (OK)"
+    },
+    "zh-tw": {
+      "question": "你有什麼慢性疾病嗎？",
+      "detailQuestion": "請選擇疾病名稱。",
+      "answers": [
+        {
+          "label": "有",
+          "subText": "YES ⭕",
+          "value": "持病あり",
+          "class": "btn-yes"
+        },
+        {
+          "label": "沒有",
+          "subText": "NO ❌",
+          "value": "持病なし",
+          "class": "btn-no"
+        }
+      ],
+      "details": {
+        "heart": "心臟病",
+        "diabetes": "糖尿病",
+        "hypertension": "高血壓",
+        "asthma": "哮喘",
+        "other": "其他"
+      },
+      "confirm": "確定 (OK)"
+    },
+    "th": {
+      "question": "คุณมีโรคประจำตัว (โรคเรื้อรัง) ไหม?",
+      "detailQuestion": "กรุณาเลือกชื่อโรค",
+      "answers": [
+        {
+          "label": "มี",
+          "subText": "YES ⭕",
+          "value": "持病あり",
+          "class": "btn-yes"
+        },
+        {
+          "label": "ไม่มี",
+          "subText": "NO ❌",
+          "value": "持病なし",
+          "class": "btn-no"
+        }
+      ],
+      "details": {
+        "heart": "โรคหัวใจ",
+        "diabetes": "โรคเบาหวาน",
+        "hypertension": "ความดันโลหิตสูง",
+        "asthma": "โรคหืด",
+        "other": "อื่นๆ"
+      },
+      "confirm": "ตกลง (OK)"
+    },
+    "km": {
+      "question": "តើអ្នកមានជំងឺរ៉ាំរ៉ៃដែរឬទេ?",
+      "detailQuestion": "សូមជ្រើសរើសឈ្មោះជំងឺ។",
+      "answers": [
+        {
+          "label": "មាន",
+          "subText": "YES ⭕",
+          "value": "持病あり",
+          "class": "btn-yes"
+        },
+        {
+          "label": "មិនមានទេ",
+          "subText": "NO ❌",
+          "value": "持病なし",
+          "class": "btn-no"
+        }
+      ],
+      "details": {
+        "heart": "ជំងឺបេះដូង",
+        "diabetes": "ជំងឺទឹកនោមផ្អែម",
+        "hypertension": "លើសឈាម",
+        "asthma": "ហឺត",
+        "other": "ផ្សេងៗ"
+      },
+      "confirm": "យល់ព្រម (OK)"
+    },
+    "hi": {
+      "question": "क्या आपको कोई पुरानी बीमारी है?",
+      "detailQuestion": "कृपया बीमारी का नाम चुनें।",
+      "answers": [
+        {
+          "label": "हाँ",
+          "subText": "YES ⭕",
+          "value": "持病あり",
+          "class": "btn-yes"
+        },
+        {
+          "label": "नहीं",
+          "subText": "NO ❌",
+          "value": "持病なし",
+          "class": "btn-no"
+        }
+      ],
+      "details": {
+        "heart": "हृदय रोग",
+        "diabetes": "मधुमेह",
+        "hypertension": "उच्च रक्तचाप",
+        "asthma": "दमा",
+        "other": "अन्य"
+      },
+      "confirm": "पुष्टि करें (OK)"
+    },
+    "si": {
+      "question": "ඔබට කිසියම් නිදන්ගත රෝගයක් තිබේද?",
+      "detailQuestion": "කරුණාකර රෝගයේ නම තෝරන්න.",
+      "answers": [
+        {
+          "label": "ඔව්",
+          "subText": "YES ⭕",
+          "value": "持病あり",
+          "class": "btn-yes"
+        },
+        {
+          "label": "නැත",
+          "subText": "NO ❌",
+          "value": "持病なし",
+          "class": "btn-no"
+        }
+      ],
+      "details": {
+        "heart": "හෘද රෝග",
+        "diabetes": "දියවැඩියාව",
+        "hypertension": "අධි රුධිර පීඩනය",
+        "asthma": "ඇදුම",
+        "other": "වෙනත්"
+      },
+      "confirm": "තහවුරු කරන්න (OK)"
+    },
+    "bn": {
+      "question": "আপনার কি কোনো দীর্ঘস্থায়ী রোগ আছে?",
+      "detailQuestion": "দয়া করে রোগের নাম নির্বাচন করুন।",
+      "answers": [
+        {
+          "label": "হ্যাঁ",
+          "subText": "YES ⭕",
+          "value": "持病あり",
+          "class": "btn-yes"
+        },
+        {
+          "label": "না",
+          "subText": "NO ❌",
+          "value": "持病なし",
+          "class": "btn-no"
+        }
+      ],
+      "details": {
+        "heart": "হৃদরোগ",
+        "diabetes": "বহুমূত্ররোগ",
+        "hypertension": "উচ্চ রক্তচাপ",
+        "asthma": "হাঁপানি",
+        "other": "অন্যান্য"
+      },
+      "confirm": "ঠিক আছে (OK)"
+    },
+    "ur": {
+      "question": "کیا آپ کو کوئی دائمی بیماری ہے؟",
+      "detailQuestion": "براہ کرم بیماری کا نام منتخب کریں۔",
+      "answers": [
+        {
+          "label": "ہاں",
+          "subText": "YES ⭕",
+          "value": "持病あり",
+          "class": "btn-yes"
+        },
+        {
+          "label": "نہیں",
+          "subText": "NO ❌",
+          "value": "持病なし",
+          "class": "btn-no"
+        }
+      ],
+      "details": {
+        "heart": "دل کی بیماری",
+        "diabetes": "ذیابیطس",
+        "hypertension": "ہائی بلڈ پریشر",
+        "asthma": "دمہ",
+        "other": "دیگر"
+      },
+      "confirm": "تصدیق کریں (OK)"
+    },
+    "pt-br": {
+      "question": "Você tem alguma doença crônica?",
+      "detailQuestion": "Por favor, selecione o nome da doença.",
+      "answers": [
+        {
+          "label": "Sim",
+          "subText": "YES ⭕",
+          "value": "持病あり",
+          "class": "btn-yes"
+        },
+        {
+          "label": "Não",
+          "subText": "NO ❌",
+          "value": "持病なし",
+          "class": "btn-no"
+        }
+      ],
+      "details": {
+        "heart": "Doença cardíaca",
+        "diabetes": "Diabetes",
+        "hypertension": "Pressão alta",
+        "asthma": "Asma",
+        "other": "Outro"
+      },
+      "confirm": "Confirmar (OK)"
+    },
+    "mn": {
+      "question": "Та ямар нэгэн архаг хууч өвчтэй үү?",
+      "detailQuestion": "Өвчний нэрийг сонгоно уу.",
+      "answers": [
+        {
+          "label": "Тийм",
+          "subText": "YES ⭕",
+          "value": "持病あり",
+          "class": "btn-yes"
+        },
+        {
+          "label": "Үгүй",
+          "subText": "NO ❌",
+          "value": "持病なし",
+          "class": "btn-no"
+        }
+      ],
+      "details": {
+        "heart": "Зүрхний өвчин",
+        "diabetes": "Чихрийн шижин",
+        "hypertension": "Аралт ихсэх",
+        "asthma": "Астма",
+        "other": "Бусад"
+      },
+      "confirm": "Баталгаажуулах (OK)"
+    },
+    "ru": {
+      "question": "Есть ли у вас хронические заболевания?",
+      "detailQuestion": "Пожалуйста, выберите название болезни.",
+      "answers": [
+        {
+          "label": "Да",
+          "subText": "YES ⭕",
+          "value": "持病あり",
+          "class": "btn-yes"
+        },
+        {
+          "label": "Нет",
+          "subText": "NO ❌",
+          "value": "持病なし",
+          "class": "btn-no"
+        }
+      ],
+      "details": {
+        "heart": "Болезнь сердца",
+        "diabetes": "Диабет",
+        "hypertension": "Гипертония",
+        "asthma": "Астма",
+        "other": "Другое"
+      },
+      "confirm": "Подтвердить (OK)"
+    },
+    "uk": {
+      "question": "Чи є у вас хронічні захворювання?",
+      "detailQuestion": "Будь ласка, виберіть назву хвороби.",
+      "answers": [
+        {
+          "label": "Так",
+          "subText": "YES ⭕",
+          "value": "持病あり",
+          "class": "btn-yes"
+        },
+        {
+          "label": "Ні",
+          "subText": "NO ❌",
+          "value": "持病なし",
+          "class": "btn-no"
+        }
+      ],
+      "details": {
+        "heart": "Хвороба серця",
+        "diabetes": "Діабет",
+        "hypertension": "Гіпертонія",
+        "asthma": "Астма",
+        "other": "Інше"
+      },
+      "confirm": "Підтвердити (OK)"
+    },
+    "de": {
+      "question": "Haben Sie chronische Krankheiten?",
+      "detailQuestion": "Bitte wählen Sie die Krankheit.",
+      "answers": [
+        {
+          "label": "Ja",
+          "subText": "YES ⭕",
+          "value": "持病あり",
+          "class": "btn-yes"
+        },
+        {
+          "label": "Nein",
+          "subText": "NO ❌",
+          "value": "持病なし",
+          "class": "btn-no"
+        }
+      ],
+      "details": {
+        "heart": "Herzkrankheit",
+        "diabetes": "Diabetes",
+        "hypertension": "Bluthochdruck",
+        "asthma": "Asthma",
+        "other": "Sonstige"
+      },
+      "confirm": "Bestätigen (OK)"
+    },
+    "fr": {
+      "question": "Avez-vous des maladies chroniques ?",
+      "detailQuestion": "Veuillez sélectionner la maladie.",
+      "answers": [
+        {
+          "label": "Oui",
+          "subText": "YES ⭕",
+          "value": "持病あり",
+          "class": "btn-yes"
+        },
+        {
+          "label": "Non",
+          "subText": "NO ❌",
+          "value": "持病なし",
+          "class": "btn-no"
+        }
+      ],
+      "details": {
+        "heart": "Maladie cardiaque",
+        "diabetes": "Diabète",
+        "hypertension": "Hypertension",
+        "asthma": "Asthme",
+        "other": "Autre"
+      },
+      "confirm": "Valider (OK)"
+    },
+    "it": {
+      "question": "Ha malattie croniche?",
+      "detailQuestion": "Si prega di selezionare la malattia.",
+      "answers": [
+        {
+          "label": "Sì",
+          "subText": "YES ⭕",
+          "value": "持病あり",
+          "class": "btn-yes"
+        },
+        {
+          "label": "No",
+          "subText": "NO ❌",
+          "value": "持病なし",
+          "class": "btn-no"
+        }
+      ],
+      "details": {
+        "heart": "Malattia cardiaca",
+        "diabetes": "Diabete",
+        "hypertension": "Ipertensione",
+        "asthma": "Asma",
+        "other": "Altro"
+      },
+      "confirm": "Conferma (OK)"
+    },
+    "nl": {
+      "question": "Heeft u chronische ziekten?",
+      "detailQuestion": "Selecteer de ziekte.",
+      "answers": [
+        {
+          "label": "Ja",
+          "subText": "YES ⭕",
+          "value": "持病あり",
+          "class": "btn-yes"
+        },
+        {
+          "label": "Nee",
+          "subText": "NO ❌",
+          "value": "持病なし",
+          "class": "btn-no"
+        }
+      ],
+      "details": {
+        "heart": "Hartziekte",
+        "diabetes": "Diabetes",
+        "hypertension": "Hoge bloeddruk",
+        "asthma": "Asthma",
+        "other": "Anders"
+      },
+      "confirm": "Bevestigen (OK)"
+    },
+    "ja": {
+      "question": "持病（慢性疾患）はありますか？",
+      "detailQuestion": "病名を選んでください。",
+      "answers": [
+        {
+          "label": "はい",
+          "subText": "YES ⭕",
+          "value": "持病あり",
+          "class": "btn-yes"
+        },
+        {
+          "label": "いいえ",
+          "subText": "NO ❌",
+          "value": "持病なし",
+          "class": "btn-no"
+        }
+      ],
+      "details": {
+        "heart": "心臓病",
+        "diabetes": "糖尿病",
+        "hypertension": "高血圧",
+        "asthma": "喘息",
+        "other": "その他"
+      },
+      "confirm": "決定 (OK)"
+    }
+  }
+},
+      {
+  "id": 7,
+  "japaneseTitle": "妊娠していますか？",
+  "category": "fire",
+  "translations": {
+    "vi": {
+      "question": "Bạn có đang mang thai không?",
+      "answers": [
+        {
+          "label": "Có",
+          "subText": "YES ⭕",
+          "value": "妊娠中",
+          "class": "btn-yes"
+        },
+        {
+          "label": "Không",
+          "subText": "NO ❌",
+          "value": "未妊娠",
+          "class": "btn-no"
+        }
+      ]
+    },
+    "id": {
+      "question": "Apakah Anda sedang hamil?",
+      "answers": [
+        {
+          "label": "Ya",
+          "subText": "YES ⭕",
+          "value": "妊娠中",
+          "class": "btn-yes"
+        },
+        {
+          "label": "Tidak",
+          "subText": "NO ❌",
+          "value": "未妊娠",
+          "class": "btn-no"
+        }
+      ]
+    },
+    "zh": {
+      "question": "你怀孕了吗？",
+      "answers": [
+        {
+          "label": "怀孕了",
+          "subText": "YES ⭕",
+          "value": "妊娠中",
+          "class": "btn-yes"
+        },
+        {
+          "label": "没有",
+          "subText": "NO ❌",
+          "value": "未妊娠",
+          "class": "btn-no"
+        }
+      ]
+    },
+    "my": {
+      "question": "ကိုယ်ဝန်ရှိနေပါသလား။",
+      "answers": [
+        {
+          "label": "ရှိတယ်",
+          "subText": "YES ⭕",
+          "value": "妊娠中",
+          "class": "btn-yes"
+        },
+        {
+          "label": "မရှိဘူး",
+          "subText": "NO ❌",
+          "value": "未妊娠",
+          "class": "btn-no"
+        }
+      ]
+    },
+    "ko": {
+      "question": "임신 중이십니까?",
+      "answers": [
+        {
+          "label": "임신 중",
+          "subText": "YES ⭕",
+          "value": "妊娠中",
+          "class": "btn-yes"
+        },
+        {
+          "label": "안 함",
+          "subText": "NO ❌",
+          "value": "未妊娠",
+          "class": "btn-no"
+        }
+      ]
+    },
+    "ne": {
+      "question": "के तपाईं गर्भवती हुनुहुन्छ?",
+      "answers": [
+        {
+          "label": "छु",
+          "subText": "YES ⭕",
+          "value": "妊娠中",
+          "class": "btn-yes"
+        },
+        {
+          "label": "छैन",
+          "subText": "NO ❌",
+          "value": "未妊娠",
+          "class": "btn-no"
+        }
+      ]
+    },
+    "tl": {
+      "question": "Buntis ka ba?",
+      "answers": [
+        {
+          "label": "Buntis",
+          "subText": "YES ⭕",
+          "value": "妊娠中",
+          "class": "btn-yes"
+        },
+        {
+          "label": "Hindi",
+          "subText": "NO ❌",
+          "value": "未妊娠",
+          "class": "btn-no"
+        }
+      ]
+    },
+    "en": {
+      "question": "Are you pregnant?",
+      "answers": [
+        {
+          "label": "YES",
+          "subText": "YES ⭕",
+          "value": "妊娠中",
+          "class": "btn-yes"
+        },
+        {
+          "label": "NO",
+          "subText": "NO ❌",
+          "value": "未妊娠",
+          "class": "btn-no"
+        }
+      ]
+    },
+    "zh-tw": {
+      "question": "你懷孕了嗎？",
+      "answers": [
+        {
+          "label": "懷孕了",
+          "subText": "YES ⭕",
+          "value": "妊娠中",
+          "class": "btn-yes"
+        },
+        {
+          "label": "沒有",
+          "subText": "NO ❌",
+          "value": "未妊娠",
+          "class": "btn-no"
+        }
+      ]
+    },
+    "th": {
+      "question": "คุณกำลังตั้งครรภ์ไหม?",
+      "answers": [
+        {
+          "label": "ตั้งครรภ์",
+          "subText": "YES ⭕",
+          "value": "妊娠中",
+          "class": "btn-yes"
+        },
+        {
+          "label": "ไม่ได้ตั้งครรภ์",
+          "subText": "NO ❌",
+          "value": "未妊娠",
+          "class": "btn-no"
+        }
+      ]
+    },
+    "km": {
+      "question": "តើអ្នកកំពុងមានផ្ទៃពោះមែនទេ?",
+      "answers": [
+        {
+          "label": "មានផ្ទៃពោះ",
+          "subText": "YES ⭕",
+          "value": "妊娠中",
+          "class": "btn-yes"
+        },
+        {
+          "label": "មិនមានទេ",
+          "subText": "NO ❌",
+          "value": "未妊娠",
+          "class": "btn-no"
+        }
+      ]
+    },
+    "hi": {
+      "question": "क्या आप गर्भवती हैं?",
+      "answers": [
+        {
+          "label": "हाँ",
+          "subText": "YES ⭕",
+          "value": "妊娠中",
+          "class": "btn-yes"
+        },
+        {
+          "label": "नहीं",
+          "subText": "NO ❌",
+          "value": "未妊娠",
+          "class": "btn-no"
+        }
+      ]
+    },
+    "si": {
+      "question": "ඔබට ගැබ්ගෙන තිබේද?",
+      "answers": [
+        {
+          "label": "ඔව්",
+          "subText": "YES ⭕",
+          "value": "妊娠中",
+          "class": "btn-yes"
+        },
+        {
+          "label": "නැත",
+          "subText": "NO ❌",
+          "value": "未妊娠",
+          "class": "btn-no"
+        }
+      ]
+    },
+    "bn": {
+      "question": "আপনি কি গর্ভবতী?",
+      "answers": [
+        {
+          "label": "হ্যাঁ",
+          "subText": "YES ⭕",
+          "value": "妊娠中",
+          "class": "btn-yes"
+        },
+        {
+          "label": "না",
+          "subText": "NO ❌",
+          "value": "未妊娠",
+          "class": "btn-no"
+        }
+      ]
+    },
+    "ur": {
+      "question": "کیا آپ حاملہ ہیں؟",
+      "answers": [
+        {
+          "label": "ہاں",
+          "subText": "YES ⭕",
+          "value": "妊娠中",
+          "class": "btn-yes"
+        },
+        {
+          "label": "نہیں",
+          "subText": "NO ❌",
+          "value": "未妊娠",
+          "class": "btn-no"
+        }
+      ]
+    },
+    "pt-br": {
+      "question": "Você está grávida?",
+      "answers": [
+        {
+          "label": "Sim",
+          "subText": "YES ⭕",
+          "value": "妊娠中",
+          "class": "btn-yes"
+        },
+        {
+          "label": "Não",
+          "subText": "NO ❌",
+          "value": "未妊娠",
+          "class": "btn-no"
+        }
+      ]
+    },
+    "mn": {
+      "question": "Та жирэмсэн үү?",
+      "answers": [
+        {
+          "label": "Жирэмсэн",
+          "subText": "YES ⭕",
+          "value": "妊娠中",
+          "class": "btn-yes"
+        },
+        {
+          "label": "Үгүй",
+          "subText": "NO ❌",
+          "value": "未妊娠",
+          "class": "btn-no"
+        }
+      ]
+    },
+    "ru": {
+      "question": "Вы беременны?",
+      "answers": [
+        {
+          "label": "Да",
+          "subText": "YES ⭕",
+          "value": "妊娠中",
+          "class": "btn-yes"
+        },
+        {
+          "label": "Нет",
+          "subText": "NO ❌",
+          "value": "未妊娠",
+          "class": "btn-no"
+        }
+      ]
+    },
+    "uk": {
+      "question": "Ви вагітні?",
+      "answers": [
+        {
+          "label": "Так",
+          "subText": "YES ⭕",
+          "value": "妊娠中",
+          "class": "btn-yes"
+        },
+        {
+          "label": "Ні",
+          "subText": "NO ❌",
+          "value": "未妊娠",
+          "class": "btn-no"
+        }
+      ]
+    },
+    "de": {
+      "question": "Sind Sie schwanger?",
+      "answers": [
+        {
+          "label": "Ja",
+          "subText": "YES ⭕",
+          "value": "妊娠中",
+          "class": "btn-yes"
+        },
+        {
+          "label": "Nein",
+          "subText": "NO ❌",
+          "value": "未妊娠",
+          "class": "btn-no"
+        }
+      ]
+    },
+    "fr": {
+      "question": "Êtes-vous enceinte ?",
+      "answers": [
+        {
+          "label": "Oui",
+          "subText": "YES ⭕",
+          "value": "妊娠中",
+          "class": "btn-yes"
+        },
+        {
+          "label": "Non",
+          "subText": "NO ❌",
+          "value": "未妊娠",
+          "class": "btn-no"
+        }
+      ]
+    },
+    "it": {
+      "question": "È incinta?",
+      "answers": [
+        {
+          "label": "Sì",
+          "subText": "YES ⭕",
+          "value": "妊娠中",
+          "class": "btn-yes"
+        },
+        {
+          "label": "No",
+          "subText": "NO ❌",
+          "value": "未妊娠",
+          "class": "btn-no"
+        }
+      ]
+    },
+    "nl": {
+      "question": "Bent u zwanger?",
+      "answers": [
+        {
+          "label": "Ja",
+          "subText": "YES ⭕",
+          "value": "妊娠中",
+          "class": "btn-yes"
+        },
+        {
+          "label": "Nee",
+          "subText": "NO ❌",
+          "value": "未妊娠",
+          "class": "btn-no"
+        }
+      ]
+    },
+    "ja": {
+      "question": "妊娠していますか？",
+      "answers": [
+        {
+          "label": "はい",
+          "subText": "YES ⭕",
+          "value": "妊娠中",
+          "class": "btn-yes"
+        },
+        {
+          "label": "いいえ",
+          "subText": "NO ❌",
+          "value": "未妊娠",
+          "class": "btn-no"
+        }
+      ]
+    }
+  }
+},
+      {
+  "id": 8,
+  "japaneseTitle": "下敷き確認",
+  "category": "fire",
+  "translations": {
+    "vi": {
+      "question": "Có ai bị mắc kẹt dưới đống đổ nát của tòa nhà hoặc đồ đạc không?",
+      "detailQuestion": "Bạn có nghe thấy tiếng của người đó không?",
+      "answers": [
+        { "label": "Có", "subText": "YES ⭕", "value": "下敷きあり", "class": "btn-yes" },
+        { "label": "Không", "subText": "NO ❌", "value": "下敷きなし", "class": "btn-no" }
+      ],
+      "details": {
+        "p1": "Có (nói chuyện được)",
+        "p2": "Có (chỉ nghe thấy tiếng)",
+        "p3": "Không (không trả lời)"
+      }
+    },
+    "id": {
+      "question": "Apakah ada orang yang tertimbun reruntuhan bangunan atau perabot?",
+      "detailQuestion": "Apakah suara orang tersebut terdengar?",
+      "answers": [
+        { "label": "Ada", "subText": "YES ⭕", "value": "下敷きあり", "class": "btn-yes" },
+        { "label": "Tidak ada", "subText": "NO ❌", "value": "下敷きなし", "class": "btn-no" }
+      ],
+      "details": {
+        "p1": "Ya (bisa berbicara)",
+        "p2": "Ya (hanya suara)",
+        "p3": "Tidak (tidak ada respon)"
+      }
+    },
+    "zh": {
+      "question": "有人被压在倒塌的房屋或倾倒的家具下面吗？",
+      "detailQuestion": "能听到那个人的声音吗？",
+      "answers": [
+        { "label": "有", "subText": "YES ⭕", "value": "下敷きあり", "class": "btn-yes" },
+        { "label": "没有", "subText": "NO ❌", "value": "下敷きなし", "class": "btn-no" }
+      ],
+      "details": {
+        "p1": "能（可以对话）",
+        "p2": "能（只能听到声音）",
+        "p3": "不能（没有回应）"
+      }
+    },
+    "my": {
+      "question": "အဆောက်အဦပြိုကျမှု သို့မဟုတ် ပရိဘောဂများအောက်တွင် ပိတ်မိနေသူ ရှိပါသလား။",
+      "detailQuestion": "ထိုသူ၏ အသံကို ကြားရပါသလား။",
+      "answers": [
+        { "label": "ရှိသည်", "subText": "YES ⭕", "value": "下敷きあり", "class": "btn-yes" },
+        { "label": "မရှိပါ", "subText": "NO ❌", "value": "下敷きなし", "class": "btn-no" }
+      ],
+      "details": {
+        "p1": "ဟုတ်ကဲ့ (စကားပြောနိုင်သည်)",
+        "p2": "ဟုတ်ကဲ့ (အသံပဲကြားရသည်)",
+        "p3": "မကြားရပါ (တုံ့ပြန်မှုမရှိပါ)"
+      }
+    },
+    "ko": {
+      "question": "건물 붕괴나 가구 전도로 깔린 사람이 있습니까?",
+      "detailQuestion": "그 사람의 목소리가 들립니까?",
+      "answers": [
+        { "label": "있음", "subText": "YES ⭕", "value": "下敷きあり", "class": "btn-yes" },
+        { "label": "없음", "subText": "NO ❌", "value": "下敷きなし", "class": "btn-no" }
+      ],
+      "details": {
+        "p1": "예 (대화 가능)",
+        "p2": "예 (목소리만 들림)",
+        "p3": "아니요 (응답 없음)"
+      }
+    },
+    "ne": {
+      "question": "के भत्केको घर वा फर्निचर मुनि कोही थिचिएको छ?",
+      "detailQuestion": "के त्यो व्यक्तिको आवाज सुनिन्छ?",
+      "answers": [
+        { "label": "छ", "subText": "YES ⭕", "value": "下敷きあり", "class": "btn-yes" },
+        { "label": "छैन", "subText": "NO ❌", "value": "下敷きなし", "class": "btn-no" }
+      ],
+      "details": {
+        "p1": "हो (कुराकानी गर्न सकिन्छ)",
+        "p2": "हो (आवाज मात्र सुनिन्छ)",
+        "p3": "होइन (प्रतिक्रिया छैन)"
+      }
+    },
+    "tl": {
+      "question": "Mayroon bang naipit sa ilalim ng gumuhong gusali o natumbang kasangkapan?",
+      "detailQuestion": "Naririnig mo ba ang boses ng tao?",
+      "answers": [
+        { "label": "Meron", "subText": "YES ⭕", "value": "下敷きあり", "class": "btn-yes" },
+        { "label": "Wala", "subText": "NO ❌", "value": "下敷きなし", "class": "btn-no" }
+      ],
+      "details": {
+        "p1": "Oo (nakakausap)",
+        "p2": "Oo (boses lang ang marinig)",
+        "p3": "Hindi (walang sagot)"
+      }
+    },
+    "en": {
+      "question": "Is anyone trapped under a collapsed building or fallen furniture?",
+      "detailQuestion": "Can you hear their voice?",
+      "answers": [
+        { "label": "YES", "subText": "YES ⭕", "value": "下敷きあり", "class": "btn-yes" },
+        { "label": "NO", "subText": "NO ❌", "value": "下敷きなし", "class": "btn-no" }
+      ],
+      "details": {
+        "p1": "Yes (can converse)",
+        "p2": "Yes (voice only)",
+        "p3": "No (no response)"
+      }
+    },
+    "zh-tw": {
+      "question": "有人被壓在倒塌的房屋或傾倒的家具下面嗎？",
+      "detailQuestion": "能聽到那個人的聲音嗎？",
+      "answers": [
+        { "label": "有", "subText": "YES ⭕", "value": "下敷きあり", "class": "btn-yes" },
+        { "label": "沒有", "subText": "NO ❌", "value": "下敷きなし", "class": "btn-no" }
+      ],
+      "details": {
+        "p1": "能（可以對話）",
+        "p2": "能（只能聽到聲音）",
+        "p3": "不能（沒有回應）"
+      }
+    },
+    "th": {
+      "question": "มีใครถูกทับอยู่ใต้ซากอาคารพังหรือเฟอร์นิเจอร์ล้มไหม?",
+      "detailQuestion": "คุณได้ยินเสียงคนนั้นไหม?",
+      "answers": [
+        { "label": "มี", "subText": "YES ⭕", "value": "下敷きあり", "class": "btn-yes" },
+        { "label": "ไม่มี", "subText": "NO ❌", "value": "下敷きなし", "class": "btn-no" }
+      ],
+      "details": {
+        "p1": "ได้ยิน (คุยกันได้)",
+        "p2": "ได้ยิน (ได้ยินแต่เสียง)",
+        "p3": "ไม่ได้ยิน (ไม่มีเสียงตอบ)"
+      }
+    },
+    "km": {
+      "question": "តើអ្នកមាននរណាម្នាក់ជាប់នៅក្រោមផ្ទះបាក់បែក ឬគ្រឿងសង្ហារិមដួលរលំទេ?",
+      "detailQuestion": "តើអ្នកឮសំឡេងរបស់គាត់ទេ?",
+      "answers": [
+        { "label": "មាន", "subText": "YES ⭕", "value": "下敷きあり", "class": "btn-yes" },
+        { "label": "គ្មានទេ", "subText": "NO ❌", "value": "下敷きなし", "class": "btn-no" }
+      ],
+      "details": {
+        "p1": "បាទ/ចាស (អាចនិយាយគ្នាបាន)",
+        "p2": "បាទ/ចាស (ឮតែសំឡេង)",
+        "p3": "ទេ (គ្មានការឆ្លើយតប)"
+      }
+    },
+    "hi": {
+      "question": "क्या कोई ढहे हुए घर या गिरे हुए फर्नीचर के नीचे दबा है?",
+      "detailQuestion": "क्या उस व्यक्ति की आवाज सुनाई दे रही है?",
+      "answers": [
+        { "label": "हाँ, है", "subText": "YES ⭕", "value": "下敷きあり", "class": "btn-yes" },
+        { "label": "नहीं", "subText": "NO ❌", "value": "下敷きなし", "class": "btn-no" }
+      ],
+      "details": {
+        "p1": "हाँ (बात कर सकते हैं)",
+        "p2": "हाँ (केवल आवाज आ रही है)",
+        "p3": "नहीं (कोई प्रतिक्रिया नहीं)"
+      }
+    },
+    "si": {
+      "question": "කඩා වැටුණු නිවසක් හෝ ගෘහ භාණ්ඩ යට සිරවී සිටින අයෙකු සිටීද?",
+      "detailQuestion": "ඔහුගේ කටහඬ ඇසෙනවාද?",
+      "answers": [
+        { "label": "සිටී", "subText": "YES ⭕", "value": "下敷きあり", "class": "btn-yes" },
+        { "label": "නැත", "subText": "NO ❌", "value": "下敷きなし", "class": "btn-no" }
+      ],
+      "details": {
+        "p1": "ඔව් (කතා කල හැක)",
+        "p2": "ඔව් (කටහඬ පමණක් ඇසේ)",
+        "p3": "නැත (ප්‍රතිචාරයක් නැත)"
+      }
+    },
+    "bn": {
+      "question": "ভেঙে পড়া বাড়ি বা আসবাবপত্রের নিচে কি কেউ চাপা পড়ে আছে?",
+      "detailQuestion": "তার কি গলার আওয়াজ পাওয়া যাচ্ছে?",
+      "answers": [
+        { "label": "হ্যাঁ, আছে", "subText": "YES ⭕", "value": "下敷きあり", "class": "btn-yes" },
+        { "label": "নেই", "subText": "NO ❌", "value": "下敷きなし", "class": "btn-no" }
+      ],
+      "details": {
+        "p1": "হ্যাঁ (কথা বলা যাচ্ছে)",
+        "p2": "হ্যাঁ (শুধু আওয়াজ পাওয়া যাচ্ছে)",
+        "p3": "না (কোনো সাড়া নেই)"
+      }
+    },
+    "ur": {
+      "question": "کیا کوئی گرے ہوئے مکان یا فرنیچر کے نیچے دبا ہوا ہے؟",
+      "detailQuestion": "क्या उस शख्स की आवाज सुनाई दे रही है؟",
+      "answers": [
+        { "label": "ہاں", "subText": "YES ⭕", "value": "下敷きあり", "class": "btn-yes" },
+        { "label": "نہیں", "subText": "NO ❌", "value": "下敷きなし", "class": "btn-no" }
+      ],
+      "details": {
+        "p1": "ہاں (بات کر سکتے ہیں)",
+        "p2": "ہاں (صرف آواز آرہی ہے)",
+        "p3": "نہیں (کوئی جواب نہیں)"
+      }
+    },
+    "pt-br": {
+      "question": "Tem alguém preso sob a casa desabada ou móveis caídos?",
+      "detailQuestion": "Você consegue ouvir a voz da pessoa?",
+      "answers": [
+        { "label": "Sim", "subText": "YES ⭕", "value": "下敷きあり", "class": "btn-yes" },
+        { "label": "Não", "subText": "NO ❌", "value": "下敷きなし", "class": "btn-no" }
+      ],
+      "details": {
+        "p1": "Sim (pode conversar)",
+        "p2": "Sim (apenas voz)",
+        "p3": "Não (sem resposta)"
+      }
+    },
+    "mn": {
+      "question": "Нуранги эсвэл тавилга доор дарагдсан хүн байна уу?",
+      "detailQuestion": "Тэр хүний дуу гарч байна уу?",
+      "answers": [
+        { "label": "Байгаа", "subText": "YES ⭕", "value": "下敷きあり", "class": "btn-yes" },
+        { "label": "Байхгүй", "subText": "NO ❌", "value": "下敷きなし", "class": "btn-no" }
+      ],
+      "details": {
+        "p1": "Тийм (ярилцах боломжтой)",
+        "p2": "Тийм (зөвхөн дуу сонсогдоно)",
+        "p3": "Үгүй (хариу алга)"
+      }
+    },
+    "ru": {
+      "question": "Есть ли кто-то под завалами дома или упавшей мебели?",
+      "detailQuestion": "Слышен ли голос этого человека?",
+      "answers": [
+        { "label": "Да", "subText": "YES ⭕", "value": "下敷きあり", "class": "btn-yes" },
+        { "label": "Нет", "subText": "NO ❌", "value": "下敷きなし", "class": "btn-no" }
+      ],
+      "details": {
+        "p1": "Да (можно говорить)",
+        "p2": "Да (только голос)",
+        "p3": "Нет (нет ответа)"
+      }
+    },
+    "uk": {
+      "question": "Чи є хтось під завалами будинку або меблів?",
+      "detailQuestion": "Чи чути голос цієї людини?",
+      "answers": [
+        { "label": "Так", "subText": "YES ⭕", "value": "下敷きあり", "class": "btn-yes" },
+        { "label": "Ні", "subText": "NO ❌", "value": "下敷きなし", "class": "btn-no" }
+      ],
+      "details": {
+        "p1": "Так (можна говорити)",
+        "p2": "Так (тільки голос)",
+        "p3": "Ні (немає відповіді)"
+      }
+    },
+    "de": {
+      "question": "Ist jemand unter dem eingestürzten Haus oder Möbeln verschüttet?",
+      "detailQuestion": "Können Sie die Stimme der Person hören?",
+      "answers": [
+        { "label": "Ja", "subText": "YES ⭕", "value": "下敷きあり", "class": "btn-yes" },
+        { "label": "Nein", "subText": "NO ❌", "value": "下敷きなし", "class": "btn-no" }
+      ],
+      "details": {
+        "p1": "Ja (Gespräch möglich)",
+        "p2": "Ja (nur Stimme)",
+        "p3": "Nein (keine Antwort)"
+      }
+    },
+    "fr": {
+      "question": "Y a-t-il quelqu'un coincé sous la maison effondrée ou les meubles ?",
+      "detailQuestion": "Entendez-vous la voix de la personne ?",
+      "answers": [
+        { "label": "Oui", "subText": "YES ⭕", "value": "下敷きあり", "class": "btn-yes" },
+        { "label": "Non", "subText": "NO ❌", "value": "下敷きなし", "class": "btn-no" }
+      ],
+      "details": {
+        "p1": "Oui (peut parler)",
+        "p2": "Oui (seulement voix)",
+        "p3": "Non (pas de réponse)"
+      }
+    },
+    "it": {
+      "question": "C'è qualcuno sotto la casa crollata o i mobili caduti?",
+      "detailQuestion": "Senti la voce della persona?",
+      "answers": [
+        { "label": "Sì", "subText": "YES ⭕", "value": "下敷きあり", "class": "btn-yes" },
+        { "label": "No", "subText": "NO ❌", "value": "下敷きなし", "class": "btn-no" }
+      ],
+      "details": {
+        "p1": "Sì (può parlare)",
+        "p2": "Sì (solo voce)",
+        "p3": "No (nessuna risposta)"
+      }
+    },
+    "nl": {
+      "question": "Is er iemand bekneld onder het ingestorte huis of meubilair?",
+      "detailQuestion": "Kunt u de stem van de persoon horen?",
+      "answers": [
+        { "label": "Ja", "subText": "YES ⭕", "value": "下敷きあり", "class": "btn-yes" },
+        { "label": "Nee", "subText": "NO ❌", "value": "下敷きなし", "class": "btn-no" }
+      ],
+      "details": {
+        "p1": "Ja (kan praten)",
+        "p2": "Ja (alleen stem)",
+        "p3": "Nee (geen reactie)"
+      }
+    },
+    "ja": {
+      "question": "建物（家）の倒壊や、家具の転倒で下敷きになっている人はいますか？",
+      "detailQuestion": "その人の声は聞こえますか？",
+      "answers": [
+        { "label": "いる", "subText": "YES ⭕", "value": "下敷きあり", "class": "btn-yes" },
+        { "label": "いない", "subText": "NO ❌", "value": "下敷きなし", "class": "btn-no" }
+      ],
+      "details": {
+        "p1": "はい（会話できる）",
+        "p2": "はい（声だけ聞こえる）",
+        "p3": "いいえ（応答なし）"
+      }
+    }
+  }
+}
     ];
 
     // 各質問の日本語タイトル定義 (履歴表示用)
@@ -2019,25 +4285,33 @@
       2: "屋内残留",
       3: "食事制限",
       4: "薬・医療",
-      5: "避難登録"
+      5: "避難登録",
+      6: "持病確認",
+      7: "妊娠確認",
+      8: "下敷き確認"
     };
 
     // 全質問に対する回答履歴のメモリ内保管 (全6問)
     let responseHistory = {
-      0: "未回答",
-      1: "未回答",
-      2: "未回答",
-      3: "未回答",
-      4: "未回答",
-      5: "未回答"
-    };
+        0: "未回答",
+        1: "未回答",
+        2: "未回答",
+        3: "未回答",
+        4: "未回答",
+        5: "未回答",
+        6: "未回答",
+        7: "未回答",
+        8: "未回答"
+      };
 
     // アプリ状態管理
     let currentLanguage = 'vi';
     let currentQuestionIndex = 0; // デフォルト：ケガ確認
     let currentCategory = 'fire'; // デフォルト：消防・救急
     let isDetailMode = false; // 詳細症状選択モードフラグ
-    let selectedSymptoms = []; // 複数選択された症状の一時保管
+    let selectedSymptoms = [];
+      selectedDiseases = [];
+       // 複数選択された症状の一時保管
 
     // 初期化
     window.addEventListener('DOMContentLoaded', () => {
@@ -2070,8 +4344,89 @@
       
       container.innerHTML = '';
       
-      // ケガ体調確認（ID 0）かつ詳細モードの場合
-      if (currentQuestionIndex === 0 && isDetailMode) {
+      // 持病確認（ID 6）かつ詳細モードの場合
+      if (currentQuestionIndex === 8 && isDetailMode) {
+        qTextElement.textContent = translation.detailQuestion;
+        if (backBtn) backBtn.style.display = 'block';
+        
+        container.className = 'answer-grid detail-mode';
+        
+        const details = translation.details;
+        const voiceOptions = [
+          { label: details.p1, icon: '🗣️', rawLabel: '会話できる' },
+          { label: details.p2, icon: '👂', rawLabel: '声だけ聞こえる' },
+          { label: details.p3, icon: '🔇', rawLabel: '応答なし' }
+        ];
+        
+        voiceOptions.forEach(opt => {
+          const btn = document.createElement('button');
+          btn.className = 'answer-btn detail-btn';
+          if (opt.rawLabel === '会話できる') {
+            btn.style.background = 'linear-gradient(135deg, var(--color-safe), #1B5E20)';
+          } else if (opt.rawLabel === '声だけ聞こえる') {
+            btn.style.background = 'linear-gradient(135deg, #FF9800, #F57C00)';
+          } else {
+            btn.style.background = 'linear-gradient(135deg, var(--color-primary), #B71C1C)';
+          }
+          btn.innerHTML = '<span class="detail-icon">' + opt.icon + '</span><span>' + opt.label + '</span>';
+          btn.onclick = () => submitVoiceStatus(opt.rawLabel);
+          container.appendChild(btn);
+        });
+      } else if (currentQuestionIndex === 6 && isDetailMode) {
+        qTextElement.textContent = translation.detailQuestion;
+        if (backBtn) backBtn.style.display = 'block';
+        
+        container.className = 'answer-grid detail-mode';
+        
+        const details = translation.details;
+        const diseaseOptions = [
+          { label: details.heart, icon: '🫀', rawLabel: '心臓病', class: 'detail-btn' },
+          { label: details.diabetes, icon: '💉', rawLabel: '糖尿病', class: 'detail-btn' },
+          { label: details.hypertension, icon: '🩸', rawLabel: '高血圧', class: 'detail-btn' },
+          { label: details.asthma, icon: '🫁', rawLabel: '喘息', class: 'detail-btn' },
+          { label: details.other, icon: '❓', rawLabel: 'その他', class: 'detail-btn btn-unwell' }
+        ];
+        
+        diseaseOptions.forEach(opt => {
+          const btn = document.createElement('button');
+          const isSelected = selectedDiseases.includes(opt.rawLabel);
+          btn.className = 'answer-btn ' + opt.class + (isSelected ? ' selected' : '');
+          btn.innerHTML = '<span class="detail-icon">' + opt.icon + '</span><span>' + opt.label + '</span>';
+          btn.onclick = () => toggleDisease(opt.rawLabel);
+          container.appendChild(btn);
+        });
+
+        // 決定ボタンを追加 (病名用)
+        const confirmBtn = document.createElement('button');
+        confirmBtn.className = 'answer-btn confirm-btn' + (selectedDiseases.length === 0 ? ' disabled' : '');
+        confirmBtn.innerHTML = '<span>✔️ ' + (translation.confirm || '決定 (OK)') + '</span>';
+        confirmBtn.onclick = () => submitDiseases();
+        container.appendChild(confirmBtn);
+      } else // 屋内に人あり（ID 2）かつ詳細モードの場合
+      if (currentQuestionIndex === 2 && isDetailMode) {
+        qTextElement.textContent = translation.detailQuestion;
+        if (backBtn) backBtn.style.display = 'block';
+        
+        container.className = 'answer-grid detail-mode';
+        
+        const details = translation.details;
+        const peopleOptions = [
+          { label: details.p1, icon: '👤', rawLabel: '1人' },
+          { label: details.p2, icon: '👥', rawLabel: '2人' },
+          { label: details.p3, icon: '👥👤', rawLabel: '3人' },
+          { label: details.p4, icon: '👥👥', rawLabel: '4人' },
+          { label: details.p5, icon: '👥👥👤', rawLabel: '5人' },
+          { label: details.p6plus, icon: '👥👥👥+', rawLabel: '6人以上' }
+        ];
+        
+        peopleOptions.forEach(opt => {
+          const btn = document.createElement('button');
+          btn.className = 'answer-btn detail-btn';
+          btn.innerHTML = '<span class="detail-icon">' + opt.icon + '</span><span>' + opt.label + '</span>';
+          btn.onclick = () => submitPeopleCount(opt.rawLabel);
+          container.appendChild(btn);
+        });
+      } else if (currentQuestionIndex === 0 && isDetailMode) {
         qTextElement.textContent = translation.detailQuestion;
         if (backBtn) backBtn.style.display = 'block';
         
@@ -2085,8 +4440,7 @@
           { label: details.abdomen, icon: '🫃', rawLabel: '腹', class: 'detail-btn' },
           { label: details.hand, icon: '🫱', rawLabel: '手', class: 'detail-btn' },
           { label: details.leg, icon: '👣', rawLabel: '足', class: 'detail-btn' },
-          { label: details.nausea, icon: '🤢', rawLabel: '吐き気', class: 'detail-btn btn-nausea' },
-          { label: details.unwell, icon: '🤒', rawLabel: '体調不良', class: 'detail-btn btn-unwell' }
+          { label: details.nausea, icon: '🤢', rawLabel: '吐き気', class: 'detail-btn btn-nausea' }
         ];
         
         symptoms.forEach(sym => {
@@ -2166,6 +4520,8 @@
     function selectQuestion(index, silent) {
       triggerFeedback();
       isDetailMode = false; // 質問が切り替わったら詳細モードは自動解除
+      selectedDiseases = [];
+      
       currentQuestionIndex = index;
       
       // すべてのカードからactiveクラスを除去し、対象のみに適用
@@ -2195,6 +4551,40 @@
         return;
       }
       
+      // 持病確認（ID 6）かつ通常モードでYES（持病あり）が押された場合のみ、詳細モードに切り替える
+      if (currentQuestionIndex === 8 && !isDetailMode && value === '下敷きあり') {
+        isDetailMode = true;
+        renderApp();
+        speakDetailQuestion();
+        return;
+      }
+      
+      if (currentQuestionIndex === 6 && !isDetailMode && value === '持病あり') {
+        isDetailMode = true;
+        selectedDiseases = []; // 選択肢を初期化
+        renderApp();
+        speakDetailQuestion();
+        return;
+      }
+      
+      // 屋内残留（ID 2）かつ通常モードでYES（屋内に人あり）が押された場合のみ、詳細モードに切り替える
+      if (currentQuestionIndex === 2 && !isDetailMode && value === '屋内に人あり') {
+        isDetailMode = true;
+        
+        renderApp();
+        speakDetailQuestion();
+        return;
+      }
+      
+      // 屋内残留（ID 2）かつ通常モードでYES（屋内に人あり）が押された場合のみ、詳細モードに切り替える
+      if (currentQuestionIndex === 2 && !isDetailMode && value === '屋内に人あり') {
+        isDetailMode = true;
+        
+        renderApp();
+        speakDetailQuestion();
+        return;
+      }
+      
       // それ以外（詳細モードで部位選択、またはNO）は通常通り保存
       isDetailMode = false;
       
@@ -2213,7 +4603,46 @@
       renderApp();
     }
     
-    // 症状の選択トグル
+    // 持病トグル
+    function submitVoiceStatus(rawLabel) {
+      triggerFeedback();
+      const finalValue = '下敷きあり (声: ' + rawLabel + ')';
+      selectAnswer(finalValue);
+    }
+
+    function toggleDisease(rawLabel) {
+      triggerFeedback();
+      const idx = selectedDiseases.indexOf(rawLabel);
+      if (idx === -1) {
+        selectedDiseases.push(rawLabel);
+      } else {
+        selectedDiseases.splice(idx, 1);
+      }
+      renderApp();
+    }
+    
+    // 持病決定・送信
+    function submitDiseases() {
+      if (selectedDiseases.length === 0) return;
+      const joined = selectedDiseases.join('・');
+      const finalValue = '持病あり (病名: ' + joined + ')';
+      selectAnswer(finalValue);
+    }
+
+    // 人数決定・送信
+    function submitPeopleCount(rawLabel) {
+      triggerFeedback();
+      const finalValue = '屋内に人あり (人数: ' + rawLabel + ')';
+      selectAnswer(finalValue);
+    }
+
+    // 人数選択
+    function submitPeopleCount(rawLabel) {
+      triggerFeedback();
+      const finalValue = '屋内に人あり (人数: ' + rawLabel + ')';
+      selectAnswer(finalValue);
+    }
+    
     function toggleSymptom(rawLabel) {
       triggerFeedback();
       const idx = selectedSymptoms.indexOf(rawLabel);
@@ -2246,7 +4675,7 @@
       if (!synth) return;
       synth.cancel();
       
-      const data = disasterData[0];
+      const data = disasterData[currentQuestionIndex];
       const translation = data.translations[currentLanguage];
       const utterance = new SpeechSynthesisUtterance(translation.detailQuestion);
       
@@ -2324,7 +4753,7 @@
           <span class="history-item-value">${responseHistory[key]}</span>
         `;
         
-        if (key < 3) {
+        if (parseInt(key) < 3 || parseInt(key) === 6 || parseInt(key) === 7 || parseInt(key) === 8) {
           fireList.appendChild(item);
         } else {
           adminList.appendChild(item);
@@ -2350,7 +4779,10 @@
         2: "未回答",
         3: "未回答",
         4: "未回答",
-        5: "未回答"
+        5: "未回答",
+        6: "未回答",
+        7: "未回答",
+        8: "未回答"
       };
     }
 
