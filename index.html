@@ -485,7 +485,7 @@
       flex: 1;
       margin-bottom: 6px;
       overflow-y: auto;
-      max-height: 160px;
+      max-height: 142px;
     }
 
     .question-card {
@@ -500,7 +500,23 @@
       cursor: pointer;
       text-align: center;
       transition: all 0.2s;
-      height: 68px;
+      height: 62px;
+    }
+
+    .selected-question-jp-box {
+      background-color: #333333;
+      border-radius: 8px;
+      padding: 6px 10px;
+      margin-bottom: 6px;
+      font-size: 0.82rem;
+      font-weight: bold;
+      color: #FFD835; /* 警戒イエロー */
+      border-left: 5px solid var(--color-primary);
+      text-align: left;
+      line-height: 1.3;
+      min-height: 38px;
+      display: flex;
+      align-items: center;
     }
 
     .question-card.active {
@@ -1369,6 +1385,8 @@
           <span>避難登録</span>
         </div>
       </div>
+      <!-- 新設：選択中の質問日本語表示エリア -->
+      <div id="selected-question-jp-box" class="selected-question-jp-box"></div>
 
       <!-- 応答ログ表示 -->
       <div class="response-log-box">
@@ -1404,7 +1422,7 @@
   <script>
     // PWA強制キャッシュクリアロジック (v20)
     (function() {
-      const CURRENT_VERSION = 'link-omura-pwa-v41';
+      const CURRENT_VERSION = 'link-omura-pwa-v42';
       if (localStorage.getItem('app_pwa_version') !== CURRENT_VERSION) {
         if ('serviceWorker' in navigator) {
           navigator.serviceWorker.getRegistrations().then(registrations => {
@@ -4346,6 +4364,17 @@
       const qTextElement = document.getElementById('foreign-question-text');
       const container = document.getElementById('answer-buttons-container');
       const backBtn = document.getElementById('detail-back-container');
+      
+      // 日本語の現在選択されている質問を表示する
+      const jpBox = document.getElementById('selected-question-jp-box');
+      if (jpBox) {
+        const jpTranslation = data.translations['ja'];
+        if (isDetailMode && jpTranslation.detailQuestion) {
+          jpBox.textContent = "質問: " + jpTranslation.detailQuestion;
+        } else {
+          jpBox.textContent = "質問: " + jpTranslation.question;
+        }
+      }
       
       container.innerHTML = '';
       
