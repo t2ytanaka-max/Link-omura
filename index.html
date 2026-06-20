@@ -620,7 +620,8 @@
     }
 
     .foreigner-question-text {
-      font-size: 1.25rem;
+      width: 100%;
+      font-size: 1.2rem;
       font-weight: 900;
       line-height: 1.3;
       color: #FFF;
@@ -1403,7 +1404,7 @@
   <script>
     // PWA強制キャッシュクリアロジック (v20)
     (function() {
-      const CURRENT_VERSION = 'link-omura-pwa-v35';
+      const CURRENT_VERSION = 'link-omura-pwa-v36';
       if (localStorage.getItem('app_pwa_version') !== CURRENT_VERSION) {
         if ('serviceWorker' in navigator) {
           navigator.serviceWorker.getRegistrations().then(registrations => {
