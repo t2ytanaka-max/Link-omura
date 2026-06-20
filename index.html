@@ -620,11 +620,11 @@
     }
 
     .foreigner-question-text {
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       font-weight: 900;
       line-height: 1.3;
       color: #FFF;
-      word-break: normal;
+      word-break: break-all;
       overflow-wrap: break-word;
       white-space: pre-wrap;
     }
@@ -1403,7 +1403,7 @@
   <script>
     // PWA強制キャッシュクリアロジック (v20)
     (function() {
-      const CURRENT_VERSION = 'link-omura-pwa-v34';
+      const CURRENT_VERSION = 'link-omura-pwa-v35';
       if (localStorage.getItem('app_pwa_version') !== CURRENT_VERSION) {
         if ('serviceWorker' in navigator) {
           navigator.serviceWorker.getRegistrations().then(registrations => {
