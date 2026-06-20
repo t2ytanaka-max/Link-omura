@@ -1404,7 +1404,7 @@
   <script>
     // PWA強制キャッシュクリアロジック (v20)
     (function() {
-      const CURRENT_VERSION = 'link-omura-pwa-v38';
+      const CURRENT_VERSION = 'link-omura-pwa-v39';
       if (localStorage.getItem('app_pwa_version') !== CURRENT_VERSION) {
         if ('serviceWorker' in navigator) {
           navigator.serviceWorker.getRegistrations().then(registrations => {
@@ -4471,8 +4471,18 @@
         
         translation.answers.forEach(ans => {
           const btn = document.createElement('button');
-          btn.className = 'answer-btn ' + ans.class;
-          btn.innerHTML = '<span>' + ans.label + '</span><span class="answer-btn-sub">' + ans.subText + '</span>';
+          // クラスが btn-safe なら btn-yes に、歩行不可のような否定回答（btn-yes）なら btn-no に動的統一
+          let btnClass = ans.class;
+          if (btnClass === 'btn-safe') {
+            btnClass = 'btn-yes';
+          } else if (currentQuestionIndex === 1 && btnClass === 'btn-yes') {
+            btnClass = 'btn-no';
+          }
+          btn.className = 'answer-btn ' + btnClass;
+          
+          // subTextの絵文字「⭕」（赤い丸）を「⚪」（白い丸）に置換して表示
+          const subText = ans.subText ? ans.subText.replace(/⭕/g, '⚪') : '';
+          btn.innerHTML = '<span>' + ans.label + '</span><span class="answer-btn-sub">' + subText + '</span>';
           btn.onclick = () => selectAnswer(ans.value);
           container.appendChild(btn);
         });
