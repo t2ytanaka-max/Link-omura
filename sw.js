@@ -1,4 +1,4 @@
-const CACHE_NAME = 'link-omura-pwa-v44';
+const CACHE_NAME = 'link-omura-pwa-v46';
 const ASSETS_TO_CACHE = [
   './index.html',
   './manifest.json',
